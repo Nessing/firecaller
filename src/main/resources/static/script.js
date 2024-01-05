@@ -1,18 +1,17 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8080';
-    let idStation;
 
     $scope.fillTable = function () {
         $http.get(contextPath + '/all')
             .then(function (response) {
-                $scope.ProductsList = response.data;
+                $scope.allFireStation = response.data;
             });
     };
 
     $scope.getFirefightersOfStation = function (numberStation) {
-        $http.get(contextPath + '/getFirefighter/' + numberStation)
+        $http.get(contextPath + '/getFirefighters/' + numberStation)
             .then(function (response) {
-                idStation = numberStation;
+                $scope.numberOfStation = numberStation;
                 $scope.firefightersOfStation = response.data;
             }, function (error) {
                 // handle error
@@ -22,7 +21,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.createNewPerson = function () {
         $http.post(contextPath + '/addPerson', $scope.newFirefighter)
             .then(function (response) {
-                $http.get(contextPath + '/getFirefighter/' + $scope.newFirefighter.fireStation)
+                $http.get(contextPath + '/getFirefighters/' + $scope.newFirefighter.fireStation)
                     .then(function (response) {
                         $scope.firefightersOfStation = response.data;
                         $scope.newFirefighter = null;

@@ -7,10 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class Firefighter {
+public class Position {
     private Long id;
     private String name;
-    private String rank;
-    private Long position;
-    private int fireStation;
 }

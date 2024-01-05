@@ -11,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class FireStation {
     private Long id;
+    private int numberStation;
+    private String name;
     private String title;
     private String state;
     private String location;

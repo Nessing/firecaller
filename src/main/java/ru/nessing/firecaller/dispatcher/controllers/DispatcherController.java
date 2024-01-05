@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import ru.nessing.firecaller.dispatcher.services.DispatcherService;
 import ru.nessing.firecaller.entities.FireStation;
 import ru.nessing.firecaller.entities.Firefighter;
+import ru.nessing.firecaller.entities.Position;
+import ru.nessing.firecaller.entities.Square;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class DispatcherController {
@@ -19,9 +22,19 @@ public class DispatcherController {
         return service.getAllFireStations();
     }
 
-    @GetMapping("/getFirefighter/{fireStation}")
+    @GetMapping("/getPositions")
+    public Map<Long, String> getPositions() {
+        return service.getPositions();
+    }
+
+    @GetMapping("/getFirefighters/{fireStation}")
     public List<Firefighter> getFirefightersOfStation(@PathVariable int fireStation) {
         return service.getFirefighters(fireStation);
+    }
+
+    @GetMapping("/getSquare/{fireStation}")
+    public List<Square> getSquare(@PathVariable int fireStation) {
+        return service.getSquare(fireStation);
     }
 
     @PostMapping("/addPerson")

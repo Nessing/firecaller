@@ -1,0 +1,14 @@
+.fireStation_div {
+    display: flex;
+}
+
+.fireStation_box {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+}
+
+.fireStation_title {
+    display: flex;
+    justify-content: center;
+}
