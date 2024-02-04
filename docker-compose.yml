@@ -1,0 +1,6 @@
+services:
+  web:
+    backend:
+      image: firecaller_1.1
+      ports:
+        - "8080:8080"
