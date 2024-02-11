@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "firefighters")
 public class Firefighter {
-    /*
+    /**
     CREATE TABLE firefighters (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
@@ -39,7 +39,17 @@ public class Firefighter {
     INSERT INTO firefighters_fire_stations(
     firefighter_id, fire_station_id)
     VALUES(4, 1);
-    */
+
+     // связь firefighters ←→ positions
+
+     ALTER TABLE firefighters
+     ALTER COLUMN position
+     TYPE BIGINT;
+
+     ALTER TABLE firefighters
+     ADD FOREIGN KEY (position)
+     REFERENCES positions(id);
+    **/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,8 +62,13 @@ public class Firefighter {
     @Column(name = "rank")
     private String rank;
 
-    @Column(name = "position")
-    private int position;
+//    @Column(name = "position")
+    @ManyToOne
+    @JoinTable(name = "firefighters_positions",
+            joinColumns = @JoinColumn(name = "firefighter_id"),
+            inverseJoinColumns = @JoinColumn(name = "position_id")
+    )
+    private Position position;
 
     @ManyToOne
     @JoinTable(name = "firefighters_fire_stations",

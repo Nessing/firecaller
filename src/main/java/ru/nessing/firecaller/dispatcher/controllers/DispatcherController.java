@@ -42,10 +42,10 @@ public class DispatcherController {
         return service.addFirefighter(firefighter);
     }
 
-    @GetMapping("/createTest")
-    public Firefighter create() {
-        return service.createTestFirefighter();
-    }
+//    @GetMapping("/createTest")
+//    public Firefighter create() {
+//        return service.createTestFirefighter();
+//    }
     @GetMapping("/getFire/{id}")
     public Firefighter getFire(@PathVariable Long id) {
         return service.getFire(id);

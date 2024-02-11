@@ -52,12 +52,12 @@ public class DispatcherService {
         positions.put(10L, "2 пожарный отделения 2");
         positions.put(11L, "Водитель АЛ");
         /* л/с 1 часть */
-        firefighters1.add(new Firefighter(1L, "С.И. Иванов", "Начальник караула", 1, allFireStations.get(0)));
-        firefighters1.add(new Firefighter(2L, "А.С. Петров", "Помощник нач. караула", 2, allFireStations.get(0)));
-        firefighters1.add(new Firefighter(3L, "К.Ю. Сидоров", "Командир отделения 1", 3, allFireStations.get(0)));
-        firefighters1.add(new Firefighter(4L, "М.С. Волин", "Водитель отделения 1", 4, allFireStations.get(0)));
-        firefighters1.add(new Firefighter(5L, "К.И. Романов", "1 пожарный отделения 1", 5, allFireStations.get(0)));
-        firefighters1.add(new Firefighter(11L, "Н.В. Гирин", "Водитель АЛ", 11, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(1L, "С.И. Иванов", "Начальник караула", 1L, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(2L, "А.С. Петров", "Помощник нач. караула", 2L, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(3L, "К.Ю. Сидоров", "Командир отделения 1", 3L, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(4L, "М.С. Волин", "Водитель отделения 1", 4L, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(5L, "К.И. Романов", "1 пожарный отделения 1", 5L, allFireStations.get(0)));
+//        firefighters1.add(new Firefighter(11L, "Н.В. Гирин", "Водитель АЛ", 11L, allFireStations.get(0)));
 
         /* л/с 2 часть */
 //        firefighters2.add(new Firefighter(1L,"Р.М. Михайлов", "Начальник караула", 1, 2));
@@ -76,16 +76,16 @@ public class DispatcherService {
     }
 
     /** use DB **/
-    public Firefighter createTestFirefighter() {
-        Firefighter firefighter = Firefighter.builder()
-                .id(null)
-                .name("Алексей")
-                .rank("Первый ранг")
-                .position(1)
-                .fireStation(allFireStations.get(0))
-                .build();
-        return firefightersRepository.save(firefighter);
-    }
+//    public Firefighter createTestFirefighter() {
+//        Firefighter firefighter = Firefighter.builder()
+//                .id(null)
+//                .name("Алексей")
+//                .rank("Первый ранг")
+//                .position(1L)
+//                .fireStation(allFireStations.get(0))
+//                .build();
+//        return firefightersRepository.save(firefighter);
+//    }
 
     public Firefighter getFire(Long id) {
         return firefightersRepository.findFirefighterById(id);
