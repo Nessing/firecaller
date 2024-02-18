@@ -3,10 +3,7 @@ package ru.nessing.firecaller.dispatcher.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.nessing.firecaller.dispatcher.services.DispatcherService;
-import ru.nessing.firecaller.entities.FireStation;
-import ru.nessing.firecaller.entities.Firefighter;
-import ru.nessing.firecaller.entities.Position;
-import ru.nessing.firecaller.entities.Square;
+import ru.nessing.firecaller.entities.*;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +43,12 @@ public class DispatcherController {
 //    public Firefighter create() {
 //        return service.createTestFirefighter();
 //    }
+
+    @PostMapping("/createPosition")
+    public Position addPosition(@RequestBody Position position) {
+        return service.addPosition(position.getName());
+    }
+
     @GetMapping("/getFire/{id}")
     public Firefighter getFire(@PathVariable Long id) {
         return service.getFire(id);

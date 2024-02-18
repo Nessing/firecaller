@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.firecaller.dispatcher.repositories.FireStationRepository;
 import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
+import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
 import ru.nessing.firecaller.entities.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class DispatcherService {
 
     @Autowired
     FirefightersRepository firefightersRepository;
+
+    @Autowired
+    PositionRepository positionRepository;
 
 //    @Autowired
 //    FireStationRepository fireStationRepository;
@@ -143,5 +147,16 @@ public class DispatcherService {
                 break;
         }
         return firefighter;
+    }
+
+    public Position addPosition(String position) {
+        if (positionRepository.findPositionByName(position) == null) {
+            Position newPosition = Position.builder()
+                    .id(null)
+                    .name(position)
+                    .build();
+            return positionRepository.save(newPosition);
+        }
+        return null;
     }
 }

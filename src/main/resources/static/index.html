@@ -36,13 +36,18 @@
     <!--    </form>-->
 
         <h1>Список пожарных частей</h1>
-        <div class="fireStation_div">
+        <div class="fireStation_div m-2">
             <div class="fireStation_box" ng-repeat="p in allFireStation">
                 <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?number={{p.numberStation}}&name={{p.name}}">{{p.short_name}}</a>
             </div>
         </div>
+
         <div>
-            <a class="btn btn-success" ng-href="/add_employee/add_employee.html">Добавить сотрудника</a>
+            <a class="btn btn-success m-1"  ng-href="/add_employee/add_employee.html">Добавить сотрудника</a>
+        </div>
+
+        <div>
+            <a class="btn btn-success m-1" ng-href="/edit_ranks/edit_ranks.html">Редактировать список должностей</a>
         </div>
 
 <!--        <table class="table table-hover">-->
