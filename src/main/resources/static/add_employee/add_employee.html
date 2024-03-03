@@ -33,6 +33,22 @@
                 <label for="mid_name">Отчество</label>
                 <input id="mid_name" ng-model="employee.mid_name" class="m-1" type="text" name="mid_name" placeholder="Введите отчество">
             </div>
+            <div>
+                <label for="position">Должность</label>
+                    <td>
+                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required ng-options="firefighter for firefighter in firefighters">
+                            <option value="">----</option>
+                        </select>
+                    </td>
+            </div>
+            <div>
+                <label for="fire_station">Должность</label>
+                <td>
+                    <select id="fire_station" for="fire_station" class="form-select m-1" ng-model="employee.fire_station" name="fire_station" required ng-options="fire_station for fire_station in fire_stations">
+                        <option value="">----</option>
+                    </select>
+                </td>
+            </div>
         </fieldset>
         <div class="buttons">
             <a class="btn btn-danger" ng-href="/">Назад</a>

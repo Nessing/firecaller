@@ -31,7 +31,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 $scope.numberOfStation = numberStation;
                 $scope.firefightersOfStation = response.data;
                 for (let fireFighter of response.data) {
-                    $scope.firefighters.push(fireFighter.name);
+                    $scope.firefighters.push(fireFighter.short_name);
                 }
             }, function (error) {
                 // handle error

@@ -159,4 +159,8 @@ public class DispatcherService {
         }
         return null;
     }
+
+    public List<Position> getAllPositions() {
+        return positionRepository.findAll();
+    }
 }

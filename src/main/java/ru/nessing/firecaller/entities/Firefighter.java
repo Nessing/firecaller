@@ -56,8 +56,17 @@ public class Firefighter {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String first_name;
+
+    @Column(name = "mid_name")
+    private String mid_name;
+
+    @Column(name = "last_name")
+    private String last_name;
+
+    @Column(name = "short_name")
+    private String short_name;
 
     @Column(name = "rank")
     private String rank;

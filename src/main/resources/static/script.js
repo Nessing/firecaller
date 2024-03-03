@@ -2,7 +2,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     const contextPath = 'http://localhost:8080';
 
     $scope.fillTable = function () {
-        $http.get(contextPath + '/all')
+        $http.get(contextPath + '/getFireStations')
             .then(function (response) {
                 $scope.allFireStation = response.data;
             });

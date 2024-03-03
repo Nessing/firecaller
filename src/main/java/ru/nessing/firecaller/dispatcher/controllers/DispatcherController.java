@@ -14,7 +14,7 @@ public class DispatcherController {
     @Autowired
     private DispatcherService service;
 
-    @GetMapping("/all")
+    @GetMapping("/getFireStations")
     public List<FireStation> getAllFireStations() {
         return service.getAllFireStations();
     }
@@ -22,6 +22,11 @@ public class DispatcherController {
     @GetMapping("/getPositions")
     public Map<Long, String> getPositions() {
         return service.getPositions();
+    }
+
+    @GetMapping("/getAllPositions")
+    public List<Position> getAllPositions() {
+        return service.getAllPositions();
     }
 
     @GetMapping("/getFirefighters/{fireStation}")
