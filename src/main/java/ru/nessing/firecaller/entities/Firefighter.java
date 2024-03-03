@@ -49,6 +49,16 @@ public class Firefighter {
      ALTER TABLE firefighters
      ADD FOREIGN KEY (position)
      REFERENCES positions(id);
+
+     03.03.24
+     ALTER TABLE firefighters
+     ADD COLUMN first_name VARCHAR(150),
+     ADD COLUMN mid_name VARCHAR(150),
+     ADD COLUMN last_name VARCHAR(150);
+
+     ALTER TABLE firefighters
+     RENAME COLUMN name TO short_name;
+
     **/
 
     @Id
