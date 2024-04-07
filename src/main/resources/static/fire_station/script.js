@@ -2,9 +2,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     const contextPath = 'http://localhost:8080';
 
     let params = (new URL(document.location)).searchParams;
-    let numberStation = params.get("number");
+    let numberStation = params.get("id");
     $scope.numberOfStation = numberStation;
-    $scope.name = params.get("name");
+    // $scope.name = params.get("name");
 
     $scope.editMode = false;
     $scope.firefighters = [];
@@ -12,6 +12,13 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $http.get(contextPath + '/getPositions')
         .then(function (response) {
             $scope.positions = response.data;
+        }, function (error) {
+            // handle error
+        });
+
+    $http.get(contextPath + '/getFireStation/' + numberStation)
+        .then(function (response) {
+            $scope.name = response.data.name;
         }, function (error) {
             // handle error
         });

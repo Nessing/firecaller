@@ -38,7 +38,8 @@
         <h1>Список пожарных частей</h1>
         <div class="fireStation_div m-2">
             <div class="fireStation_box" ng-repeat="p in allFireStation">
-                <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?number={{p.numberStation}}&name={{p.name}}">{{p.short_name}}</a>
+                <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?id={{p.id}}">{{p.short_name}}</a>
+<!--                <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?number={{p.numberStation}}&name={{p.name}}">{{p.short_name}}</a>-->
             </div>
         </div>
 

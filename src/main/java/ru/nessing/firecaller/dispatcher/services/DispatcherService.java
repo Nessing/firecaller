@@ -7,10 +7,7 @@ import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
 import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
 import ru.nessing.firecaller.entities.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DispatcherService {
@@ -21,8 +18,8 @@ public class DispatcherService {
     @Autowired
     PositionRepository positionRepository;
 
-//    @Autowired
-//    FireStationRepository fireStationRepository;
+    @Autowired
+    FireStationRepository fireStationRepository;
 
     private List<FireStation> allFireStations = new ArrayList<>();
 
@@ -38,9 +35,9 @@ public class DispatcherService {
     {
         /* список частей */
         allFireStations.add(new FireStation(1L, 1,"1 пожарно-спасательная часть - П 01", "1 ПСЧ", "Комунальная 62"));
-        allFireStations.add(new FireStation(2L, 11, "Отдельный пост 1 пожарно-спасательной части - П 011","ОП 3 ПСЧ", "Максима Горького"));
+        allFireStations.add(new FireStation(2L, 11, "Отдельный пост 1 пожарно-спасательной части - П 011","ОП 3 ПСЧ", "Максима Горького, 16"));
         allFireStations.add(new FireStation(3L, 2, "2 пожарно-спасательная часть - П 02", "2 ПСЧ", "Вокзальная 12а"));
-        allFireStations.add(new FireStation(4L, 3, "3 пожарно-спасательная часть - П 03", "3 ПСЧ", "Инженерная 22"));
+        allFireStations.add(new FireStation(4L, 3, "3 пожарно-спасательная часть - П 03", "3 ПСЧ", "Инженерная 5"));
         allFireStations.add(new FireStation(5L, 31, "Отдельный пост 3 пожарно-спасательной части - П 031", "ОП 3 ПСЧ", "Инженерная 92"));
 
         /* список должностей */
@@ -162,5 +159,9 @@ public class DispatcherService {
 
     public List<Position> getAllPositions() {
         return positionRepository.findAll();
+    }
+
+    public Optional<FireStation> getFireStation(Long id) {
+        return fireStationRepository.findById(id);
     }
 }

@@ -7,6 +7,7 @@ import ru.nessing.firecaller.entities.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class DispatcherController {
@@ -17,6 +18,11 @@ public class DispatcherController {
     @GetMapping("/getFireStations")
     public List<FireStation> getAllFireStations() {
         return service.getAllFireStations();
+    }
+
+    @GetMapping("/getFireStation/{id}")
+    public Optional<FireStation> getFireStation(@PathVariable Long id) {
+        return service.getFireStation(id);
     }
 
     @GetMapping("/getPositions")
