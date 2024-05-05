@@ -1,0 +1,41 @@
+
+// позиции (пример: ст. пожарный, водитель)
+CREATE TABLE positions(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL
+);
+
+// пожарные станции
+CREATE TABLE fire_stations (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    number_station INT NOT NULL,
+    name VARCHAR(250) NOT NULL,
+    short_name VARCHAR(100) NOT NULL,
+    location VARCHAR(150) NOT NULL
+);
+
+// пожарные
+CREATE TABLE firefighters (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    first_name VARCHAR(150) NOT NULL,
+    mid_name VARCHAR(150),
+    last_name VARCHAR(150) NOT NULL,
+    short_name VARCHAR(150) NOT NULL,
+    rank VARCHAR(100) NOT NULL,
+    position BIGSERIAL NOT NULL,
+    FOREIGN KEY (position) REFERENCES positions(id),
+    fire_station BIGSERIAL NOT NULL,
+    FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+);
+
+// связующие таблицы (пожарный ←→ позиция)
+CREATE TABLE firefighters_positions(
+    firefighter_id BIGSERIAL REFERENCES firefighters(id),
+    position_id BIGSERIAL REFERENCES positions(id)
+);
+
+// связующие таблицы (пожарный ←→ пожарная часть)
+CREATE TABLE firefighters_fire_stations(
+    firefighter BIGSERIAL REFERENCES firefighters(id),
+    fire_station BIGSERIAL REFERENCES fire_stations(id)
+);

@@ -59,6 +59,21 @@ public class Firefighter {
      ALTER TABLE firefighters
      RENAME COLUMN name TO short_name;
 
+
+     after reinstall
+
+     CREATE TABLE firefighters (
+     id BIGSERIAL NOT NULL PRIMARY KEY,
+     first_name VARCHAR(150) NOT NULL,
+     mid_name VARCHAR(150),
+     last_name VARCHAR(150) NOT NULL,
+     short_name VARCHAR(150) NOT NULL,
+     rank VARCHAR(100) NOT NULL,
+     position BIGSERIAL NOT NULL,
+     FOREIGN KEY (position) REFERENCES positions(id),
+     fire_station BIGSERIAL NOT NULL,
+     FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+     );
     **/
 
     @Id
