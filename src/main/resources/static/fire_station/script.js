@@ -18,7 +18,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $http.get(contextPath + '/getFireStation/' + numberStation)
         .then(function (response) {
-            $scope.name = response.data.name;
+            if (response.data != null) {
+                $scope.name = response.data.name;
+            }
         }, function (error) {
             // handle error
         });

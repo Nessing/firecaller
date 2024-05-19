@@ -12,6 +12,7 @@ angular.module('app', []).controller('editRanksController', function ($scope, $h
             $http.post(contextPath + '/createPosition', rank)
                 .then(function (response) {
                     if (response.data) {
+                        console.log(response.data);
                         // Обрабатываем возвращенную строку
                         console.log('Должность \"' + response.data.name + '\" добавлена');
                         alert('Должность \"' + response.data.name + '\" добавлена')
@@ -22,7 +23,8 @@ angular.module('app', []).controller('editRanksController', function ($scope, $h
                     }
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.log("Ошибка " + error);
+                    console.log(error.response);
                 });
         }
         // $http.get(contextPath + '/getFirefighters/' + numberStation)

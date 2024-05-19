@@ -106,7 +106,7 @@ public class Firefighter {
 
     @ManyToOne
     @JoinTable(name = "firefighters_fire_stations",
-            joinColumns = @JoinColumn(name = "Firefighter_id"),
+            joinColumns = @JoinColumn(name = "firefighter_id"),
             inverseJoinColumns = @JoinColumn(name = "fire_station_id")
     )
     private FireStation fireStation;

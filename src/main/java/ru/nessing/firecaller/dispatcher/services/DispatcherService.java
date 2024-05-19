@@ -1,5 +1,6 @@
 package ru.nessing.firecaller.dispatcher.services;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.firecaller.dispatcher.repositories.FireStationRepository;
@@ -7,6 +8,7 @@ import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
 import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
 import ru.nessing.firecaller.entities.*;
 
+import java.sql.SQLException;
 import java.util.*;
 
 @Service
@@ -35,7 +37,7 @@ public class DispatcherService {
     {
         /* список частей */
         allFireStations.add(new FireStation(1L, 1,"1 пожарно-спасательная часть - П 01", "1 ПСЧ", "Комунальная 62"));
-        allFireStations.add(new FireStation(2L, 11, "Отдельный пост 1 пожарно-спасательной части - П 011","ОП 3 ПСЧ", "Максима Горького, 16"));
+        allFireStations.add(new FireStation(2L, 11, "Отдельный пост 1 пожарно-спасательной части - П 011","ОП 1 ПСЧ", "Максима Горького, 16"));
         allFireStations.add(new FireStation(3L, 2, "2 пожарно-спасательная часть - П 02", "2 ПСЧ", "Вокзальная 12а"));
         allFireStations.add(new FireStation(4L, 3, "3 пожарно-спасательная часть - П 03", "3 ПСЧ", "Инженерная 5"));
         allFireStations.add(new FireStation(5L, 31, "Отдельный пост 3 пожарно-спасательной части - П 031", "ОП 3 ПСЧ", "Инженерная 92"));
@@ -146,13 +148,13 @@ public class DispatcherService {
         return firefighter;
     }
 
-    public Position addPosition(String position) {
+    public Position addPosition(String position) throws PSQLException {
         if (positionRepository.findPositionByName(position) == null) {
-            Position newPosition = Position.builder()
-                    .id(null)
-                    .name(position)
-                    .build();
-            return positionRepository.save(newPosition);
+                Position newPosition = Position.builder()
+                        .id(null)
+                        .name(position)
+                        .build();
+                return positionRepository.save(newPosition);
         }
         return null;
     }

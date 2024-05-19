@@ -1,3 +1,5 @@
+psql \! chcp 1251
+
 
 // позиции (пример: ст. пожарный, водитель)
 CREATE TABLE positions(
@@ -36,6 +38,6 @@ CREATE TABLE firefighters_positions(
 
 // связующие таблицы (пожарный ←→ пожарная часть)
 CREATE TABLE firefighters_fire_stations(
-    firefighter BIGSERIAL REFERENCES firefighters(id),
-    fire_station BIGSERIAL REFERENCES fire_stations(id)
+    firefighter_id BIGSERIAL REFERENCES firefighters(id),
+    fire_station_id BIGSERIAL REFERENCES fire_stations(id)
 );
