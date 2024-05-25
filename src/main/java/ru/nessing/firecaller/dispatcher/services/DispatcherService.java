@@ -148,15 +148,25 @@ public class DispatcherService {
         return firefighter;
     }
 
-    public Position addPosition(String position) throws PSQLException {
+    public Boolean addPosition(String position) {
         if (positionRepository.findPositionByName(position) == null) {
                 Position newPosition = Position.builder()
                         .id(null)
                         .name(position)
                         .build();
-                return positionRepository.save(newPosition);
+                positionRepository.save(newPosition);
+                return true;
         }
-        return null;
+        return false;
+    }
+
+    public Boolean removePosition(Position position) {
+        Position pos = positionRepository.findPositionByName(position.getName());
+        if (pos != null) {
+            positionRepository.delete(pos);
+            return true;
+        }
+        return false;
     }
 
     public List<Position> getAllPositions() {

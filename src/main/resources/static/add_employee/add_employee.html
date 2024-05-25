@@ -36,7 +36,7 @@
             <div>
                 <label for="position">Должность</label>
                     <td>
-                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required ng-options="firefighter for firefighter in firefighters">
+                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required ng-options="position for position in positions">
                             <option value="">----</option>
                         </select>
                     </td>
@@ -51,8 +51,8 @@
             </div>
         </fieldset>
         <div class="buttons">
-            <a class="btn btn-danger" ng-href="/">Назад</a>
-            <input class="btn btn-success" type="submit" name="save_employee" value="Сохранить" ng-click="save(employee)">
+            <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
+            <input class="btn btn-success m-2" type="submit" name="save_employee" value="Сохранить" ng-click="save(employee)">
         </div>
     </form>
     <p ng-bind="employee.last_name"></p>

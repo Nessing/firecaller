@@ -16,22 +16,31 @@
 
 <body>
 <div class="container" ng-controller="editRanksController">
-    <h1>Добавить сотрудника</h1>
+    <h1>Редактировать список должностей</h1>
 
-    <h3>Список личного состава</h3>
+<!--    <h3>Список личного состава</h3>-->
     <form name="rankForm">
         <fieldset>
+            <label for="name">Название должности</label>
             <div>
-                <label for="name">Название должности</label>
-                <input id="name" ng-model="rank.name" class="m-1" type="text" name="name" required placeholder="Введите название должности">
+                <input class="text-input" id="name" ng-model="newPosition.name" class="m-1" type="text" name="name" required placeholder="Введите название должности">
+                <input class="btn btn-success m-2" type="submit" name="save_employee" value="Сохранить" ng-click="save(newPosition)">
             </div>
         </fieldset>
-        <div class="buttons">
-            <a class="btn btn-danger" ng-href="/">Назад</a>
-            <input class="btn btn-success" type="submit" name="save_employee" value="Сохранить" ng-click="save(rank)">
+    </form>
+
+    <form>
+        <label for="position">Удалить должность</label>
+        <div class="remove-rank_block">
+            <select  id="position" class="form-select m-1" ng-model="position.name" name="position" required ng-options="position for position in positions">
+                <option value="">----</option>
+            </select>
+            <input class="btn btn-danger m-2" type="submit" name="save_employee" value="Удалить" ng-click="remove(position)">
         </div>
     </form>
-    <p ng-bind="rank.name"></p>
+
+    <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
+<!--    <p ng-bind="rank.name"></p>-->
 
 </div>
 </body>

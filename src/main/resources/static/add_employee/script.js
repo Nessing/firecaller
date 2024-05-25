@@ -1,7 +1,7 @@
 angular.module('app', []).controller('addEmployeeController', function ($scope, $http) {
     const contextPath = 'http://localhost:8080';
 
-    $scope.firefighters = [];
+    $scope.positions = [];
     $scope.fire_stations = [];
 
     // $http.get(contextPath + '/getPositions')
@@ -10,11 +10,11 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
     //         // $scope.positions = response.data;
     //     });
 
-    $scope.getFirefighters = function () {
+    $scope.getPositions = function () {
         $http.get(contextPath + '/getAllPositions')
             .then(function (response) {
-                for (let fireFighter of response.data) {
-                    $scope.firefighters.push(fireFighter.name);
+                for (let position of response.data) {
+                    $scope.positions.push(position.name);
                 }
             }, function (error) {
                 // handle error
@@ -51,6 +51,6 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
         //     });
     }
 
-    $scope.getFirefighters();
+    $scope.getPositions();
     $scope.getFireStations();
 });

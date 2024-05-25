@@ -62,13 +62,13 @@ public class DispatcherController {
 //    public Position addPosition(@RequestBody Position position) {
 //        return service.addPosition(position.getName());
 //    }
-    public ResponseEntity<Position> addPosition(@RequestBody Position position) {
-        try {
-            Position newPosition = service.addPosition(position.getName());
-            return ResponseEntity.ok(newPosition);
-        } catch (PSQLException exception) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public Boolean addPosition(@RequestBody Position position) {
+        return service.addPosition(position.getName());
+    }
+
+    @PostMapping("/removePosition")
+    public Boolean removePosition(@RequestBody Position position) {
+        return service.removePosition(position);
     }
 
     @GetMapping("/getFire/{id}")
