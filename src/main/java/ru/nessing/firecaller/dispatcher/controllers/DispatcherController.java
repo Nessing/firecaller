@@ -49,7 +49,7 @@ public class DispatcherController {
     }
 
     @PostMapping("/addPerson")
-    public Firefighter addFirefighter(@RequestBody Firefighter firefighter) {
+    public Boolean addFirefighter(@RequestBody Firefighter firefighter) {
         return service.addFirefighter(firefighter);
     }
 

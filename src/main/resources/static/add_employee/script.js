@@ -1,8 +1,9 @@
 angular.module('app', []).controller('addEmployeeController', function ($scope, $http) {
     const contextPath = 'http://localhost:8080';
 
-    $scope.positions = [];
+    $scope.positions = new Map();
     $scope.fire_stations = [];
+    $scope.person = {};
 
     // $http.get(contextPath + '/getPositions')
     //     .then(function (response) {
@@ -13,11 +14,15 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
     $scope.getPositions = function () {
         $http.get(contextPath + '/getAllPositions')
             .then(function (response) {
-                for (let position of response.data) {
-                    $scope.positions.push(position.name);
-                }
+                // for (let position of response.data) {
+                //     $scope.positions.set(position.id, position.name);
+                // }
+                $scope.positions = Object.fromEntries(response.data.map(position =>[position.id, position.name]));
+                console.log($scope.positions);
             }, function (error) {
                 // handle error
+            }).catch(error => {
+                console.error(error);
             });
     }
 
@@ -36,7 +41,20 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
             employee.first_name !== undefined && employee.first_name.trim().length !== 0 &&
             employee.position !== undefined && employee.position.trim().length !== 0 &&
             employee.fire_station !== undefined && employee.fire_station.trim().length !== 0) {
+            employee.position = {
+                id: employee.position,
+                name: $scope.positions[employee.position]
+            };
+            console.log(employee.position);
             alert(employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " " + employee.fire_station);
+            $http.post(contextPath + "/addPerson", employee)
+                .then(function (response) {
+                    if (response.data) {
+                        alert("Сотрудник " + employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " добавлен в часть: " + employee.fire_station);
+                    } else {
+                        alert("Произошла ошибка при добавлении сотрудника!");
+                    }
+            });
         }
         // $http.get(contextPath + '/getFirefighters/' + numberStation)
         //     .then(function (response) {

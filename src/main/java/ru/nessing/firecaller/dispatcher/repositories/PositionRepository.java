@@ -7,4 +7,5 @@ import ru.nessing.firecaller.entities.Position;
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Long> {
     Position findPositionByName(String position);
+    Position findPositionById(Long id);
 }

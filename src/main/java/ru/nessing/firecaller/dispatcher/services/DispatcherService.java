@@ -136,16 +136,31 @@ public class DispatcherService {
         }
     }
 
-    public Firefighter addFirefighter(Firefighter firefighter) {
-        switch (firefighter.getFireStation().getNumberStation()) {
-            case 1 : firefighters1.add(firefighter);
-                break;
-            case 2 : firefighters2.add(firefighter);
-                break;
-            case 3 : firefighters3.add(firefighter);
-                break;
+    public Boolean addFirefighter(Firefighter firefighter) {
+        firefighter.setId(null);
+        StringBuilder shortName = new StringBuilder();
+        shortName.append(firefighter.getFirst_name().charAt(0) + ". ");
+        if (firefighter.getMid_name() != null && !firefighter.getMid_name().trim().isEmpty()) {
+            shortName.append(firefighter.getLast_name().charAt(0) + ". ");
         }
-        return firefighter;
+        shortName.append(firefighter.getLast_name());
+        firefighter.setShort_name(shortName.toString());
+        firefighter.setRank("Сержант");
+        Position pos = positionRepository.findById(firefighter.getPosition().getId()).orElse(null);
+        if (pos != null) {
+            firefighter.setPosition(pos);
+            firefighter.setFireStation(fireStationRepository.findFireStationById(1L));
+            firefightersRepository.save(firefighter);
+            return true;
+        } else {
+            return false;
+        }
+        //        switch (firefighter.getFireStation().getNumberStation()) {
+//            case 1 : firefighters1.add(firefighter);
+//            case 2 : firefighters2.add(firefighter);
+//            case 3 : firefighters3.add(firefighter);
+//            return true;
+//        }
     }
 
     public Boolean addPosition(String position) {

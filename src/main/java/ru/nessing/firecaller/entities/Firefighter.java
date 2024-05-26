@@ -69,10 +69,8 @@ public class Firefighter {
      last_name VARCHAR(150) NOT NULL,
      short_name VARCHAR(150) NOT NULL,
      rank VARCHAR(100) NOT NULL,
-     position BIGSERIAL NOT NULL,
-     FOREIGN KEY (position) REFERENCES positions(id),
-     fire_station BIGSERIAL NOT NULL,
-     FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+     position BIGSERIAL REFERENCES positions(id) NOT NULL,
+     fire_station BIGSERIAL REFERENCES fire_stations(id) NOT NULL
      );
     **/
 
@@ -97,17 +95,11 @@ public class Firefighter {
     private String rank;
 
 //    @Column(name = "position")
-    @ManyToOne
-    @JoinTable(name = "firefighters_positions",
-            joinColumns = @JoinColumn(name = "firefighter_id"),
-            inverseJoinColumns = @JoinColumn(name = "position_id")
-    )
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "position", referencedColumnName = "id")
     private Position position;
 
-    @ManyToOne
-    @JoinTable(name = "firefighters_fire_stations",
-            joinColumns = @JoinColumn(name = "firefighter_id"),
-            inverseJoinColumns = @JoinColumn(name = "fire_station_id")
-    )
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "fire_station", referencedColumnName = "id")
     private FireStation fireStation;
 }

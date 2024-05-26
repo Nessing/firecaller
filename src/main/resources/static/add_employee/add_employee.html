@@ -36,8 +36,9 @@
             <div>
                 <label for="position">Должность</label>
                     <td>
-                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required ng-options="position for position in positions">
+                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required>
                             <option value="">----</option>
+                            <option ng-repeat="(key, value) in positions" value="{{key}}">{{value}}</option>
                         </select>
                     </td>
             </div>

@@ -6,5 +6,5 @@ import ru.nessing.firecaller.entities.FireStation;
 
 @Repository
 public interface FireStationRepository extends JpaRepository<FireStation, Long> {
-
+    FireStation findFireStationById(Long id);
 }

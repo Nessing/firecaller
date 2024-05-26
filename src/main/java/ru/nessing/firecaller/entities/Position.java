@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 
  CREATE TABLE firefighters_positions(
  firefighter_id BIGSERIAL REFERENCES firefighters(id),
- position_id BIGSERIAL REFERENCES positions(id)
+ position_id BIGSERIAL REFERENCES positions(id),
+ UNIQUE (position_id); - Один пожарный может иметь только одну должность
  );
  **/
 
