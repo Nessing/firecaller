@@ -29,15 +29,3 @@ CREATE TABLE firefighters (
     fire_station BIGSERIAL NOT NULL,
     FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
 );
-
-// связующие таблицы (пожарный ←→ позиция)
-CREATE TABLE firefighters_positions(
-    firefighter_id BIGSERIAL REFERENCES firefighters(id),
-    position_id BIGSERIAL REFERENCES positions(id)
-);
-
-// связующие таблицы (пожарный ←→ пожарная часть)
-CREATE TABLE firefighters_fire_stations(
-    firefighter_id BIGSERIAL REFERENCES firefighters(id),
-    fire_station_id BIGSERIAL REFERENCES fire_stations(id)
-);

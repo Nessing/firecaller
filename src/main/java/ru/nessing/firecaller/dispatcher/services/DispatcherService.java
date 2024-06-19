@@ -1,14 +1,13 @@
 package ru.nessing.firecaller.dispatcher.services;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.firecaller.dispatcher.repositories.FireStationRepository;
 import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
 import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
 import ru.nessing.firecaller.entities.*;
+import ru.nessing.firecaller.entities.DTOs.FirefighterDTO;
 
-import java.sql.SQLException;
 import java.util.*;
 
 @Service
@@ -137,14 +136,10 @@ public class DispatcherService {
     }
 
     public Boolean addFirefighter(Firefighter firefighter) {
+        FirefighterDTO firefighterDTO = new FirefighterDTO();
+        firefighterDTO.createShortName(firefighter.getFirst_name(), firefighter.getMid_name(), firefighter.getLast_name());
         firefighter.setId(null);
-        StringBuilder shortName = new StringBuilder();
-        shortName.append(firefighter.getFirst_name().charAt(0) + ". ");
-        if (firefighter.getMid_name() != null && !firefighter.getMid_name().trim().isEmpty()) {
-            shortName.append(firefighter.getLast_name().charAt(0) + ". ");
-        }
-        shortName.append(firefighter.getLast_name());
-        firefighter.setShort_name(shortName.toString());
+        firefighter.setShort_name(firefighterDTO.getShort_name());
         firefighter.setRank("Сержант");
         Position pos = positionRepository.findById(firefighter.getPosition().getId()).orElse(null);
         if (pos != null) {
@@ -155,12 +150,14 @@ public class DispatcherService {
         } else {
             return false;
         }
-        //        switch (firefighter.getFireStation().getNumberStation()) {
-//            case 1 : firefighters1.add(firefighter);
-//            case 2 : firefighters2.add(firefighter);
-//            case 3 : firefighters3.add(firefighter);
-//            return true;
-//        }
+    }
+
+    public Boolean deleteFirefighter(Long id) {
+        if (id != null) {
+            firefightersRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     public Boolean addPosition(String position) {
@@ -175,7 +172,7 @@ public class DispatcherService {
         return false;
     }
 
-    public Boolean removePosition(Position position) {
+    public Boolean deletePosition(Position position) {
         Position pos = positionRepository.findPositionByName(position.getName());
         if (pos != null) {
             positionRepository.delete(pos);

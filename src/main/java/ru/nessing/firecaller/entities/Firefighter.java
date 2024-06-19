@@ -93,13 +93,11 @@ public class Firefighter {
 
     @Column(name = "rank")
     private String rank;
-
-//    @Column(name = "position")
     @ManyToOne(optional = false)
-    @JoinColumn(name = "position", referencedColumnName = "id")
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "fire_station", referencedColumnName = "id")
+    @JoinColumn(name = "fire_station_id", referencedColumnName = "id")
     private FireStation fireStation;
 }

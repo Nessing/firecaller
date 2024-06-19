@@ -8,6 +8,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $scope.editMode = false;
     $scope.firefighters = [];
+    $scope.firefightersMap = new Map();
 
     $http.get(contextPath + '/getPositions')
         .then(function (response) {
@@ -42,9 +43,34 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 for (let fireFighter of response.data) {
                     $scope.firefighters.push(fireFighter.short_name);
                 }
+                $scope.firefightersMap = Object.fromEntries(response.data.map(firefighter =>[firefighter.id, firefighter.short_name]));
             }, function (error) {
                 // handle error
             });
+    }
+
+    $scope.delete = function (employee) {
+        // if (employee !== undefined &&
+        //     employee.last_name !== undefined && employee.last_name.trim().length !== 0 &&
+        //     employee.first_name !== undefined && employee.first_name.trim().length !== 0 &&
+        //     employee.position !== undefined && employee.position.trim().length !== 0 &&
+        //     employee.fire_station !== undefined && employee.fire_station.trim().length !== 0) {
+            // employee.position = {
+            //     id: employee.position,
+            //     name: $scope.positions[employee.position]
+            // };
+        if (employee !== undefined && employee.id !== undefined) {
+            $http.post(contextPath + "/deletePerson", employee.id)
+                .then(function (response) {
+                    console.log(response.data);
+                    // if (response.data) {
+                    //     alert("Сотрудник " + employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " добавлен в часть: " + employee.fire_station);
+                    // } else {
+                    //     alert("Произошла ошибка при добавлении сотрудника!");
+                    // }
+                });
+        }
+        // }
     }
 
     $scope.getFirefighters();

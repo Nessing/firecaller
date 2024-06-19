@@ -45,8 +45,6 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
                 id: employee.position,
                 name: $scope.positions[employee.position]
             };
-            console.log(employee.position);
-            alert(employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " " + employee.fire_station);
             $http.post(contextPath + "/addPerson", employee)
                 .then(function (response) {
                     if (response.data) {

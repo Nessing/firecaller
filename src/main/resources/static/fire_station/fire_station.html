@@ -118,8 +118,21 @@
 <!--            <button class="btn btn-success" type="submit" ng-disabled="firefighter.$invalid">Сохранить</button>-->
 <!--        </div>-->
 <!--    </form>-->
-
-    <a class="btn btn-outline-secondary" ng-href="/">Назад</a>
+    <form name="employeeForm">
+        <div class="buttons">
+            <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
+            <div>
+                <label for="firefighters">выбрать пожарного</label>
+                <td>
+                    <select id="firefighters" for="firefighters" class="form-select m-1" ng-model="employee.id" name="id" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in firefightersMap" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
+            <input class="btn btn-danger m-2" type="submit" name="delete_employee" value="Удалить" ng-click="delete(employee)">
+        </div>
+    </form>
 
     <!--    <h3>Добавить новый товар</h3>-->
     <!--    <form novalidate ng-submit="submitCreateNewProduct()">-->

@@ -1,9 +1,6 @@
 package ru.nessing.firecaller.dispatcher.controllers;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.nessing.firecaller.dispatcher.services.DispatcherService;
 import ru.nessing.firecaller.entities.*;
@@ -53,22 +50,24 @@ public class DispatcherController {
         return service.addFirefighter(firefighter);
     }
 
+    @PostMapping("/deletePerson")
+    public Boolean deleteFirefighter(@RequestBody Long id) {
+        return service.deleteFirefighter(id);
+    }
+
 //    @GetMapping("/createTest")
 //    public Firefighter create() {
 //        return service.createTestFirefighter();
 //    }
 
     @PostMapping("/createPosition")
-//    public Position addPosition(@RequestBody Position position) {
-//        return service.addPosition(position.getName());
-//    }
     public Boolean addPosition(@RequestBody Position position) {
         return service.addPosition(position.getName());
     }
 
     @PostMapping("/removePosition")
-    public Boolean removePosition(@RequestBody Position position) {
-        return service.removePosition(position);
+    public Boolean deletePosition(@RequestBody Position position) {
+        return service.deletePosition(position);
     }
 
     @GetMapping("/getFire/{id}")
