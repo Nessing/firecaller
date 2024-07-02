@@ -6,10 +6,10 @@ import ru.nessing.firecaller.entities.Position;
 
 @Data
 public class FirefighterDTO {
-    private String first_name;
-    private String mid_name;
-    private String last_name;
-    private String short_name;
+    private String firstName;
+    private String midName;
+    private String lastName;
+    private String shortName;
     private String rank;
     private Position position;
     private FireStation fireStation;
@@ -20,6 +20,6 @@ public class FirefighterDTO {
         if (midName != null && !midName.trim().isEmpty()) {
             shortName.append(midName.charAt(0)).append(". ");
         }
-        this.short_name = shortName.append(surName).toString();
+        this.shortName = shortName.append(surName).toString();
     }
 }

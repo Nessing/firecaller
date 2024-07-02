@@ -80,16 +80,16 @@ public class Firefighter {
     private Long id;
 
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "mid_name")
-    private String mid_name;
+    private String midName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "short_name")
-    private String short_name;
+    private String shortName;
 
     @Column(name = "rank")
     private String rank;

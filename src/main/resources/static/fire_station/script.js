@@ -41,9 +41,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 $scope.numberOfStation = numberStation;
                 $scope.firefightersOfStation = response.data;
                 for (let fireFighter of response.data) {
-                    $scope.firefighters.push(fireFighter.short_name);
+                    $scope.firefighters.push(fireFighter.shortName);
                 }
-                $scope.firefightersMap = Object.fromEntries(response.data.map(firefighter =>[firefighter.id, firefighter.short_name]));
+                $scope.firefightersMap = Object.fromEntries(response.data.map(firefighter =>[firefighter.id, firefighter.shortName]));
             }, function (error) {
                 // handle error
             });

@@ -36,7 +36,7 @@ public class DispatcherController {
     }
 
     @GetMapping("/getFirefighters/{fireStation}")
-    public List<Firefighter> getFirefightersOfStation(@PathVariable int fireStation) {
+    public List<Firefighter> getFirefightersOfStation(@PathVariable Long fireStation) {
         return service.getFirefighters(fireStation);
     }
 

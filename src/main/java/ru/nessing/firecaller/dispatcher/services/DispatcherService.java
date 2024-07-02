@@ -102,28 +102,8 @@ public class DispatcherService {
         return positions;
     }
 
-    public List<Firefighter> getFirefighters(int fireStation) {
-        switch (fireStation) {
-//            case 1 : return firefighters1;
-            case 1 : {
-                List<Firefighter> firefighters = firefighters1;
-                for (Firefighter firefighter : firefighters) {
-//                    firefighter.setRank(positions.get(firefighter.getPosition()));
-                }
-//                return firefighters;
-                return firefightersRepository.findFirefightersByFireStation_Id(1L);
-            }
-            case 2 : {
-                List<Firefighter> firefighters = firefighters2;
-                for (Firefighter firefighter : firefighters) {
-//                    firefighter.setRank(positions.get(firefighter.getPosition()));
-                }
-//                return firefighters;
-                return firefightersRepository.findFirefightersByFireStation_Id(2L);
-            }
-            case 3 : return firefighters3;
-            default: return null;
-        }
+    public List<Firefighter> getFirefighters(Long fireStation) {
+        return firefightersRepository.findFirefightersByFireStation_Id(fireStation);
     }
 
     public List<Square> getSquare(int fireStation) {
@@ -137,19 +117,20 @@ public class DispatcherService {
 
     public Boolean addFirefighter(Firefighter firefighter) {
         FirefighterDTO firefighterDTO = new FirefighterDTO();
-        firefighterDTO.createShortName(firefighter.getFirst_name(), firefighter.getMid_name(), firefighter.getLast_name());
+        firefighterDTO.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
         firefighter.setId(null);
-        firefighter.setShort_name(firefighterDTO.getShort_name());
+        firefighter.setShortName(firefighterDTO.getShortName());
         firefighter.setRank("Сержант");
-        Position pos = positionRepository.findById(firefighter.getPosition().getId()).orElse(null);
-        if (pos != null) {
-            firefighter.setPosition(pos);
-            firefighter.setFireStation(fireStationRepository.findFireStationById(1L));
-            firefightersRepository.save(firefighter);
-            return true;
-        } else {
+        if (firefighter.getPosition() == null) {
             return false;
         }
+        if (firefighter.getFireStation() == null) {
+            return false;
+        }
+        FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
+        firefighter.setFireStation(fireStation);
+        firefightersRepository.save(firefighter);
+        return true;
     }
 
     public Boolean deleteFirefighter(Long id) {

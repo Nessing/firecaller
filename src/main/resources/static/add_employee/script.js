@@ -2,7 +2,7 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
     const contextPath = 'http://localhost:8080';
 
     $scope.positions = new Map();
-    $scope.fire_stations = [];
+    $scope.fire_stations = new Map();
     $scope.person = {};
 
     // $http.get(contextPath + '/getPositions')
@@ -18,7 +18,6 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
                 //     $scope.positions.set(position.id, position.name);
                 // }
                 $scope.positions = Object.fromEntries(response.data.map(position =>[position.id, position.name]));
-                console.log($scope.positions);
             }, function (error) {
                 // handle error
             }).catch(error => {
@@ -29,26 +28,33 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
     $scope.getFireStations = function () {
         $http.get(contextPath + '/getFireStations')
             .then(function (response) {
-                for (let fireStation of response.data) {
-                    $scope.fire_stations.push(fireStation.name);
-                }
+                $scope.fire_stations = Object.fromEntries(response.data.map(fire_station =>[fire_station.id, fire_station.name]));
+                // for (let fireStation of response.data) {
+                //     $scope.fire_stations.push(fireStation.name);
+                // }
             })
     }
 
     $scope.save = function (employee) {
+        console.log(employee);
         if (employee !== undefined &&
-            employee.last_name !== undefined && employee.last_name.trim().length !== 0 &&
-            employee.first_name !== undefined && employee.first_name.trim().length !== 0 &&
+            employee.lastName !== undefined && employee.lastName.trim().length !== 0 &&
+            employee.firstName !== undefined && employee.firstName.trim().length !== 0 &&
             employee.position !== undefined && employee.position.trim().length !== 0 &&
-            employee.fire_station !== undefined && employee.fire_station.trim().length !== 0) {
+            employee.fireStation !== undefined && employee.fireStation.trim().length !== 0) {
+            console.log("yes");
             employee.position = {
                 id: employee.position,
                 name: $scope.positions[employee.position]
             };
+            employee.fireStation = {
+                id: employee.fireStation,
+                name: $scope.fire_stations[employee.fireStation]
+            };
             $http.post(contextPath + "/addPerson", employee)
                 .then(function (response) {
                     if (response.data) {
-                        alert("Сотрудник " + employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " добавлен в часть: " + employee.fire_station);
+                        alert("Сотрудник " + employee.lastName + " " + employee.firstName + " " + employee.midName + " " + employee.position + " добавлен в часть: " + employee.fire_station);
                     } else {
                         alert("Произошла ошибка при добавлении сотрудника!");
                     }

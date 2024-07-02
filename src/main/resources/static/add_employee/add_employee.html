@@ -23,15 +23,15 @@
         <fieldset>
             <div>
                 <label for="last_name">Фамилия</label>
-                <input id="last_name" ng-model="employee.last_name" class="m-1" type="text" name="last_name" required placeholder="Введите фамилию">
+                <input id="last_name" ng-model="employee.lastName" class="m-1" type="text" name="lastName" required placeholder="Введите фамилию">
             </div>
             <div>
                 <label for="first_name">Имя</label>
-                <input id="first_name" ng-model="employee.first_name" class="m-1" type="text" name="first_name" required placeholder="Введите имя">
+                <input id="first_name" ng-model="employee.firstName" class="m-1" type="text" name="firstName" required placeholder="Введите имя">
             </div>
             <div>
                 <label for="mid_name">Отчество</label>
-                <input id="mid_name" ng-model="employee.mid_name" class="m-1" type="text" name="mid_name" placeholder="Введите отчество">
+                <input id="mid_name" ng-model="employee.midName" class="m-1" type="text" name="midName" placeholder="Введите отчество">
             </div>
             <div>
                 <label for="position">Должность</label>
@@ -45,8 +45,9 @@
             <div>
                 <label for="fire_station">Пожарная часть</label>
                 <td>
-                    <select id="fire_station" for="fire_station" class="form-select m-1" ng-model="employee.fire_station" name="fire_station" required ng-options="fire_station for fire_station in fire_stations">
+                    <select id="fire_station" for="fire_station" class="form-select m-1" ng-model="employee.fireStation" name="fireStation" required>
                         <option value="">----</option>
+                        <option ng-repeat="(key, value) in fire_stations" value="{{key}}">{{value}}</option>
                     </select>
                 </td>
             </div>
@@ -56,9 +57,9 @@
             <input class="btn btn-success m-2" type="submit" name="save_employee" value="Сохранить" ng-click="save(employee)">
         </div>
     </form>
-    <p ng-bind="employee.last_name"></p>
-    <p ng-bind="employee.first_name"></p>
-    <p ng-bind="employee.mid_name"></p>
+    <p ng-bind="employee.lastName"></p>
+    <p ng-bind="employee.firstName"></p>
+    <p ng-bind="employee.midName"></p>
 
 </div>
 </body>

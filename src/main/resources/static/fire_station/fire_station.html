@@ -41,9 +41,9 @@
         </thead>
         <tbody>
         <tr ng-repeat="p in firefightersOfStation">
-            <td ng-show="!editMode">{{p.short_name}}</td>
+            <td ng-show="!editMode">{{p.shortName}}</td>
             <td ng-show="editMode">
-                <select class="form-select" ng-model="p.short_name" ng-options="firefighter for firefighter in firefighters">
+                <select class="form-select" ng-model="p.shortName" ng-options="firefighter for firefighter in firefighters">
                     <option value="">----</option>
                 </select>
             </td>

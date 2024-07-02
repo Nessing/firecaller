@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -35,7 +33,7 @@ public class FireStation {
     private String name;
 
     @Column(name = "short_name")
-    private String short_name;
+    private String shortName;
 
     @Column(name = "location")
     private String location;
