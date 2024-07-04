@@ -24,10 +24,12 @@ CREATE TABLE firefighters (
     last_name VARCHAR(150) NOT NULL,
     short_name VARCHAR(150) NOT NULL,
     rank VARCHAR(100) NOT NULL,
-    position BIGSERIAL NOT NULL,
-    FOREIGN KEY (position) REFERENCES positions(id),
-    fire_station BIGSERIAL NOT NULL,
-    FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+    position_id BIGSERIAL NOT NULL,
+    FOREIGN KEY (position_id) REFERENCES positions(id),
+    fire_station_id BIGSERIAL NOT NULL,
+    FOREIGN KEY (fire_station_id) REFERENCES fire_stations(id)
+    team_id BIGSERIAL NOT NULL,
+    FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 // машины
@@ -35,8 +37,8 @@ CREATE TABLE cars (
 	id BIGSERIAL NOT NULL PRIMARY KEY,
 	name VARCHAR(100) NOT NULL,
 	number_car VARCHAR(50) NOT NULL,
-	fire_station BIGSERIAL NOT NULL,
-    FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+	fire_station_id BIGSERIAL NOT NULL,
+    FOREIGN KEY (fire_station_id) REFERENCES fire_stations(id)
 );
 
 // команды

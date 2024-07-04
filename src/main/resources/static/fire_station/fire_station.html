@@ -67,6 +67,22 @@
 
 
     <h3>Машины</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>Наименование</td>
+            <td>Номер</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="car in fireCars">
+            <td>{{car.name}}</td>
+            <td>{{car.numberCar}}</td>
+        </tr>
+        </tbody>
+    </table>
+
     <table class="table table-hover">
         <thead>
         <tr>

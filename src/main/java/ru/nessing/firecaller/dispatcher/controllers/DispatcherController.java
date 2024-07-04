@@ -40,6 +40,11 @@ public class DispatcherController {
         return service.getFirefighters(fireStation);
     }
 
+    @GetMapping("/getCars/{fireStation}")
+    public List<Car> getCars(@PathVariable Long fireStation) {
+        return service.getCars(fireStation);
+    }
+
     @GetMapping("/getSquare/{fireStation}")
     public List<Square> getSquare(@PathVariable int fireStation) {
         return service.getSquare(fireStation);

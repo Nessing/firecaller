@@ -26,6 +26,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             // handle error
         });
 
+    $http.get(contextPath + '/getCars/' + numberStation)
+        .then(function (response) {
+            if (response.data != null) {
+                $scope.fireCars = response.data;
+            }
+        }, function (error) {
+            // handle error
+        });
+
     $http.get(contextPath + '/getSquare/' + numberStation)
         .then(function (response) {
             $scope.numberOfStation = numberStation;

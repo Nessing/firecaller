@@ -2,6 +2,7 @@ package ru.nessing.firecaller.dispatcher.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.nessing.firecaller.dispatcher.repositories.CarsRepository;
 import ru.nessing.firecaller.dispatcher.repositories.FireStationRepository;
 import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
 import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
@@ -13,14 +14,22 @@ import java.util.*;
 @Service
 public class DispatcherService {
 
-    @Autowired
-    FirefightersRepository firefightersRepository;
+    private final FirefightersRepository firefightersRepository;
+    private final PositionRepository positionRepository;
+    private final FireStationRepository fireStationRepository;
+    private final CarsRepository carsRepository;
 
     @Autowired
-    PositionRepository positionRepository;
-
-    @Autowired
-    FireStationRepository fireStationRepository;
+    public DispatcherService(FirefightersRepository firefightersRepository,
+                             PositionRepository positionRepository,
+                             FireStationRepository fireStationRepository,
+                             CarsRepository carsRepository)
+    {
+        this.firefightersRepository = firefightersRepository;
+        this.positionRepository = positionRepository;
+        this.fireStationRepository = fireStationRepository;
+        this.carsRepository = carsRepository;
+    }
 
     private List<FireStation> allFireStations = new ArrayList<>();
 
@@ -104,6 +113,10 @@ public class DispatcherService {
 
     public List<Firefighter> getFirefighters(Long fireStation) {
         return firefightersRepository.findFirefightersByFireStation_Id(fireStation);
+    }
+
+    public List<Car> getCars(Long fireStation) {
+        return carsRepository.findCarsByFireStation_Id(fireStation);
     }
 
     public List<Square> getSquare(int fireStation) {

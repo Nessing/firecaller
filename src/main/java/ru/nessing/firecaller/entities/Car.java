@@ -21,7 +21,7 @@ public class Car {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "name_car")
+    @Column(name = "number_car")
     private String numberCar;
 
     @ManyToOne(optional = false)
