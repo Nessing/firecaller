@@ -10,25 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
-//@Table(name = "firefighters")
-public class Square {
+@Entity
+@Table(name = "teams")
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name")
     private String name;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "fire_station_id", referencedColumnName = "id")
-    private FireStation fireStation;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
-    private Car car;
-
-    private String status;
-
-    private String location;
 }

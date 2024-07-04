@@ -29,3 +29,18 @@ CREATE TABLE firefighters (
     fire_station BIGSERIAL NOT NULL,
     FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
 );
+
+// машины
+CREATE TABLE cars (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	number_car VARCHAR(50) NOT NULL,
+	fire_station BIGSERIAL NOT NULL,
+    FOREIGN KEY (fire_station) REFERENCES fire_stations(id)
+);
+
+// команды
+CREATE TABLE teams (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+);

@@ -67,14 +67,14 @@ public class DispatcherService {
 //        firefighters2.add(new Firefighter(3L,"П.В. Орехов", "Старший пожарный", 3, 2));
 
         /* машины 1 части */
-        squareStation1.add(new Square(1L, 1, "1 АЦ 1", StateFireStation.ON_THE_WAY.getState(), "Генерала Маргелова 3"));
-        squareStation1.add(new Square(2L, 2, "1 АЦ 2", StateFireStation.CALM.getState(), "Комунальная 62"));
-        squareStation1.add(new Square(3L, 3,"1 АЛ 1", StateFireStation.CALM.getState(), "Комунальная 62"));
-
-        /* машины 2 части */
-        squareStation2.add(new Square(1L, 1, "2 АЦ 1", StateFireStation.ON_THE_DESTINATION.getState(), "Яна Фабрициуса 11"));
-        squareStation2.add(new Square(2L, 2, "2 АЦ 2", StateFireStation.ON_THE_DESTINATION.getState(), "Яна Фабрициуса 11"));
-        squareStation2.add(new Square(3L, 3,"2 АЛ 1", StateFireStation.CALM.getState(), "Вокзальная 12а"));
+//        squareStation1.add(new Square(1L, 1, "1 АЦ 1", StateFireStation.ON_THE_WAY.getState(), "Генерала Маргелова 3"));
+//        squareStation1.add(new Square(2L, 2, "1 АЦ 2", StateFireStation.CALM.getState(), "Комунальная 62"));
+//        squareStation1.add(new Square(3L, 3,"1 АЛ 1", StateFireStation.CALM.getState(), "Комунальная 62"));
+//
+//        /* машины 2 части */
+//        squareStation2.add(new Square(1L, 1, "2 АЦ 1", StateFireStation.ON_THE_DESTINATION.getState(), "Яна Фабрициуса 11"));
+//        squareStation2.add(new Square(2L, 2, "2 АЦ 2", StateFireStation.ON_THE_DESTINATION.getState(), "Яна Фабрициуса 11"));
+//        squareStation2.add(new Square(3L, 3,"2 АЛ 1", StateFireStation.CALM.getState(), "Вокзальная 12а"));
     }
 
     /** use DB **/
