@@ -27,4 +27,8 @@ public class Car {
     @ManyToOne(optional = false)
     @JoinColumn(name = "fire_station_id", referencedColumnName = "id")
     private FireStation fireStation;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    private Team team;
 }

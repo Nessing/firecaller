@@ -104,7 +104,7 @@ public class DispatcherService {
     /****/
 
     public List<FireStation> getAllFireStations() {
-        return allFireStations;
+        return fireStationRepository.findAll();
     }
 
     public Map<Long, String> getPositions() {
@@ -182,4 +182,26 @@ public class DispatcherService {
     public Optional<FireStation> getFireStation(Long id) {
         return fireStationRepository.findById(id);
     }
+
+    public List<Square> getSquareOfStation(Long id) {
+        List<Square> squares = new ArrayList<>();
+        FireStation fireStation = fireStationRepository.findFireStationById(id);
+        List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_Id(id);
+        List<Car> cars = carsRepository.findCarsByFireStation_Id(id);
+
+        for (Car car : cars) {
+            Square square = new Square();
+            square.setFireStation(fireStation);
+            square.setCar(car);
+            square.setTeam(car.getTeam());
+            for (Firefighter firefighter : firefighters) {
+                if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
+                    square.getFirefighters().add(firefighter);
+                }
+            }
+            squares.add(square);
+        }
+        return squares;
+    }
+
 }
