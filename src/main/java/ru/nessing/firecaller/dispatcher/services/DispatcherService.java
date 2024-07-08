@@ -179,15 +179,15 @@ public class DispatcherService {
         return positionRepository.findAll();
     }
 
-    public Optional<FireStation> getFireStation(Long id) {
-        return fireStationRepository.findById(id);
+    public Optional<FireStation> getFireStation(Long stationId) {
+        return fireStationRepository.findById(stationId);
     }
 
-    public List<Square> getSquareOfStation(Long id) {
+    public List<Square> getSquareOfStation(Long stationId) {
         List<Square> squares = new ArrayList<>();
-        FireStation fireStation = fireStationRepository.findFireStationById(id);
-        List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_Id(id);
-        List<Car> cars = carsRepository.findCarsByFireStation_Id(id);
+        FireStation fireStation = fireStationRepository.findFireStationById(stationId);
+        List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_Id(stationId);
+        List<Car> cars = carsRepository.findCarsByFireStation_Id(stationId);
 
         for (Car car : cars) {
             Square square = new Square();

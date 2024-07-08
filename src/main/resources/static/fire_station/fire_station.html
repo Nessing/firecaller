@@ -83,28 +83,28 @@
         </tbody>
     </table>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <td>Ход</td>
-            <td>Позывной</td>
-            <td>Статус</td>
-            <td>Местонахождения</td>
-            <td></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="p in square">
-            <td>{{p.command}}</td>
-            <td>{{p.name}}</td>
-            <td>{{p.status}}</td>
-            <td>{{p.location}}</td>
-            <td>
-                <a class="btn btn-outline-success" ng-href="#">Подробнее</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <h3>Караул</h3>
+
+    <div ng-repeat="square in squares">
+        <h4>{{square.team.name}} - {{square.car.name}}</h4>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>ФИО</td>
+                    <td>Звание</td>
+                    <td>Должность</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="firefighter in square.firefighters">
+                    <td>{{firefighter.shortName}}</td>
+                    <td>{{firefighter.rank}}</td>
+                    <td>{{firefighter.position.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 <!--    <h3>Добавить сотрудника</h3>-->
 <!--    <form name="firefighter" novalidate ng-submit="createNewPerson()" style="margin-bottom: 10px">-->

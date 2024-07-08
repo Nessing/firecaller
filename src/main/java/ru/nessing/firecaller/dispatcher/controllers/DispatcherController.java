@@ -25,6 +25,11 @@ public class DispatcherController {
         return service.getFireStation(id);
     }
 
+    @GetMapping("/getSquareOfStation/{id}")
+    public List<Square> getSquareOfStation(@PathVariable Long id) {
+        return service.getSquareOfStation(id);
+    }
+
     @GetMapping("/getPositions")
     public Map<Long, String> getPositions() {
         return service.getPositions();

@@ -9,6 +9,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.editMode = false;
     $scope.firefighters = [];
     $scope.firefightersMap = new Map();
+    $scope.squares = [];
 
     $http.get(contextPath + '/getPositions')
         .then(function (response) {
@@ -39,6 +40,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         .then(function (response) {
             $scope.numberOfStation = numberStation;
             $scope.square = response.data;
+        }, function (error) {
+            // handle error
+        });
+
+    $http.get(contextPath + '/getSquareOfStation/' + numberStation)
+        .then(function (response) {
+            $scope.squares = response.data;
+            console.log($scope.squares);
+            for (let i = 0; i < $scope.squares.length; i++) {
+                console.log($scope.squares[i].firefighters);
+                console.log($scope.squares[i].team.name);
+            }
         }, function (error) {
             // handle error
         });
