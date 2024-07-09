@@ -3,37 +3,27 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
 
     $scope.positions = new Map();
     $scope.fire_stations = new Map();
+    $scope.teams = new Map();
     $scope.person = {};
 
-    // $http.get(contextPath + '/getPositions')
-    //     .then(function (response) {
-    //         alert("Сохранен");
-    //         // $scope.positions = response.data;
-    //     });
+    $http.get(contextPath + '/getAllPositions')
+        .then(function (response) {
+            $scope.positions = Object.fromEntries(response.data.map(position =>[position.id, position.name]));
+        }, function (error) {
+            // handle error
+        }).catch(error => {
+            console.error(error);
+        });
 
-    $scope.getPositions = function () {
-        $http.get(contextPath + '/getAllPositions')
-            .then(function (response) {
-                // for (let position of response.data) {
-                //     $scope.positions.set(position.id, position.name);
-                // }
-                $scope.positions = Object.fromEntries(response.data.map(position =>[position.id, position.name]));
-            }, function (error) {
-                // handle error
-            }).catch(error => {
-                console.error(error);
-            });
-    }
+    $http.get(contextPath + '/getFireStations')
+        .then(function (response) {
+            $scope.fire_stations = Object.fromEntries(response.data.map(fireStation =>[fireStation.id, fireStation.name]));
+        })
 
-    $scope.getFireStations = function () {
-        $http.get(contextPath + '/getFireStations')
-            .then(function (response) {
-                $scope.fire_stations = Object.fromEntries(response.data.map(fire_station =>[fire_station.id, fire_station.name]));
-                // for (let fireStation of response.data) {
-                //     $scope.fire_stations.push(fireStation.name);
-                // }
-            })
-    }
+    $http.get(contextPath + '/getTeams')
+        .then(function (response) {
+            $scope.teams = Object.fromEntries(response.data.map(team =>[team.id, team.name]));
+        })
 
     $scope.save = function (employee) {
         console.log(employee);
@@ -41,7 +31,8 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
             employee.lastName !== undefined && employee.lastName.trim().length !== 0 &&
             employee.firstName !== undefined && employee.firstName.trim().length !== 0 &&
             employee.position !== undefined && employee.position.trim().length !== 0 &&
-            employee.fireStation !== undefined && employee.fireStation.trim().length !== 0) {
+            employee.fireStation !== undefined && employee.fireStation.trim().length !== 0 &&
+            employee.team !== undefined && employee.team.trim().length !== 0) {
             console.log("yes");
             employee.position = {
                 id: employee.position,
@@ -50,6 +41,10 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
             employee.fireStation = {
                 id: employee.fireStation,
                 name: $scope.fire_stations[employee.fireStation]
+            };
+            employee.team = {
+                id: employee.team,
+                name: $scope.teams[employee.team]
             };
             $http.post(contextPath + "/addPerson", employee)
                 .then(function (response) {
@@ -60,19 +55,5 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
                     }
             });
         }
-        // $http.get(contextPath + '/getFirefighters/' + numberStation)
-        //     .then(function (response) {
-        //         $scope.firefighters.length = 0;
-        //         $scope.numberOfStation = numberStation;
-        //         $scope.firefightersOfStation = response.data;
-        //         for (let fireFighter of response.data) {
-        //             $scope.firefighters.push(fireFighter.name);
-        //         }
-        //     }, function (error) {
-        //         // handle error
-        //     });
     }
-
-    $scope.getPositions();
-    $scope.getFireStations();
 });

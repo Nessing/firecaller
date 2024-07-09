@@ -30,6 +30,12 @@ public class DispatcherController {
         return service.getSquareOfStation(id);
     }
 
+
+    @GetMapping("/getTeams")
+    public List<Team> getSquare() {
+        return service.getTeams();
+    }
+
     @GetMapping("/getPositions")
     public Map<Long, String> getPositions() {
         return service.getPositions();

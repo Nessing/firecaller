@@ -1,11 +1,6 @@
 angular.module('app', []).controller('editRanksController', function ($scope, $http) {
     const contextPath = 'http://localhost:8080';
     $scope.positions = [];
-    // $http.get(contextPath + '/getPositions')
-    //     .then(function (response) {
-    //         alert("Сохранен");
-    //         // $scope.positions = response.data;
-    //     });
 
     $scope.getPositions = function () {
         $http.get(contextPath + '/getAllPositions')
@@ -38,17 +33,6 @@ angular.module('app', []).controller('editRanksController', function ($scope, $h
                     console.log(error.response);
                 });
         }
-        // $http.get(contextPath + '/getFirefighters/' + numberStation)
-        //     .then(function (response) {
-        //         $scope.firefighters.length = 0;
-        //         $scope.numberOfStation = numberStation;
-        //         $scope.firefightersOfStation = response.data;
-        //         for (let fireFighter of response.data) {
-        //             $scope.firefighters.push(fireFighter.name);
-        //         }
-        //     }, function (error) {
-        //         // handle error
-        //     });
     };
 
     $scope.remove = function (position) {

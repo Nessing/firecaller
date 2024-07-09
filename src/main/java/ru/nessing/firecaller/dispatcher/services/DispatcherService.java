@@ -2,10 +2,7 @@ package ru.nessing.firecaller.dispatcher.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.nessing.firecaller.dispatcher.repositories.CarsRepository;
-import ru.nessing.firecaller.dispatcher.repositories.FireStationRepository;
-import ru.nessing.firecaller.dispatcher.repositories.FirefightersRepository;
-import ru.nessing.firecaller.dispatcher.repositories.PositionRepository;
+import ru.nessing.firecaller.dispatcher.repositories.*;
 import ru.nessing.firecaller.entities.*;
 import ru.nessing.firecaller.entities.DTOs.FirefighterDTO;
 
@@ -18,17 +15,20 @@ public class DispatcherService {
     private final PositionRepository positionRepository;
     private final FireStationRepository fireStationRepository;
     private final CarsRepository carsRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
     public DispatcherService(FirefightersRepository firefightersRepository,
                              PositionRepository positionRepository,
                              FireStationRepository fireStationRepository,
-                             CarsRepository carsRepository)
+                             CarsRepository carsRepository,
+                             TeamRepository teamRepository)
     {
         this.firefightersRepository = firefightersRepository;
         this.positionRepository = positionRepository;
         this.fireStationRepository = fireStationRepository;
         this.carsRepository = carsRepository;
+        this.teamRepository = teamRepository;
     }
 
     private List<FireStation> allFireStations = new ArrayList<>();
@@ -202,6 +202,10 @@ public class DispatcherService {
             squares.add(square);
         }
         return squares;
+    }
+
+    public List<Team> getTeams() {
+        return teamRepository.findAll();
     }
 
 }

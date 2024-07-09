@@ -51,6 +51,15 @@
                     </select>
                 </td>
             </div>
+            <div>
+                <label for="team">Отделение</label>
+                <td>
+                    <select id="team" for="team" class="form-select m-1" ng-model="employee.team" name="team" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in teams" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
         </fieldset>
         <div class="buttons">
             <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
