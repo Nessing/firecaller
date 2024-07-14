@@ -16,19 +16,22 @@ public class DispatcherService {
     private final FireStationRepository fireStationRepository;
     private final CarsRepository carsRepository;
     private final TeamRepository teamRepository;
+    private final RankRepository rankRepository;
 
     @Autowired
     public DispatcherService(FirefightersRepository firefightersRepository,
                              PositionRepository positionRepository,
                              FireStationRepository fireStationRepository,
                              CarsRepository carsRepository,
-                             TeamRepository teamRepository)
+                             TeamRepository teamRepository,
+                             RankRepository rankRepository)
     {
         this.firefightersRepository = firefightersRepository;
         this.positionRepository = positionRepository;
         this.fireStationRepository = fireStationRepository;
         this.carsRepository = carsRepository;
         this.teamRepository = teamRepository;
+        this.rankRepository = rankRepository;
     }
 
     private List<FireStation> allFireStations = new ArrayList<>();
@@ -133,7 +136,7 @@ public class DispatcherService {
         firefighterDTO.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
         firefighter.setId(null);
         firefighter.setShortName(firefighterDTO.getShortName());
-        firefighter.setRank("Сержант");
+//        firefighter.setRank("Сержант");
         if (firefighter.getPosition() == null) {
             return false;
         }
@@ -166,6 +169,18 @@ public class DispatcherService {
         return false;
     }
 
+    public Boolean addRank(String rank) {
+        if (rankRepository.findRankByName(rank) == null) {
+            Rank newRank = Rank.builder()
+                    .id(null)
+                    .name(rank)
+                    .build();
+            rankRepository.save(newRank);
+            return true;
+        }
+        return false;
+    }
+
     public Boolean deletePosition(Position position) {
         Position pos = positionRepository.findPositionByName(position.getName());
         if (pos != null) {
@@ -175,8 +190,21 @@ public class DispatcherService {
         return false;
     }
 
+    public Boolean deleteRank(Rank rank) {
+        Rank pos = rankRepository.findRankByName(rank.getName());
+        if (pos != null) {
+            rankRepository.delete(pos);
+            return true;
+        }
+        return false;
+    }
+
     public List<Position> getAllPositions() {
         return positionRepository.findAll();
+    }
+
+    public List<Rank> getAllRanks() {
+        return rankRepository.findAll();
     }
 
     public Optional<FireStation> getFireStation(Long stationId) {

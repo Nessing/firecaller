@@ -34,6 +34,15 @@
                 <input id="mid_name" ng-model="employee.midName" class="m-1" type="text" name="midName" placeholder="Введите отчество">
             </div>
             <div>
+                <label for="rank">Звание</label>
+                <td>
+                    <select id="rank" for="rank" class="form-select m-1" ng-model="employee.rank" name="rank" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in ranks" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
+            <div>
                 <label for="position">Должность</label>
                     <td>
                         <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required>

@@ -46,6 +46,21 @@ public class DispatcherController {
         return service.getAllPositions();
     }
 
+    @GetMapping("/getAllRanks")
+    public List<Rank> getAllRanks() {
+        return service.getAllRanks();
+    }
+
+    @PostMapping("/removeRank")
+    public Boolean deletePosition(@RequestBody Rank rank) {
+        return service.deleteRank(rank);
+    }
+
+    @PostMapping("/createRank")
+    public Boolean addPosition(@RequestBody Rank rank) {
+        return service.addRank(rank.getName());
+    }
+
     @GetMapping("/getFirefighters/{fireStation}")
     public List<Firefighter> getFirefightersOfStation(@PathVariable Long fireStation) {
         return service.getFirefighters(fireStation);

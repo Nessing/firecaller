@@ -91,8 +91,9 @@ public class Firefighter {
     @Column(name = "short_name")
     private String shortName;
 
-    @Column(name = "rank")
-    private String rank;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "rank_id", referencedColumnName = "id")
+    private Rank rank;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "team_id", referencedColumnName = "id")

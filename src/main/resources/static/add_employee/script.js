@@ -2,6 +2,7 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
     const contextPath = 'http://localhost:8080';
 
     $scope.positions = new Map();
+    $scope.ranks = new Map();
     $scope.fire_stations = new Map();
     $scope.teams = new Map();
     $scope.person = {};
@@ -14,6 +15,15 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
         }).catch(error => {
             console.error(error);
         });
+
+    $http.get(contextPath + '/getAllRanks')
+        .then(function (response) {
+            $scope.ranks = Object.fromEntries(response.data.map(rank =>[rank.id, rank.name]));
+        }, function (error) {
+            // handle error
+        }).catch(error => {
+        console.error(error);
+    });
 
     $http.get(contextPath + '/getFireStations')
         .then(function (response) {
