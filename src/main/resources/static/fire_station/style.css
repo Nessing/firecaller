@@ -5,3 +5,7 @@
 .button_save {
     margin-left: 10px;
 }
+
+.active {
+    background-color: lightgreen;
+}

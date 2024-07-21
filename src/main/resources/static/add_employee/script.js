@@ -52,6 +52,10 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
                 id: employee.fireStation,
                 name: $scope.fire_stations[employee.fireStation]
             };
+            employee.rank = {
+                id: employee.rank,
+                name: $scope.ranks[employee.rank]
+            };
             employee.team = {
                 id: employee.team,
                 name: $scope.teams[employee.team]

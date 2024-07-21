@@ -6,6 +6,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.numberOfStation = numberStation;
     // $scope.name = params.get("name");
 
+    $scope.isShowFirefightersList = false;
+    $scope.isShowCarList = false;
     $scope.editMode = false;
     $scope.firefighters = [];
     $scope.firefightersMap = new Map();
@@ -94,6 +96,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
         // }
     }
+
+    $scope.showFirefightersList = function() {
+        $scope.isShowFirefightersList = !$scope.isShowFirefightersList;
+    };
+
+    $scope.showCarList = function() {
+        $scope.isShowCarList = !$scope.isShowCarList;
+    };
 
     $scope.getFirefighters();
 });
