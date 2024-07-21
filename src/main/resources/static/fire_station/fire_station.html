@@ -52,58 +52,46 @@
 <!--        </tbody>-->
 <!--    </table>-->
 
-    <button class="btn btn-outline-success" ng-click="showFirefightersList()" ng-class="{active:isShowFirefightersList}">Список личного состава караула</button>
-    <div ng-show="isShowFirefightersList">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <td>ФИО</td>
-                <td>Звание</td>
-                <td>Должность</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="firefighter in firefightersOfStation">
-                <td>{{firefighter.shortName}}</td>
-                <td>{{firefighter.rank.name}}</td>
-                <td>{{firefighter.position.name}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-<!--    <table class="table table-hover">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <td>Должность</td>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr ng-repeat="(key, position) in positions">-->
-<!--            <td>{{position}}</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
 
 
-<!--    <h3>Машины</h3>-->
-    <button class="btn btn-outline-success" ng-click="showCarList()" ng-class="{active:isShowCarList}">Машины</button>
-    <div ng-show="isShowCarList">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <td>Наименование</td>
-                <td>Номер</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="car in fireCars">
-                <td>{{car.name}}</td>
-                <td>{{car.numberCar}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+
+<!--    <button class="full_width margin_button btn btn-outline-success" ng-click="showFirefightersList()" ng-class="{active:isShowFirefightersList}">Список личного состава караула</button>-->
+<!--    <div ng-show="isShowFirefightersList">-->
+<!--        <table class="table table-hover">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <td>ФИО</td>-->
+<!--                <td>Звание</td>-->
+<!--                <td>Должность</td>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr ng-repeat="firefighter in firefightersOfStation">-->
+<!--                <td>{{firefighter.shortName}}</td>-->
+<!--                <td>{{firefighter.rank.name}}</td>-->
+<!--                <td>{{firefighter.position.name}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--    -->
+<!--    <button class="full_width margin_button btn btn-outline-success" ng-click="showCarList()" ng-class="{active:isShowCarList}">Машины</button>-->
+<!--    <div ng-show="isShowCarList">-->
+<!--        <table class="table table-hover">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <td>Наименование</td>-->
+<!--                <td>Номер</td>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr ng-repeat="car in fireCars">-->
+<!--                <td>{{car.name}}</td>-->
+<!--                <td>{{car.numberCar}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
 
     <h3>Караул</h3>
 
@@ -124,6 +112,45 @@
                     <td>{{firefighter.rank.name}}</td>
                     <td>{{firefighter.position.name}}</td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <button class="full_width margin_button btn btn-outline-success" ng-click="showFirefightersList()" ng-class="{active:isShowFirefightersList}">Список личного состава караула</button>
+    <div class="div-table_background" ng-show="isShowFirefightersList">
+        <table class="table table-border">
+            <thead>
+            <tr>
+                <td>ФИО</td>
+                <td>Звание</td>
+                <td>Должность</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="firefighter in firefightersOfStation">
+                <td>{{firefighter.shortName}}</td>
+                <td>{{firefighter.rank.name}}</td>
+                <td>{{firefighter.position.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="full_width margin_button btn btn-outline-success" ng-click="showCarList()" ng-class="{active:isShowCarList}">Машины</button>
+    <div class="div-table_background" ng-show="isShowCarList">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Наименование</td>
+                <td>Номер</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="car in fireCars">
+                <td>{{car.name}}</td>
+                <td>{{car.numberCar}}</td>
+            </tr>
             </tbody>
         </table>
     </div>

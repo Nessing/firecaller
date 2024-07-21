@@ -8,4 +8,18 @@
 
 .active {
     background-color: lightgreen;
+    margin-bottom: 0 !important;
+    border-radius: 6px 6px 0 0;
+}
+
+.div-table_background {
+    background: #efefef;
+}
+
+.full_width {
+    width: 100%;
+}
+
+.margin_button {
+    margin-bottom: 10px;
 }
