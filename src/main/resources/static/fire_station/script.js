@@ -1,13 +1,17 @@
-angular.module('app', []).controller('indexController', function ($scope, $http) {
+angular.module('app', []).controller('indexController', function ($scope, $http, $timeout) {
     const contextPath = 'http://localhost:8080';
 
     let params = (new URL(document.location)).searchParams;
     let numberStation = params.get("id");
+    $scope.car = null;
     $scope.numberOfStation = numberStation;
     // $scope.name = params.get("name");
 
     $scope.isShowFirefightersList = false;
     $scope.isShowCarList = false;
+    $scope.isModalCarWindow = false;
+    $scope.isHiddenNotification = false;
+    $scope.showHiddenNotification = false;
     $scope.editMode = false;
     $scope.firefighters = [];
     $scope.firefightersMap = new Map();
@@ -29,14 +33,16 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             // handle error
         });
 
-    $http.get(contextPath + '/getCars/' + numberStation)
-        .then(function (response) {
-            if (response.data != null) {
-                $scope.fireCars = response.data;
-            }
-        }, function (error) {
-            // handle error
-        });
+    $scope.getCars = function () {
+        $http.get(contextPath + '/getCars/' + numberStation)
+            .then(function (response) {
+                if (response.data != null) {
+                    $scope.fireCars = response.data;
+                }
+            }, function (error) {
+                // handle error
+            });
+    }
 
     $http.get(contextPath + '/getSquare/' + numberStation)
         .then(function (response) {
@@ -97,6 +103,17 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         // }
     }
 
+    $scope.deleteCar = function (car) {
+        $scope.isModalCarWindow = false;
+        console.log(car.name + " " + car.numberCar + " типа удален");
+        $scope.isHiddenNotification = true;
+        $scope.showHiddenNotification = true;
+        $timeout(function () {
+            $scope.isHiddenNotification = false;
+        }, 1000);
+        $scope.getCars();
+    }
+
     $scope.showFirefightersList = function() {
         $scope.isShowFirefightersList = !$scope.isShowFirefightersList;
     };
@@ -105,5 +122,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $scope.isShowCarList = !$scope.isShowCarList;
     };
 
+    $scope.openModalCarWindow = function(car) {
+        $scope.car = car;
+        console.log("show: " + car.name + " " + car.numberCar);
+        $scope.isModalCarWindow = true;
+    };
+    $scope.closeModalCarWindow = function() {
+        $scope.isModalCarWindow = false;
+    };
+
+    // $timeout(function () {
+    //     $scope.isHiddenNotification = true;
+    // }, 3000).then(r => $scope.isHiddenNotification = false);
+
     $scope.getFirefighters();
+    $scope.getCars();
 });

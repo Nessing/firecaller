@@ -23,3 +23,109 @@
 .margin_button {
     margin-bottom: 10px;
 }
+/* modal_window */
+.modal_window {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    background-color: rgba(211, 212, 219, 0.7);
+}
+.modal_window-content {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #d5d5d5;
+}
+.modal_window-content-header {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    border: 1px solid #99999961;
+    border-radius: 10px 10px 0 0;
+    background-color: #dfdfdf;
+}
+.modal_window-content-caption {
+    margin-left: 10px;
+    font-family: sans-serif;
+}
+.modal_window-content-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal_window-content-title-text {
+    margin: 10px;
+    font-family: sans-serif;
+}
+.modal_window-content-close {
+    background-image: url(../icons/close.svg);
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position-y: -7px;
+    background-position-x: -7px;
+    background-color: #dfdfdf;
+    width: 31px;
+    height: 31px;
+    transition: 0.3s;
+    border-radius: 7px;
+    border: none;
+    margin: 0 0 0 auto;
+}
+.modal_window-content-close:hover {
+    background-image: url(../icons/close_white.svg);
+    transition: 0.3s;
+    background-color: #dc3545;
+}
+.modal_window-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: auto;
+}
+.modal_window-btn-ok {
+    margin: 10px auto 10px 10px;
+}
+.modal_window-btn-cancel {
+    margin: 10px;
+}
+
+
+/* notification */
+
+.notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: lightblue;
+    border: 2px solid blue;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.notification-fade-it {
+    z-index: 10;
+    opacity: 1;
+}
+.notification-fade-out {
+    z-index: -9999;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.notification-content {
+    position: absolute;
+    width: 330px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #99999961;
+}

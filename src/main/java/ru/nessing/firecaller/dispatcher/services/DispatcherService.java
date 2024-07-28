@@ -236,4 +236,14 @@ public class DispatcherService {
         return teamRepository.findAll();
     }
 
+
+    public Boolean createCar(Car car) {
+        if (carsRepository.findCarByNameAndAndNumberCar(car.getName(), car.getNumberCar()) == null) {
+            carsRepository.save(car);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

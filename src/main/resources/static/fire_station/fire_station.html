@@ -144,45 +144,43 @@
             <tr>
                 <td>Наименование</td>
                 <td>Номер</td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="car in fireCars">
-                <td>{{car.name}}</td>
-                <td>{{car.numberCar}}</td>
-            </tr>
+                <tr ng-repeat="car in fireCars">
+                    <td>{{car.name}}</td>
+                    <td>{{car.numberCar}}</td>
+                    <td><input class="modal_window-content-close" type="submit" name="delete_car" value="" placeholder="Удалить машину" ng-click="openModalCarWindow(car)"></td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-<!--    <h3>Добавить сотрудника</h3>-->
-<!--    <form name="firefighter" novalidate ng-submit="createNewPerson()" style="margin-bottom: 10px">-->
-<!--        <div class="form-group col-md-6">-->
-<!--            <label for="FIO">ФИО</label>-->
-<!--            <input class="form-control" type="text" required placeholder="Введите ФИО" ng-model="newFirefighter.name" id="FIO">-->
-<!--        </div>-->
+<!-- Модальное окно для подтверждения удаления машины -->
+    <div class="modal_window" ng-show="isModalCarWindow">
+        <div class="modal_window-content">
+            <div class="modal_window-content-header">
+                <span class="modal_window-content-caption">Удаление</span>
+                <input class="modal_window-content-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">
+            </div>
+            <div class="modal_window-content-title">
+                <span class="modal_window-content-title-text">Удалить {{car.name + " № " + car.nameCar + " " + car.numberCar}}?</span>
+            </div>
+            <div class="modal_window-buttons">
+                <input class="btn btn-success modal_window-btn-ok" type="submit" value="Да" ng-click="deleteCar(car)">
+                <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalCarWindow()">
+            </div>
+        </div>
+    </div>
 
-<!--        <label for="rank">Должность</label>-->
-<!--        <select class="form-select" aria-label="Default select example" required="true" placeholder="Не выбрана должность!" ng-model="newFirefighter.rank" id="rank">-->
-<!--            &lt;!&ndash;                <option value="">&#45;&#45;выберите должность&#45;&#45;</option>&ndash;&gt;-->
-<!--            <option value=""></option>-->
-<!--            <option value="Начальник караула">Начальник караула</option>-->
-<!--            <option value="ПНК">ПНК</option>-->
-<!--            <option value="Командир отделения">Командир отделения</option>-->
-<!--        </select>-->
+<!-- Оповещение   -->
+    <div class="notification" ng-show="showHiddenNotification" ng-class="{'notification-fade-in': isHiddenNotification, 'notification-fade-out': !isHiddenNotification}">
+        <div>
+            <span>Машина удалена!</span>
+        </div>
+    </div>
 
-<!--        <label for="fireStation">Номер ПСЧ</label>-->
-<!--        <select class="form-select" aria-label="Default select example" required placeholder="Не выбрана должность!" ng-model="newFirefighter.fireStation" id="fireStation">-->
-<!--            &lt;!&ndash;                <option value="">&#45;&#45;выберите номер ПЧ&#45;&#45;</option>&ndash;&gt;-->
-<!--            <option value=""></option>-->
-<!--            <option value="1">1</option>-->
-<!--            <option value="2">2</option>-->
-<!--            <option value="3">3</option>-->
-<!--        </select>-->
-<!--        <div>-->
-<!--            <button class="btn btn-success" type="submit" ng-disabled="firefighter.$invalid">Сохранить</button>-->
-<!--        </div>-->
-<!--    </form>-->
     <form name="employeeForm">
         <div class="buttons">
             <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
@@ -198,21 +196,6 @@
             <input class="btn btn-danger m-2" type="submit" name="delete_employee" value="Удалить" ng-click="delete(employee)">
         </div>
     </form>
-
-    <!--    <h3>Добавить новый товар</h3>-->
-    <!--    <form novalidate ng-submit="submitCreateNewProduct()">-->
-    <!--        <div class="form-group col-md-6">-->
-    <!--            <label for="newProductTitle">Название</label>-->
-    <!--            <input class="form-control" type="text" ng-model="newProduct.title" id="newProductTitle">-->
-    <!--        </div>-->
-    <!--        <div class="form-group col-md-6">-->
-    <!--            <label for="newProductPrice">Цена</label>-->
-    <!--            <input class="form-control" type="number" ng-model="newProduct.price" id="newProductPrice">-->
-    <!--        </div>-->
-    <!--        <div>-->
-    <!--            <button class="btn btn-success" type="submit">Сохранить</button>-->
-    <!--        </div>-->
-    <!--    </form>-->
 </div>
 </body>
 </html>

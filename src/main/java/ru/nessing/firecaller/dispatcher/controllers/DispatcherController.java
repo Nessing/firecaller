@@ -106,6 +106,11 @@ public class DispatcherController {
         return service.getFire(id);
     }
 
+    @PostMapping("/createCar")
+    public Boolean createCar(@RequestBody Car car) {
+        return service.createCar(car);
+    }
+
 //    @GetMapping
 //    public String getAllFireStations() {
 //        return service.getAllFireStationLocal();
