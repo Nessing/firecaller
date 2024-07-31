@@ -18,81 +18,6 @@
 <div class="container" ng-controller="indexController">
     <h1>{{name}}</h1>
 
-<!--    <h3>Список личного состава</h3>-->
-<!--    <div class="buttons">-->
-<!--        <button class="btn btn-outline-success" ng-show="!editMode" ng-click="editMode = true">Изменить</button>-->
-<!--        <button class="btn btn-outline-danger" ng-show="editMode" ng-click="editMode = false; getFirefighters()">Отменить</button>-->
-<!--        <button class="btn btn-outline-success button_save" ng-show="editMode" ng-click="editMode = false">Сохранить</button>-->
-<!--    </div>-->
-
-<!--    <select name="fireStation" class="form-select" aria-label="Default select example" ng-model="numberFireStation" ng-change="getFirefightersOfStation(numberFireStation)" style="margin-bottom: 10px">-->
-<!--        <option ng-selected="selected" value="1">1 ПСЧ</option>-->
-<!--        <option value="2">2 ПСЧ</option>-->
-<!--        <option value="3">3 ПСЧ</option>-->
-<!--    </select>-->
-    <!--        <button class="btn btn-secondary" type="submit" ng-click="getFirefightersOfStation(numberFireStation)" ng-disabled="fireStation.$invalid">Получить список л/с</button>-->
-
-<!--    <table class="table table-hover">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <td>ФИО</td>-->
-<!--            <td>Должность</td>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr ng-repeat="p in firefightersOfStation">-->
-<!--            <td ng-show="!editMode">{{p.shortName}}</td>-->
-<!--            <td ng-show="editMode">-->
-<!--                <select class="form-select" ng-model="p.shortName" ng-options="firefighter for firefighter in firefighters">-->
-<!--                    <option value="">&#45;&#45;&#45;&#45;</option>-->
-<!--                </select>-->
-<!--            </td>-->
-<!--            <td>{{p.position.name}}</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-
-
-
-
-<!--    <button class="full_width margin_button btn btn-outline-success" ng-click="showFirefightersList()" ng-class="{active:isShowFirefightersList}">Список личного состава караула</button>-->
-<!--    <div ng-show="isShowFirefightersList">-->
-<!--        <table class="table table-hover">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <td>ФИО</td>-->
-<!--                <td>Звание</td>-->
-<!--                <td>Должность</td>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr ng-repeat="firefighter in firefightersOfStation">-->
-<!--                <td>{{firefighter.shortName}}</td>-->
-<!--                <td>{{firefighter.rank.name}}</td>-->
-<!--                <td>{{firefighter.position.name}}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--    -->
-<!--    <button class="full_width margin_button btn btn-outline-success" ng-click="showCarList()" ng-class="{active:isShowCarList}">Машины</button>-->
-<!--    <div ng-show="isShowCarList">-->
-<!--        <table class="table table-hover">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <td>Наименование</td>-->
-<!--                <td>Номер</td>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr ng-repeat="car in fireCars">-->
-<!--                <td>{{car.name}}</td>-->
-<!--                <td>{{car.numberCar}}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-
     <h3>Караул</h3>
 
     <div ng-repeat="square in squares">
@@ -144,14 +69,52 @@
             <tr>
                 <td>Наименование</td>
                 <td>Номер</td>
+                <td>Отделение</td>
+                <td></td>
                 <td></td>
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="car in fireCars">
-                    <td>{{car.name}}</td>
-                    <td>{{car.numberCar}}</td>
-                    <td><input class="modal_window-content-close" type="submit" name="delete_car" value="" placeholder="Удалить машину" ng-click="openModalCarWindow(car)"></td>
+                <tr ng-repeat="car in fireCars track by $index">
+                    <td ng-show="selectedCarIndex !== $index">
+                        <span>{{car.name}}</span>
+                    </td>
+                    <td ng-show="selectedCarIndex === $index">
+                        <input class="text-input" ng-model="car.name" value="{{car.name}}">
+                    </td>
+
+                    <td ng-show="selectedCarIndex !== $index">
+                        <span>{{car.numberCar}}</span>
+                    </td>
+                    <td ng-show="selectedCarIndex === $index">
+                        <input class="text-input" ng-model="car.numberCar" value="{{car.numberCar}}">
+                    </td>
+
+<!--                    <td ng-show="selectedCarIndex !== $index">-->
+<!--                        <span>{{ car.team.name }}</span>-->
+<!--                    </td>-->
+<!--                    <td ng-show="selectedCarIndex === $index">-->
+<!--&lt;!&ndash;                        <span ng-show="selectedCarIndex !== $index">{{ car.team.name }}</span>&ndash;&gt;-->
+<!--                        <select class="form-select" ng-show="selectedCarIndex === $index" ng-model="car.team" name="team" ng-options="key as value for (key, value) in teams"-->
+<!--                                ng-init="car.team = getKeyByValue(teams, car.team.name)">-->
+<!--                            <option value="">-&#45;&#45;</option>-->
+<!--                        </select>-->
+<!--                    </td>-->
+
+                    <td>
+                        <span ng-if="selectedCarIndex !== $index">{{ car.team.name }}</span>
+                        <select class="form-select" ng-if="selectedCarIndex === $index" ng-model="car.team" name="team" ng-options="key as value for (key, value) in teams"
+                                ng-init="car.team = getKeyByValue(teams, car.team.name)">
+                            <option value="">----</option>
+                        </select>
+                    </td>
+
+                    <!--//*** Сохранение изменений. Если выбранный ход имеется, то менять местами **/-->
+
+                    <td><input ng-show="selectedCarIndex !== $index && !isEditSelectedCar" class="button-edit" type="submit" name="edit_car" value="" title="Редактировать машину" ng-click="editCar($index)"></td>
+                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-success" type="submit" name="ok_edit_car" value="Ок" title="Сохранить" ng-click="updateCar(car)"></td>
+                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-danger" type="submit" name="cancel_edit_car" value="Отмена" title="Отмена" ng-click="cancelEditCar()"></td>
+                    <td><input class="button-close" type="submit" name="delete_car" value="" title="Удалить машину" ng-click="openModalCarWindow(car)"></td>
                 </tr>
             </tbody>
         </table>
@@ -162,7 +125,7 @@
         <div class="modal_window-content">
             <div class="modal_window-content-header">
                 <span class="modal_window-content-caption">Удаление</span>
-                <input class="modal_window-content-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">
+                <input class="button-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">
             </div>
             <div class="modal_window-content-title">
                 <span class="modal_window-content-title-text">Удалить {{car.name + " № " + car.nameCar + " " + car.numberCar}}?</span>

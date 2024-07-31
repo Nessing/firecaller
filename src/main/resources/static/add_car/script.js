@@ -40,23 +40,24 @@ angular.module('app', []).controller('addCarController', function ($scope, $http
         if (car !== undefined &&
             car.name !== undefined && car.name.trim().length !== 0 &&
             car.numberCar !== undefined && car.numberCar.trim().length !== 0 &&
-            car.fireStation !== undefined && car.fireStation.trim().length !== 0 &&
-            car.team !== undefined && car.team.trim().length !== 0) {
+            car.fireStation !== undefined && car.fireStation.trim().length !== 0) {
             console.log("yes");
             car.fireStation = {
                 id: car.fireStation,
                 name: $scope.fire_stations[car.fireStation]
             };
-            car.team = {
-                id: car.team,
-                name: $scope.teams[car.team]
-            };
+            if (car.team !== undefined && car.team.trim().length !== 0) {
+                car.team = {
+                    id: car.team,
+                    name: $scope.teams[car.team]
+                };
+            }
             $http.post(contextPath + "/createCar", car)
                 .then(function (response) {
                     if (response.data) {
-                        alert("Сотрудник " + car.name + " " + car.numberCar + " " + " добавлен в часть: " + car.fire_station);
+                        alert("Машина " + car.name + " " + car.numberCar + " " + " добавлен в часть: " + car.fire_station);
                     } else {
-                        alert("Произошла ошибка при добавлении сотрудника!");
+                        alert("Произошла ошибка при добавлении машины!");
                     }
             });
         }

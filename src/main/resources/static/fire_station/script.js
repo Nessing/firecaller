@@ -13,9 +13,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.isHiddenNotification = false;
     $scope.showHiddenNotification = false;
     $scope.editMode = false;
+    $scope.isEditSelectedCar = false;
+    $scope.isEditingCar = false;
+    $scope.selectedTeam = null;
+    $scope.selectedCarIndex = -1;
     $scope.firefighters = [];
     $scope.firefightersMap = new Map();
     $scope.squares = [];
+    $scope.teams = new Map();
 
     $http.get(contextPath + '/getPositions')
         .then(function (response) {
@@ -44,6 +49,27 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
             });
     }
 
+    $http.get(contextPath + '/getTeams')
+        .then(function (response) {
+            $scope.teams = Object.fromEntries(response.data.map(team =>[team.id, team.name]));
+        });
+
+    $scope.getKeyByValue = function(object, value) {
+        return Object.keys(object).find(key => object[key] === value);
+    };
+
+    $scope.editTeam = function() {
+        $scope.isEditingCar = true;
+        $scope.selectedTeam = $scope.getKeyByValue($scope.teams, $scope.car.team.name);
+        console.log("editTeam" + $scope.selectedTeam);
+    };
+
+    $scope.saveTeam = function() {
+        $scope.isEditingCar = false;
+        $scope.car.team = $scope.teams[$scope.selectedTeam];
+    };
+
+
     $http.get(contextPath + '/getSquare/' + numberStation)
         .then(function (response) {
             $scope.numberOfStation = numberStation;
@@ -52,17 +78,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
             // handle error
         });
 
-    $http.get(contextPath + '/getSquareOfStation/' + numberStation)
-        .then(function (response) {
-            $scope.squares = response.data;
-            console.log($scope.squares);
-            for (let i = 0; i < $scope.squares.length; i++) {
-                console.log($scope.squares[i].firefighters);
-                console.log($scope.squares[i].team.name);
-            }
-        }, function (error) {
-            // handle error
-        });
+    $scope.getSquares = function () {
+        $http.get(contextPath + '/getSquareOfStation/' + numberStation)
+            .then(function (response) {
+                $scope.squares = response.data;
+                console.log($scope.squares);
+                for (let i = 0; i < $scope.squares.length; i++) {
+                    console.log($scope.squares[i].firefighters);
+                    console.log($scope.squares[i].team.name);
+                }
+            }, function (error) {
+                // handle error
+            });
+    }
 
     $scope.getFirefighters = function () {
         $http.get(contextPath + '/getFirefighters/' + numberStation)
@@ -104,14 +132,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     }
 
     $scope.deleteCar = function (car) {
-        $scope.isModalCarWindow = false;
-        console.log(car.name + " " + car.numberCar + " типа удален");
-        $scope.isHiddenNotification = true;
-        $scope.showHiddenNotification = true;
-        $timeout(function () {
-            $scope.isHiddenNotification = false;
-        }, 1000);
-        $scope.getCars();
+        $http.post(contextPath + "/deleteCar", car)
+            .then(function (response){
+                console.log(response.data);
+                $scope.getSquares();
+                $scope.getCars();
+                $scope.isModalCarWindow = false;
+                $scope.isHiddenNotification = true;
+                $scope.showHiddenNotification = true;
+                $timeout(function () {
+                    $scope.isHiddenNotification = false;
+                }, 1000);
+            });
     }
 
     $scope.showFirefightersList = function() {
@@ -131,10 +163,39 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         $scope.isModalCarWindow = false;
     };
 
-    // $timeout(function () {
-    //     $scope.isHiddenNotification = true;
-    // }, 3000).then(r => $scope.isHiddenNotification = false);
+    $scope.editCar = function (index) {
+        $scope.selectedCarIndex = index;
+        $scope.editSelectedCar();
+    }
 
+    $scope.editSelectedCar = function () {
+        $scope.isEditSelectedCar = !$scope.isEditSelectedCar;
+    }
+    $scope.cancelEditCar = function () {
+        $scope.selectedCarIndex = -1;
+        $scope.editSelectedCar();
+        $scope.getCars();
+    }
+
+    $scope.updateCar = function (car) {
+        console.log(car);
+        if (car.team !== null && car.team !== undefined && car.team.trim().length !== 0) {
+            car.team = {
+                id: car.team,
+                name: $scope.teams[car.team]
+            };
+        } else {
+            car.team = null;
+        }
+        $http.post(contextPath + "/updateCar", car)
+            .then(function (response) {
+                $scope.cancelEditCar();
+                $scope.getSquares();
+                $scope.getCars();
+            });
+    }
+
+    $scope.getSquares();
     $scope.getFirefighters();
     $scope.getCars();
 });

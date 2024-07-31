@@ -71,6 +71,16 @@ public class DispatcherController {
         return service.getCars(fireStation);
     }
 
+    @PostMapping("/updateCar")
+    public Boolean updateCar(@RequestBody Car car) {
+        return service.updateCar(car);
+    }
+
+    @PostMapping("/deleteCar")
+    public void deleteCar(@RequestBody Car car) {
+        service.deleteCar(car);
+    }
+
     @GetMapping("/getSquare/{fireStation}")
     public List<Square> getSquare(@PathVariable int fireStation) {
         return service.getSquare(fireStation);

@@ -66,7 +66,7 @@
     margin: 10px;
     font-family: sans-serif;
 }
-.modal_window-content-close {
+.button-close {
     background-image: url(../icons/close.svg);
     background-size: 45px;
     background-repeat: no-repeat;
@@ -80,11 +80,31 @@
     border: none;
     margin: 0 0 0 auto;
 }
-.modal_window-content-close:hover {
+.button-close:hover {
     background-image: url(../icons/close_white.svg);
     transition: 0.3s;
     background-color: #dc3545;
 }
+.button-edit {
+    background-image: url(../icons/edit.svg);
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position-y: -7px;
+    background-position-x: -7px;
+    background-color: #dfdfdf;
+    width: 31px;
+    height: 31px;
+    transition: 0.3s;
+    border-radius: 7px;
+    border: none;
+    margin: 0 0 0 auto;
+}
+.button-edit:hover {
+    background-image: url(../icons/edit_white.svg);
+    transition: 0.3s;
+    background-color: #5b595a;
+}
+
 .modal_window-buttons {
     display: flex;
     flex-flow: row wrap;

@@ -119,7 +119,7 @@ public class DispatcherService {
     }
 
     public List<Car> getCars(Long fireStation) {
-        return carsRepository.findCarsByFireStation_Id(fireStation);
+        return carsRepository.findCarsByFireStation_IdOrderByTeam(fireStation);
     }
 
     public List<Square> getSquare(int fireStation) {
@@ -215,19 +215,21 @@ public class DispatcherService {
         List<Square> squares = new ArrayList<>();
         FireStation fireStation = fireStationRepository.findFireStationById(stationId);
         List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_Id(stationId);
-        List<Car> cars = carsRepository.findCarsByFireStation_Id(stationId);
+        List<Car> cars = carsRepository.findCarsByFireStation_IdOrderByTeam(stationId);
 
         for (Car car : cars) {
-            Square square = new Square();
-            square.setFireStation(fireStation);
-            square.setCar(car);
-            square.setTeam(car.getTeam());
-            for (Firefighter firefighter : firefighters) {
-                if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
-                    square.getFirefighters().add(firefighter);
+            if (car.getTeam() != null) {
+                Square square = new Square();
+                square.setFireStation(fireStation);
+                square.setCar(car);
+                square.setTeam(car.getTeam());
+                for (Firefighter firefighter : firefighters) {
+                    if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
+                        square.getFirefighters().add(firefighter);
+                    }
                 }
+                squares.add(square);
             }
-            squares.add(square);
         }
         return squares;
     }
@@ -246,4 +248,24 @@ public class DispatcherService {
         }
     }
 
+    public Boolean updateCar(Car car) {
+        if (car.getTeam() != null) {
+            String teamName = car.getTeam().getName();
+            Car currentCar = carsRepository.findCarById(car.getId());
+            Car foundCar = carsRepository.findCarByTeamNameAndAndFireStation_Id(teamName, car.getFireStation().getId());
+            if (foundCar != null) {
+                foundCar.setTeam(currentCar.getTeam());
+                carsRepository.save(foundCar);
+            }
+            carsRepository.save(car);
+            return true;
+        } else {
+            carsRepository.save(car);
+            return true;
+        }
+    }
+
+    public void deleteCar(Car car) {
+        carsRepository.deleteById(car.getId());
+    }
 }
