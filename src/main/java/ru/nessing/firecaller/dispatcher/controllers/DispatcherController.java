@@ -36,10 +36,10 @@ public class DispatcherController {
         return service.getTeams();
     }
 
-    @GetMapping("/getPositions")
-    public Map<Long, String> getPositions() {
-        return service.getPositions();
-    }
+//    @GetMapping("/getPositions")
+//    public Map<Long, String> getPositions() {
+//        return service.getPositions();
+//    }
 
     @GetMapping("/getAllPositions")
     public List<Position> getAllPositions() {
@@ -94,6 +94,11 @@ public class DispatcherController {
     @PostMapping("/deletePerson")
     public Boolean deleteFirefighter(@RequestBody Long id) {
         return service.deleteFirefighter(id);
+    }
+
+    @PostMapping("/updatePerson")
+    public Boolean updatePerson(@RequestBody Firefighter firefighter) {
+        return service.updatePerson(firefighter);
     }
 
 //    @GetMapping("/createTest")

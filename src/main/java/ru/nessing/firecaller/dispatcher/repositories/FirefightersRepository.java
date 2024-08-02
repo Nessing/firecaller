@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface FirefightersRepository extends JpaRepository<Firefighter, Long> {
     Firefighter findFirefighterById(Long id);
-    List<Firefighter> findFirefightersByFireStation_Id(Long id);
+    List<Firefighter> findFirefightersByFireStation_IdOrderByTeam(Long id);
 }

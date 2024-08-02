@@ -115,7 +115,7 @@ public class DispatcherService {
     }
 
     public List<Firefighter> getFirefighters(Long fireStation) {
-        return firefightersRepository.findFirefightersByFireStation_Id(fireStation);
+        return firefightersRepository.findFirefightersByFireStation_IdOrderByTeam(fireStation);
     }
 
     public List<Car> getCars(Long fireStation) {
@@ -136,7 +136,6 @@ public class DispatcherService {
         firefighterDTO.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
         firefighter.setId(null);
         firefighter.setShortName(firefighterDTO.getShortName());
-//        firefighter.setRank("Сержант");
         if (firefighter.getPosition() == null) {
             return false;
         }
@@ -155,6 +154,29 @@ public class DispatcherService {
             return true;
         }
         return false;
+    }
+
+    public Boolean updatePerson(Firefighter firefighter) {
+        FirefighterDTO firefighterDTO = new FirefighterDTO();
+        firefighterDTO.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
+        firefighter.setShortName(firefighterDTO.getShortName());
+        firefightersRepository.save(firefighter);
+        return true;
+
+//        if (firefighter.getTeam() != null) {
+//            String teamName = firefighter.getTeam().getName();
+//            Firefighter currentFirefighter = firefightersRepository.findFirefighterById(firefighter.getId());
+//            Firefighter foundFirefighter = firefightersRepository.findFirefighterByTeamNameAndAndFireStation_Id(teamName, firefighter.getFireStation().getId());
+//            if (foundFirefighter != null) {
+//                foundFirefighter.setTeam(currentFirefighter.getTeam());
+//                firefightersRepository.save(foundFirefighter);
+//            }
+//            firefightersRepository.save(firefighter);
+//            return true;
+//        } else {
+//            firefightersRepository.save(firefighter);
+//            return true;
+//        }
     }
 
     public Boolean addPosition(String position) {
@@ -214,7 +236,7 @@ public class DispatcherService {
     public List<Square> getSquareOfStation(Long stationId) {
         List<Square> squares = new ArrayList<>();
         FireStation fireStation = fireStationRepository.findFireStationById(stationId);
-        List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_Id(stationId);
+        List<Firefighter> firefighters = firefightersRepository.findFirefightersByFireStation_IdOrderByTeam(stationId);
         List<Car> cars = carsRepository.findCarsByFireStation_IdOrderByTeam(stationId);
 
         for (Car car : cars) {

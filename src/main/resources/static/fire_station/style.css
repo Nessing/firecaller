@@ -45,6 +45,14 @@
     border-radius: 10px;
     background-color: #d5d5d5;
 }
+.modal_window-content-person-card {
+    display: flex;
+    flex-direction: column;
+    width: 460px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #d5d5d5;
+}
 .modal_window-content-header {
     display: flex;
     flex-flow: row wrap;
@@ -62,8 +70,36 @@
     align-items: center;
     justify-content: center;
 }
+.modal_window-content-title-text-horizontal-space-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal_window-content-title-vertical-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
 .modal_window-content-title-text {
     margin: 10px;
+    font-family: sans-serif;
+}
+.modal_window-content-title-text-half-width {
+    margin: 10px;
+    width: 50%;
+    font-family: sans-serif;
+}
+.modal_window-content-title-text-center {
+    margin: 10px;
+    width: 100%;
+    text-align: center;
+    font-family: sans-serif;
+}
+.modal_window-content-title-text-left {
+    margin: 10px;
+    width: 100%;
+    text-align: left;
     font-family: sans-serif;
 }
 .button-close {
@@ -85,6 +121,47 @@
     transition: 0.3s;
     background-color: #dc3545;
 }
+
+.button-delete {
+    background-image: url(../icons/delete.svg);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position-y: 3px;
+    background-position-x: 3px;
+    background-color: #dfdfdf;
+    width: 31px;
+    height: 31px;
+    transition: 0.3s;
+    border-radius: 7px;
+    border: none;
+    margin: 0 0 0 auto;
+}
+.button-delete:hover {
+    background-image: url(../icons/delete_white.svg);
+    transition: 0.3s;
+    background-color: #5b595a;
+}
+
+.button-person_edit {
+    background-image: url(../icons/person.svg);
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position-y: -4px;
+    background-position-x: 1px;
+    background-color: #dfdfdf;
+    width: 36px;
+    height: 27px;
+    transition: 0.3s;
+    border-radius: 7px;
+    border: none;
+    margin: 0 0 0 auto;
+}
+.button-person_edit:hover {
+    background-image: url(../icons/person_white.svg);
+    transition: 0.3s;
+    background-color: #5b595a;
+}
+
 .button-edit {
     background-image: url(../icons/edit.svg);
     background-size: 45px;

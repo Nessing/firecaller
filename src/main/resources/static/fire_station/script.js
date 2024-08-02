@@ -4,15 +4,20 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     let params = (new URL(document.location)).searchParams;
     let numberStation = params.get("id");
     $scope.car = null;
+    $scope.person = null;
     $scope.numberOfStation = numberStation;
+    $scope.personBinder = null;
+
     // $scope.name = params.get("name");
 
     $scope.isShowFirefightersList = false;
     $scope.isShowCarList = false;
     $scope.isModalCarWindow = false;
+    $scope.isModalPersonWindow = false;
     $scope.isHiddenNotification = false;
     $scope.showHiddenNotification = false;
     $scope.editMode = false;
+    $scope.isEditSelectedPerson = false;
     $scope.isEditSelectedCar = false;
     $scope.isEditingCar = false;
     $scope.selectedTeam = null;
@@ -22,9 +27,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.squares = [];
     $scope.teams = new Map();
 
-    $http.get(contextPath + '/getPositions')
+    $http.get(contextPath + '/getAllPositions')
         .then(function (response) {
-            $scope.positions = response.data;
+            $scope.positions = Object.fromEntries(response.data.map(team =>[team.id, team.name]));
+        }, function (error) {
+            // handle error
+        });
+    $http.get(contextPath + '/getAllRanks')
+        .then(function (response) {
+            $scope.ranks = Object.fromEntries(response.data.map(team =>[team.id, team.name]));
         }, function (error) {
             // handle error
         });
@@ -55,7 +66,16 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         });
 
     $scope.getKeyByValue = function(object, value) {
-        return Object.keys(object).find(key => object[key] === value);
+        if (value == null) {
+            return null;
+        }
+        for (var key in object) {
+            if (object[key] === value) {
+                return key;
+            }
+        }
+        return null;
+        // return Object.keys(object).find(key => object[key] === value);
     };
 
     $scope.editTeam = function() {
@@ -153,6 +173,58 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.showCarList = function() {
         $scope.isShowCarList = !$scope.isShowCarList;
     };
+
+    $scope.openModalPersonWindow = function(person) {
+        $scope.person = person;
+        $scope.isModalPersonWindow = true;
+    };
+    $scope.closeModalPersonWindow = function() {
+        $scope.isModalPersonWindow = false;
+        $scope.isEditSelectedPerson = false;
+        $scope.getFirefighters();
+    };
+
+    $scope.editPerson = function () {
+        $scope.editSelectedPerson();
+    }
+    $scope.editSelectedPerson = function () {
+        $scope.isEditSelectedPerson = !$scope.isEditSelectedPerson;
+    }
+
+    $scope.updatePerson = function (person) {
+        if (person.position !== null && person.position !== undefined && person.position.trim().length !== 0) {
+            person.position = {
+                id: person.position,
+                name: $scope.positions[person.position]
+            };
+        } else {
+            person.position = null;
+        }
+
+        if (person.rank !== null && person.rank !== undefined && person.rank.trim().length !== 0) {
+            person.rank = {
+                id: person.rank,
+                name: $scope.ranks[person.rank]
+            };
+        } else {
+            person.rank = null;
+        }
+
+        if (person.team !== null && person.team !== undefined && person.team.trim().length !== 0) {
+            person.team = {
+                id: person.team,
+                name: $scope.teams[person.team]
+            };
+        } else {
+            person.team = null;
+        }
+        $http.post(contextPath + "/updatePerson", person)
+            .then(function (response) {
+                $scope.closeModalPersonWindow();
+                $scope.getSquares();
+                $scope.getFirefighters();
+            });
+    }
 
     $scope.openModalCarWindow = function(car) {
         $scope.car = car;

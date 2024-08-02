@@ -95,9 +95,9 @@ public class Firefighter {
     @JoinColumn(name = "rank_id", referencedColumnName = "id")
     private Rank rank;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "team_id", referencedColumnName = "id")
-    private Team team; //
+    private Team team;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "position_id", referencedColumnName = "id")
