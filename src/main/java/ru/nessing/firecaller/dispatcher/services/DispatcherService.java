@@ -12,42 +12,20 @@ import java.util.*;
 public class DispatcherService {
 
     private final PersonRepository personRepository;
-    private final PositionRepository positionRepository;
     private final FireStationRepository fireStationRepository;
     private final CarsRepository carsRepository;
     private final TeamRepository teamRepository;
-    private final RankRepository rankRepository;
 
     @Autowired
     public DispatcherService(PersonRepository personRepository,
-                             PositionRepository positionRepository,
                              FireStationRepository fireStationRepository,
                              CarsRepository carsRepository,
-                             TeamRepository teamRepository,
-                             RankRepository rankRepository)
+                             TeamRepository teamRepository)
     {
         this.personRepository = personRepository;
-        this.positionRepository = positionRepository;
         this.fireStationRepository = fireStationRepository;
         this.carsRepository = carsRepository;
         this.teamRepository = teamRepository;
-        this.rankRepository = rankRepository;
-    }
-
-    private List<Square> squareStation1 = new ArrayList<>();
-    private List<Square> squareStation2 = new ArrayList<>();
-
-    public Firefighter getFire(Long id) {
-        return personRepository.findFirefighterById(id);
-    }
-
-    public List<Square> getSquare(int fireStation) {
-        switch (fireStation) {
-            case 1 : return squareStation1;
-            case 2 : return squareStation2;
-//            case 3 : return firefighters3;
-            default: return null;
-        }
     }
     /** Добавить метод удаления пожарного
      **/
