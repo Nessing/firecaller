@@ -22,14 +22,4 @@ public class DispatcherController {
     public List<Team> getSquare() {
         return service.getTeams();
     }
-
-    @GetMapping("/getSquare/{fireStation}")
-    public List<Square> getSquare(@PathVariable int fireStation) {
-        return service.getSquare(fireStation);
-    }
-
-    @GetMapping("/getFire/{id}")
-    public Firefighter getFire(@PathVariable Long id) {
-        return service.getFire(id);
-    }
 }

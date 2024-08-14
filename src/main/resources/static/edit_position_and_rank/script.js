@@ -30,9 +30,7 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
             $http.post(contextPath + '/createPosition', newPosition)
                 .then(function (response) {
                     if (response.data) {
-                        console.log(response.data);
                         // Обрабатываем возвращенную строку
-                        console.log('Должность \"' + newPosition.name + '\" добавлена');
                         alert('Должность \"' + newPosition.name + '\" добавлена')
                         $scope.updateData();
                         // Добавьте здесь логику для дальнейшей обработки строки
@@ -42,7 +40,6 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
                     }
                 })
                 .catch(function (error) {
-                    console.log(error.response);
                 });
         }
     };
@@ -52,9 +49,7 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
             $http.post(contextPath + '/createRank', newRank)
                 .then(function (response) {
                     if (response.data) {
-                        console.log(response.data);
                         // Обрабатываем возвращенную строку
-                        console.log('Звание \"' + newRank.name + '\" добавлено');
                         alert('Звание \"' + newRank.name + '\" добавлено')
                         $scope.updateData();
                         // Добавьте здесь логику для дальнейшей обработки строки
@@ -64,7 +59,6 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
                     }
                 })
                 .catch(function (error) {
-                    console.log(error.response);
                 });
         }
     };
@@ -74,7 +68,6 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
             $http.post(contextPath + '/removePosition', position)
                 .then(function (response) {
                     if (response.data) {
-                        console.log(response.data);
                         alert('Должность \"' + position.name + '\" удалена');
                         $scope.updateData();
                     }
@@ -87,7 +80,6 @@ angular.module('app', []).controller('positionAndRankController', function ($sco
             $http.post(contextPath + '/removeRank', rank)
                 .then(function (response) {
                     if (response.data) {
-                        console.log(response.data);
                         alert('Звание \"' + rank.name + '\" удалено');
                         $scope.updateData();
                     }

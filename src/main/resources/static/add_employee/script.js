@@ -36,14 +36,12 @@ angular.module('app', []).controller('addEmployeeController', function ($scope, 
         })
 
     $scope.save = function (employee) {
-        console.log(employee);
         if (employee !== undefined &&
             employee.lastName !== undefined && employee.lastName.trim().length !== 0 &&
             employee.firstName !== undefined && employee.firstName.trim().length !== 0 &&
             employee.position !== undefined && employee.position.trim().length !== 0 &&
             employee.fireStation !== undefined && employee.fireStation.trim().length !== 0 &&
             employee.team !== undefined && employee.team.trim().length !== 0) {
-            console.log("yes");
             employee.position = {
                 id: employee.position,
                 name: $scope.positions[employee.position]

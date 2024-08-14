@@ -29,30 +29,5 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
     }
 
-    // $scope.fillTable = function () {
-    //     $http({
-    //         url: contextPath + '/products',
-    //         method: 'GET',
-    //         params: {
-    //             min_price: $scope.filter ? $scope.filter.min_price : null,
-    //             max_price: $scope.filter ? $scope.filter.max_price : null
-    //         }
-    //     }).then(function (response) {
-    //         $scope.ProductsList = response.data;
-    //     });
-    // };
-    //
-    // $scope.submitCreateNewProduct = function () {
-    //     $http.post(contextPath + '/products', $scope.newProduct)
-    //         .then(function (response) {
-    //             // console.log('sended:');
-    //             // console.log($scope.newProduct);
-    //             // console.log('received');
-    //             // console.log(response.data);
-    //             $scope.newProduct = null;
-    //             $scope.fillTable();
-    //         });
-    // };
-    //
     $scope.fillTable();
 });

@@ -8,8 +8,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.numberOfStation = numberStation;
     $scope.personBinder = null;
 
-    // $scope.name = params.get("name");
-
     $scope.isShowFirefightersList = false;
     $scope.isShowCarList = false;
     $scope.isModalCarWindow = false;
@@ -81,7 +79,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.editTeam = function() {
         $scope.isEditingCar = true;
         $scope.selectedTeam = $scope.getKeyByValue($scope.teams, $scope.car.team.name);
-        console.log("editTeam" + $scope.selectedTeam);
     };
 
     $scope.saveTeam = function() {
@@ -89,24 +86,10 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         $scope.car.team = $scope.teams[$scope.selectedTeam];
     };
 
-
-    $http.get(contextPath + '/getSquare/' + numberStation)
-        .then(function (response) {
-            $scope.numberOfStation = numberStation;
-            $scope.square = response.data;
-        }, function (error) {
-            // handle error
-        });
-
     $scope.getSquares = function () {
         $http.get(contextPath + '/getSquareOfStation/' + numberStation)
             .then(function (response) {
                 $scope.squares = response.data;
-                console.log($scope.squares);
-                for (let i = 0; i < $scope.squares.length; i++) {
-                    console.log($scope.squares[i].firefighters);
-                    console.log($scope.squares[i].team.name);
-                }
             }, function (error) {
                 // handle error
             });
@@ -140,7 +123,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         if (employee !== undefined && employee.id !== undefined) {
             $http.post(contextPath + "/deletePerson", employee.id)
                 .then(function (response) {
-                    console.log(response.data);
                     // if (response.data) {
                     //     alert("Сотрудник " + employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " добавлен в часть: " + employee.fire_station);
                     // } else {
@@ -154,7 +136,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.deleteCar = function (car) {
         $http.post(contextPath + "/deleteCar", car)
             .then(function (response){
-                console.log(response.data);
                 $scope.getSquares();
                 $scope.getCars();
                 $scope.isModalCarWindow = false;
@@ -228,7 +209,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
 
     $scope.openModalCarWindow = function(car) {
         $scope.car = car;
-        console.log("show: " + car.name + " " + car.numberCar);
         $scope.isModalCarWindow = true;
     };
     $scope.closeModalCarWindow = function() {
@@ -250,7 +230,6 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     }
 
     $scope.updateCar = function (car) {
-        console.log(car);
         if (car.team !== null && car.team !== undefined && car.team.trim().length !== 0) {
             car.team = {
                 id: car.team,

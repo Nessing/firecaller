@@ -36,12 +36,10 @@ angular.module('app', []).controller('addCarController', function ($scope, $http
         })
 
     $scope.save = function (car) {
-        console.log(car);
         if (car !== undefined &&
             car.name !== undefined && car.name.trim().length !== 0 &&
             car.numberCar !== undefined && car.numberCar.trim().length !== 0 &&
             car.fireStation !== undefined && car.fireStation.trim().length !== 0) {
-            console.log("yes");
             car.fireStation = {
                 id: car.fireStation,
                 name: $scope.fire_stations[car.fireStation]
