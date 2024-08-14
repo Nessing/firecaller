@@ -110,19 +110,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
             });
     }
 
-    $scope.delete = function (employee) {
-        // if (employee !== undefined &&
-        //     employee.last_name !== undefined && employee.last_name.trim().length !== 0 &&
-        //     employee.first_name !== undefined && employee.first_name.trim().length !== 0 &&
-        //     employee.position !== undefined && employee.position.trim().length !== 0 &&
-        //     employee.fire_station !== undefined && employee.fire_station.trim().length !== 0) {
-            // employee.position = {
-            //     id: employee.position,
-            //     name: $scope.positions[employee.position]
-            // };
+    /* добавить модальное окно */
+    $scope.deletePerson = function (employee) {
         if (employee !== undefined && employee.id !== undefined) {
             $http.post(contextPath + "/deletePerson", employee.id)
                 .then(function (response) {
+                    $scope.closeModalPersonWindow();
                     // if (response.data) {
                     //     alert("Сотрудник " + employee.last_name + " " + employee.first_name + " " + employee.mid_name + " " + employee.position + " добавлен в часть: " + employee.fire_station);
                     // } else {
@@ -163,6 +156,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         $scope.isModalPersonWindow = false;
         $scope.isEditSelectedPerson = false;
         $scope.getFirefighters();
+        $scope.getSquares();
     };
 
     $scope.editPerson = function () {
