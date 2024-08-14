@@ -7,7 +7,7 @@ import ru.nessing.firecaller.entities.Firefighter;
 import java.util.List;
 
 @Repository
-public interface FirefightersRepository extends JpaRepository<Firefighter, Long> {
+public interface PersonRepository extends JpaRepository<Firefighter, Long> {
     Firefighter findFirefighterById(Long id);
     List<Firefighter> findFirefightersByFireStation_IdOrderByTeam(Long id);
 }
