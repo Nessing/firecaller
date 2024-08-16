@@ -1,6 +1,23 @@
+version: '3.8'
 services:
-  web:
-    backend:
-      image: firecaller_1.1
-      ports:
-        - "8080:8080"
+  firecaller_1.2:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mainfiredb
+      SPRING_DATASOURCE_USERNAME: adminfire
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: mainfiredb
+      POSTGRES_USER: adminfire
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    volumes:
+      - ./db/mainfiredb.sql:/docker-entrypoint-initdb.d/mainfiredb.sql
+    ports:
+      - "5432:5432"
