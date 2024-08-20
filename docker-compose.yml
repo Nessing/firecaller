@@ -1,7 +1,8 @@
 version: '3.8'
 services:
-  firecaller_1.2:
-    build: .
+  dispatcher:
+    build: ./dispatcher
+    container_name: dispatcher
     ports:
       - "8080:8080"
     environment:
@@ -10,6 +11,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 123456
     depends_on:
       - postgres
+
   postgres:
     image: postgres
     environment:

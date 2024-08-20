@@ -1,0 +1,255 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="../fire_station/script.js"></script>
+</head>
+
+<body>
+<div class="container" ng-controller="indexController">
+    <h1>{{name}}</h1>
+
+    <h3>Караул</h3>
+
+    <div ng-repeat="square in squares">
+        <h4>{{square.team.name}} - {{square.car.name}}</h4>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>ФИО</td>
+                    <td>Звание</td>
+                    <td>Должность</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="firefighter in square.firefighters">
+                    <td>{{firefighter.shortName}}</td>
+                    <td>{{firefighter.rank.name}}</td>
+                    <td>{{firefighter.position.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <button class="full_width margin_button btn btn-outline-success" ng-click="showFirefightersList()" ng-class="{active:isShowFirefightersList}">Список личного состава караула</button>
+    <div class="div-table_background" ng-show="isShowFirefightersList">
+        <table class="table table-border">
+            <thead>
+            <tr>
+                <td>ФИО</td>
+                <td>Звание</td>
+                <td>Должность</td>
+                <td>Отделение</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="person in firefightersOfStation">
+                <td>{{person.shortName}}</td>
+                <td>{{person.rank.name}}</td>
+                <td>{{person.position.name}}</td>
+                <td>{{person.team.name}}</td>
+                <td>
+                    <input class="button-person_edit" type="submit" name="edit_person" value="" title="Карочка сотрудника" ng-click="openModalPersonWindow(person)">
+                </td>
+            </tr>
+            <!-- Модальное окно для редактирования сотрудника -->
+            <div class="modal_window" ng-show="isModalPersonWindow">
+                <div class="modal_window-content-person-card">
+                    <div class="modal_window-content-header">
+                        <span class="modal_window-content-caption">Сотрудник: {{person.shortName}}</span>
+                        <input class="button-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalPersonWindow()">
+                    </div>
+                    <div class="modal_window-content-title-text-horizontal-space-between">
+                        <div ng-show="!isEditSelectedPerson" class="modal_window-content-title-text-center">
+                            <span class="modal_window-content-title-text">{{person.firstName}} {{person.midName}} {{person.lastName}}</span>
+                            <span ng-show="!isEditSelectedPerson" class="modal_window-content-title-text">
+                                <input class="button-edit" type="submit" name="edit_person" value="" title="Редактировать сотрудника" ng-click="editPerson()">
+                            </span>
+                            <span class="modal_window-content-title-text">
+                                <input class="button-delete" type="submit" name="delete_person" value="" title="Удалить сотрудника" ng-click="deletePerson(person)">
+                            </span>
+                        </div>
+                        <div ng-show="isEditSelectedPerson" class="modal_window-content-title-vertical-left">
+                            <div class="modal_window-content-title-text-horizontal-space-between">
+                                <span class="modal_window-content-title-text">Имя: </span>
+                                <input class="text-input" ng-model="person.firstName" value="{{person.firstName}}">
+                                <span class="modal_window-content-title-text">
+                                    <input class="button-delete" type="submit" name="delete_person" value="" title="Удалить сотрудника" ng-click="deletePerson(person)">
+                                </span>
+                            </div>
+                            <div class="modal_window-content-title-text-horizontal-space-between">
+                                <span class="modal_window-content-title-text">Отчество: </span>
+                                <input class="text-input" ng-model="person.midName" value="{{person.midName}}">
+                            </div>
+                            <div class="modal_window-content-title-text-horizontal-space-between">
+                                <span class="modal_window-content-title-text">Фамилия: </span>
+                                <input class="text-input" ng-model="person.lastName" value="{{person.lastName}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal_window-content-title-vertical-left">
+                        <div class="modal_window-content-title-text-horizontal-space-between">
+                            <span class="modal_window-content-title-text">Должность: </span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.position.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.position" name="position" ng-options="key as value for (key, value) in positions"
+                                    ng-init="person.position = getKeyByValue(positions, person.position.name)">
+                            </select>
+                        </div>
+
+                        <div class="modal_window-content-title-text-horizontal-space-between">
+                            <span class="modal_window-content-title-text">Звание: </span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.rank.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.rank" name="rank" ng-options="key as value for (key, value) in ranks"
+                                    ng-init="person.rank = getKeyByValue(ranks, person.rank.name)">
+                            </select>
+                        </div>
+
+                        <div class="modal_window-content-title-text-horizontal-space-between">
+                            <span class="modal_window-content-title-text">Отделение: </span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.team.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.team" name="team" ng-options="key as value for (key, value) in teams"
+                                    ng-init="person.team = getKeyByValue(teams, person.team.name)">
+                                <option value="">----</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal_window-buttons">
+                        <input class="btn btn-success modal_window-btn-ok" type="submit" value="Ok" ng-click="updatePerson(person)">
+                        <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalPersonWindow()">
+                    </div>
+                </div>
+            </div>
+
+            </tbody>
+        </table>
+    </div>
+
+<!--    &lt;!&ndash; Модальное окно для подтверждения удаления машины &ndash;&gt;-->
+<!--    <div class="modal_window" ng-show="isModalCarWindow">-->
+<!--        <div class="modal_window-content">-->
+<!--            <div class="modal_window-content-header">-->
+<!--                <span class="modal_window-content-caption">Удаление</span>-->
+<!--                <input class="button-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">-->
+<!--            </div>-->
+<!--            <div class="modal_window-content-title">-->
+<!--                <span class="modal_window-content-title-text">Удалить {{car.name + " № " + car.nameCar + " " + car.numberCar}}?</span>-->
+<!--            </div>-->
+<!--            <div class="modal_window-buttons">-->
+<!--&lt;!&ndash;                <input class="btn btn-success modal_window-btn-ok" type="submit" value="Да" ng-click="deleteCar(car)">&ndash;&gt;-->
+<!--                <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalCarWindow()">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <button class="full_width margin_button btn btn-outline-success" ng-click="showCarList()" ng-class="{active:isShowCarList}">Машины</button>
+    <div class="div-table_background" ng-show="isShowCarList">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Наименование</td>
+                <td>Номер</td>
+                <td>Отделение</td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="car in fireCars track by $index">
+                    <td ng-show="selectedCarIndex !== $index">
+                        <span>{{car.name}}</span>
+                    </td>
+                    <td ng-show="selectedCarIndex === $index">
+                        <input class="text-input" ng-model="car.name" value="{{car.name}}">
+                    </td>
+
+                    <td ng-show="selectedCarIndex !== $index">
+                        <span>{{car.numberCar}}</span>
+                    </td>
+                    <td ng-show="selectedCarIndex === $index">
+                        <input class="text-input" ng-model="car.numberCar" value="{{car.numberCar}}">
+                    </td>
+
+<!--                    <td ng-show="selectedCarIndex !== $index">-->
+<!--                        <span>{{ car.team.name }}</span>-->
+<!--                    </td>-->
+<!--                    <td ng-show="selectedCarIndex === $index">-->
+<!--&lt;!&ndash;                        <span ng-show="selectedCarIndex !== $index">{{ car.team.name }}</span>&ndash;&gt;-->
+<!--                        <select class="form-select" ng-show="selectedCarIndex === $index" ng-model="car.team" name="team" ng-options="key as value for (key, value) in teams"-->
+<!--                                ng-init="car.team = getKeyByValue(teams, car.team.name)">-->
+<!--                            <option value="">-&#45;&#45;</option>-->
+<!--                        </select>-->
+<!--                    </td>-->
+
+                    <td>
+                        <span ng-if="selectedCarIndex !== $index">{{ car.team.name }}</span>
+                        <select class="form-select" ng-if="selectedCarIndex === $index" ng-model="car.team" name="team" ng-options="key as value for (key, value) in teams"
+                                ng-init="car.team = getKeyByValue(teams, car.team.name)">
+                            <option value="">----</option>
+                        </select>
+                    </td>
+
+                    <!--//*** Сохранение изменений. Если выбранный ход имеется, то менять местами **/-->
+
+                    <td><input ng-show="selectedCarIndex !== $index && !isEditSelectedCar" class="button-edit" type="submit" name="edit_car" value="" title="Редактировать машину" ng-click="editCar($index)"></td>
+                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-success" type="submit" name="ok_edit_car" value="Ок" title="Сохранить" ng-click="updateCar(car)"></td>
+                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-danger" type="submit" name="cancel_edit_car" value="Отмена" title="Отмена" ng-click="cancelEditCar()"></td>
+                    <td><input class="button-delete" type="submit" name="delete_car" value="" title="Удалить машину" ng-click="openModalCarWindow(car)"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!-- Модальное окно для подтверждения удаления машины -->
+    <div class="modal_window" ng-show="isModalCarWindow">
+        <div class="modal_window-content">
+            <div class="modal_window-content-header">
+                <span class="modal_window-content-caption">Удаление</span>
+                <input class="button-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">
+            </div>
+            <div class="modal_window-content-title">
+                <span class="modal_window-content-title-text">Удалить {{car.name + " № " + car.nameCar + " " + car.numberCar}}?</span>
+            </div>
+            <div class="modal_window-buttons">
+                <input class="btn btn-success modal_window-btn-ok" type="submit" value="Да" ng-click="deleteCar(car)">
+                <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalCarWindow()">
+            </div>
+        </div>
+    </div>
+
+<!-- Оповещение   -->
+    <div class="notification" ng-show="showHiddenNotification" ng-class="{'notification-fade-in': isHiddenNotification, 'notification-fade-out': !isHiddenNotification}">
+        <div>
+            <span>Машина удалена!</span>
+        </div>
+    </div>
+
+    <form name="employeeForm">
+        <div class="buttons">
+            <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
+<!--            <div>-->
+<!--                <label for="firefighters">выбрать пожарного</label>-->
+<!--                <td>-->
+<!--                    <select id="firefighters" for="firefighters" class="form-select m-1" ng-model="employee.id" name="id" required>-->
+<!--                        <option value="">&#45;&#45;&#45;&#45;</option>-->
+<!--                        <option ng-repeat="(key, value) in firefightersMap" value="{{key}}">{{value}}</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </div>-->
+<!--            <input class="btn btn-danger m-2" type="submit" name="delete_employee" value="Удалить" ng-click="delete(employee)">-->
+        </div>
+    </form>
+</div>
+</body>
+</html>

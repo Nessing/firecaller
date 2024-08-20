@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="../add_employee/script.js"></script>
+</head>
+
+<body>
+<div class="container" ng-controller="addEmployeeController">
+    <h1>Добавить сотрудника</h1>
+
+    <h3>Список личного состава</h3>
+    <form name="employeeForm">
+        <fieldset>
+            <div>
+                <label for="last_name">Фамилия</label>
+                <input id="last_name" ng-model="employee.lastName" class="m-1" type="text" name="lastName" required placeholder="Введите фамилию">
+            </div>
+            <div>
+                <label for="first_name">Имя</label>
+                <input id="first_name" ng-model="employee.firstName" class="m-1" type="text" name="firstName" required placeholder="Введите имя">
+            </div>
+            <div>
+                <label for="mid_name">Отчество</label>
+                <input id="mid_name" ng-model="employee.midName" class="m-1" type="text" name="midName" placeholder="Введите отчество">
+            </div>
+            <div>
+                <label for="rank">Звание</label>
+                <td>
+                    <select id="rank" for="rank" class="form-select m-1" ng-model="employee.rank" name="rank" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in ranks" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
+            <div>
+                <label for="position">Должность</label>
+                    <td>
+                        <select id="position" for="position" class="form-select m-1" ng-model="employee.position" name="position" required>
+                            <option value="">----</option>
+                            <option ng-repeat="(key, value) in positions" value="{{key}}">{{value}}</option>
+                        </select>
+                    </td>
+            </div>
+            <div>
+                <label for="fire_station">Пожарная часть</label>
+                <td>
+                    <select id="fire_station" for="fire_station" class="form-select m-1" ng-model="employee.fireStation" name="fireStation" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in fire_stations" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
+            <div>
+                <label for="team">Отделение</label>
+                <td>
+                    <select id="team" for="team" class="form-select m-1" ng-model="employee.team" name="team" required>
+                        <option value="">----</option>
+                        <option ng-repeat="(key, value) in teams" value="{{key}}">{{value}}</option>
+                    </select>
+                </td>
+            </div>
+        </fieldset>
+        <div class="buttons">
+            <a class="btn btn-outline-secondary m-2" ng-href="/">Назад</a>
+            <input class="btn btn-success m-2" type="submit" name="save_employee" value="Сохранить" ng-click="save(employee)">
+        </div>
+    </form>
+    <p ng-bind="employee.lastName"></p>
+    <p ng-bind="employee.firstName"></p>
+    <p ng-bind="employee.midName"></p>
+
+</div>
+</body>
+</html>
