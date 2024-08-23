@@ -25,21 +25,18 @@ public class PersonService {
         return personRepository.findFirefightersByFireStation_IdOrderByTeam(fireStation);
     }
 
-    public Boolean addFirefighter(Firefighter firefighter) {
+    public Firefighter addFirefighter(Firefighter firefighter) {
         FirefighterDTO firefighterDTO = new FirefighterDTO();
         firefighterDTO.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
         firefighter.setId(null);
         firefighter.setShortName(firefighterDTO.getShortName());
-        if (firefighter.getPosition() == null) {
-            return false;
+        if (firefighter.getPosition() != null && firefighter.getFireStation() != null) {
+            FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
+            firefighter.setFireStation(fireStation);
+            personRepository.save(firefighter);
+            return firefighter;
         }
-        if (firefighter.getFireStation() == null) {
-            return false;
-        }
-        FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
-        firefighter.setFireStation(fireStation);
-        personRepository.save(firefighter);
-        return true;
+        return null;
     }
 
     public Boolean deleteFirefighter(Long id) {

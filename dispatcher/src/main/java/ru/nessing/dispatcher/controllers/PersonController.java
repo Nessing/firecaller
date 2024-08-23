@@ -22,7 +22,7 @@ public class PersonController {
     }
 
     @PostMapping("/addPerson")
-    public Boolean addFirefighter(@RequestBody Firefighter firefighter) {
+    public Firefighter addFirefighter(@RequestBody Firefighter firefighter) {
         return service.addFirefighter(firefighter);
     }
 
