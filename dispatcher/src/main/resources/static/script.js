@@ -1,6 +1,21 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8080';
 
+    var socket = new WebSocket('ws://localhost:8080/my-websocket-endpoint');
+
+    socket.onopen = function() {
+        console.log('WebSocket connection opened');
+        sendMessage('автоматическое сообщение');
+    }
+
+    socket.onmessage = function(event) {
+        console.log('Received message: ' + event.data);
+    }
+
+    function sendMessage(message) {
+        socket.send(message);
+    }
+
     $scope.fillTable = function () {
         $http.get(contextPath + '/getFireStations')
             .then(function (response) {
