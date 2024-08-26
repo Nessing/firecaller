@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "teams")
-public class Team {
+@Table(name = "status")
+public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,7 +21,6 @@ public class Team {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
-    private Status status;
+    @Column(name = "title")
+    private String title;
 }
