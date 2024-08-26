@@ -25,6 +25,24 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.squares = [];
     $scope.teams = new Map();
 
+    var socket = new WebSocket('ws://localhost:8080/fire-station');
+
+    socket.onopen = function() {
+        console.log('WebSocket connection opened');
+    }
+
+    socket.onmessage = function(event) {
+        if (event.data === "updatePerson") {
+            $scope.getSquares();
+            $scope.getFirefighters();
+        }
+        console.log('Received message: ' + event.data);
+    }
+
+    function sendMessage(message) {
+        socket.send(message);
+    }
+
     $http.get(contextPath + '/getAllPositions')
         .then(function (response) {
             $scope.positions = Object.fromEntries(response.data.map(team =>[team.id, team.name]));
@@ -198,6 +216,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
                 $scope.closeModalPersonWindow();
                 $scope.getSquares();
                 $scope.getFirefighters();
+                socket.send("updatePerson");
             });
     }
 

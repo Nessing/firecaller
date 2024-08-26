@@ -8,7 +8,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WebSocketHandler extends TextWebSocketHandler {
+public class FireStationWebSocket extends TextWebSocketHandler {
     private final Set<WebSocketSession> sessions = new HashSet<>();
 
     @Override
@@ -30,15 +30,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // Обработка входящего сообщения от клиента
-        for (WebSocketSession client : sessions) {
-            client.sendMessage(new TextMessage("Сейчас в сети: " + sessions.size() + " клиентов"));
+        String payload = message.getPayload();
+        if (payload.equals("updatePerson")) {
+            for (WebSocketSession client : sessions) {
+                client.sendMessage(new TextMessage("updatePerson"));
+            }
         }
-//        String payload = message.getPayload();
-//        session.sendMessage(new TextMessage("start"));
-//        for (int i = 1; i <= 3; i++) {
-//            Thread.sleep(1000);
-//            session.sendMessage(new TextMessage(String.valueOf(i)));
-//        }
-//        session.sendMessage(new TextMessage("Received message: " + payload));
     }
 }
