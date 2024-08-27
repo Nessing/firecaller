@@ -11,3 +11,36 @@
     display: flex;
     justify-content: center;
 }
+
+.div-table_background {
+    background: #efefef;
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.fire-station-table thead > tr {
+    font-weight: 700;
+}
+
+.div_table_left-button {
+    height: 100%;
+    width: 45px;
+    margin: 0 4px 0 0;
+}
+
+.div-table_right {
+    width: 100%;
+}
+
+.fire-station-name {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to right, #ff6e7f, #bfe9ff);
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+}
+
+.div_bottom_btn {
+    display: flex;
+}

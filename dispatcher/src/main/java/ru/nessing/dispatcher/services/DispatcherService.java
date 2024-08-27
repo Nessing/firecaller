@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.repositories.*;
 import ru.nessing.dispatcher.entities.*;
-import ru.nessing.dispatcher.entities.DTOs.FirefighterDTO;
+import ru.nessing.dispatcher.utils.FireStationInfo;
+import ru.nessing.dispatcher.utils.Square;
 
 import java.util.*;
 
@@ -27,8 +28,41 @@ public class DispatcherService {
         this.carsRepository = carsRepository;
         this.teamRepository = teamRepository;
     }
-    /** Добавить метод удаления пожарного
-     **/
+
+    public List<FireStationInfo> getFireStationsAndSquares() {
+        List<FireStation> fireStations = fireStationRepository.findAll();
+        List<Car> cars = carsRepository.findAll();
+
+        List<FireStationInfo> fireStationInfos = new ArrayList<>();
+        fireStations.forEach(station -> {
+                List<Square> squares = new ArrayList<>();
+                cars.stream()
+                    .filter(car -> car.getFireStation().equals(station) && car.getTeam() != null)
+                    .forEach(car -> {
+                        Square square = new Square();
+                        square.setFireStation(station);
+                        square.setCar(car);
+                        square.setTeam(car.getTeam());
+                        squares.add(square);
+                    });
+                Collections.sort(squares);
+                fireStationInfos.add(new FireStationInfo(station, squares));
+            }
+        );
+
+//       for (FireStation station : fireStations) {
+//           cars.stream()
+//                   .filter(car -> car.getFireStation().equals(station) && car.getTeam() != null)
+//                   .forEach(car -> {
+//                       Square square = new Square();
+//                       square.setFireStation(station);
+//                       square.setCar(car);
+//                       square.setTeam(car.getTeam());
+//                       squares.add(square);
+//                   });
+//       }
+        return fireStationInfos;
+    }
 
     public List<Square> getSquareOfStation(Long stationId) {
         List<Square> squares = new ArrayList<>();

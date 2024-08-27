@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "teams")
-public class Team {
+public class Team implements Comparable<Team> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,4 +24,9 @@ public class Team {
     @ManyToOne(optional = false)
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
+
+    @Override
+    public int compareTo(Team otherTeam) {
+        return this.name.compareTo(otherTeam.name);
+    }
 }

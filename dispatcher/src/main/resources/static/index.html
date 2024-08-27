@@ -16,116 +16,52 @@
 
 <body>
     <div class="container" ng-controller="indexController">
-<!--        <h1>Пожарные части</h1>-->
-
-    <!--    <h3>Фильтр</h3>-->
-    <!--    <form novalidate ng-submit="fillTable()">-->
-    <!--        <div class="form-group row">-->
-    <!--            <div class="form-group col-md-3">-->
-    <!--                <label for="filterMinPrice">Минимальная цена</label>-->
-    <!--                <input class="form-control" type="number" ng-model="filter.min_price" id="filterMinPrice">-->
-    <!--            </div>-->
-    <!--            <div class="form-group col-md-3">-->
-    <!--                <label for="filterMaxPrice">Максимальная цена</label>-->
-    <!--                <input class="form-control" type="number" ng-model="filter.max_price" id="filterMaxPrice">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div>-->
-    <!--            <button class="btn btn-success" type="submit">Применить</button>-->
-    <!--        </div>-->
-    <!--    </form>-->
 
         <h1 class="m-2">Список пожарных частей</h1>
-        <div class="fireStation_div m-2">
-            <div class="fireStation_box" ng-repeat="p in allFireStation">
-                <a class="btn btn-danger m-2" ng-href="/fire_station/fire_station.html?id={{p.id}}">{{p.shortName}}</a>
-<!--                <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?number={{p.numberStation}}&name={{p.name}}">{{p.short_name}}</a>-->
+
+        <div class="div-table_background" ng-repeat="stationAndSquare in fireStationAndSquares">
+            <div>
+                <a class="btn btn-danger div_table_left-button" ng-href="/fire_station/fire_station.html?id={{stationAndSquare.fireStation.id}}"></a>
+            </div>
+            <div class="div-table_right">
+                <table class="table table-hover fire-station-table">
+                    <div class="fire-station-name">
+                        <h4>{{stationAndSquare.fireStation.name}}</h4>
+                        <h4>{{stationAndSquare.fireStation.shortName}}</h4>
+                    </div>
+                    <thead>
+                    <tr>
+                        <td>Отделение</td>
+                        <td>Машина</td>
+                        <td>Статус</td>
+                        <td>Локация</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="square in stationAndSquare.squares">
+                        <td>{{square.team.name}}</td>
+                        <td>{{square.car.name}}</td>
+                        <td>{{square.team.status.title}}</td>
+                        <td>{{square.location}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="m-2">
-            <a class="btn btn-success m-2"  ng-href="/add_employee/add_employee.html">Добавить сотрудника</a>
+        <div class="div_bottom_btn">
+            <div class="m-2">
+                <a class="btn btn-success m-2"  ng-href="/add_employee/add_employee.html">Добавить сотрудника</a>
+            </div>
+
+            <div class="m-2">
+                <a class="btn btn-success m-2" ng-href="/edit_position_and_rank/edit_position_and_rank.html">Редактировать список должностей</a>
+            </div>
+
+            <div class="m-2">
+                <a class="btn btn-success m-2"  ng-href="/add_car/add_car.html">Добавить машину</a>
+            </div>
         </div>
-
-        <div class="m-2">
-            <a class="btn btn-success m-2" ng-href="/edit_position_and_rank/edit_position_and_rank.html">Редактировать список должностей</a>
-        </div>
-
-        <div class="m-2">
-            <a class="btn btn-success m-2"  ng-href="/add_car/add_car.html">Добавить машину</a>
-        </div>
-
-<!--        <table class="table table-hover">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <td>Название</td>-->
-<!--                <td>Статус</td>-->
-<!--                <td>Место</td>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr ng-repeat="p in allFireStation">-->
-<!--                <td>{{p.title}}</td>-->
-<!--                <td>{{p.state}}</td>-->
-<!--                <td>{{p.location}}</td>-->
-<!--                <td>-->
-<!--                    <a class="btn btn-danger" ng-href="/fire_station/fire_station.html?value={{p.id}}">Открыть</a>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
-<!--        <h3>Список личного состава</h3>-->
-
-<!--        <select name="fireStation" class="form-select" aria-label="Default select example" ng-model="numberFireStation" ng-change="getFirefightersOfStation(numberFireStation)" style="margin-bottom: 10px">-->
-<!--            <option ng-selected="selected" value="1">1 ПСЧ</option>-->
-<!--            <option value="2">2 ПСЧ</option>-->
-<!--            <option value="3">3 ПСЧ</option>-->
-<!--        </select>-->
-<!--&lt;!&ndash;        <button class="btn btn-secondary" type="submit" ng-click="getFirefightersOfStation(numberFireStation)" ng-disabled="fireStation.$invalid">Получить список л/с</button>&ndash;&gt;-->
-
-<!--        <table class="table table-hover">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <td>ФИО</td>-->
-<!--                <td>Должность</td>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr ng-repeat="p in firefightersOfStation">-->
-<!--                <td>{{p.name}}</td>-->
-<!--                <td>{{p.rank}}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
-<!--        <h3>Добавить сотрудника</h3>-->
-<!--        <form name="firefighter" novalidate ng-submit="createNewPerson()" style="margin-bottom: 10px">-->
-<!--            <div class="form-group col-md-6">-->
-<!--                <label for="FIO">ФИО</label>-->
-<!--                <input class="form-control" type="text" required placeholder="Введите ФИО" ng-model="newFirefighter.name" id="FIO">-->
-<!--            </div>-->
-
-<!--            <label for="rank">Должность</label>-->
-<!--            <select class="form-select" aria-label="Default select example" required="true" placeholder="Не выбрана должность!" ng-model="newFirefighter.rank" id="rank">-->
-<!--                <option value=""></option>-->
-<!--                <option value="Начальник караула">Начальник караула</option>-->
-<!--                <option value="ПНК">ПНК</option>-->
-<!--                <option value="Командир отделения">Командир отделения</option>-->
-<!--            </select>-->
-
-<!--            <label for="fireStation">Номер ПСЧ</label>-->
-<!--            <select class="form-select" aria-label="Default select example" required placeholder="Не выбрана должность!" ng-model="newFirefighter.fireStation" id="fireStation">-->
-<!--&lt;!&ndash;                <option value="">&#45;&#45;выберите номер ПЧ&#45;&#45;</option>&ndash;&gt;-->
-<!--                <option value=""></option>-->
-<!--                <option value="1">1</option>-->
-<!--                <option value="2">2</option>-->
-<!--                <option value="3">3</option>-->
-<!--            </select>-->
-<!--            <div>-->
-<!--                <button class="btn btn-success" type="submit" ng-disabled="firefighter.$invalid">Сохранить</button>-->
-<!--            </div>-->
-<!--        </form>-->
     </div>
 </body>
 </html>

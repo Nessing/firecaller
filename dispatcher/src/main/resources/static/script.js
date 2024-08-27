@@ -3,6 +3,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     var socket = new WebSocket('ws://localhost:8080/my-websocket-endpoint');
 
+    $scope.fireStationAndSquares = [];
+
     socket.onopen = function() {
         console.log('WebSocket connection opened');
         sendMessage('автоматическое сообщение');
@@ -22,6 +24,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 $scope.allFireStation = response.data;
             });
     };
+
+    // $scope.getSquares = function () {
+        $http.get(contextPath + '/getFireStationsAndSquares')
+            .then(function (response) {
+                $scope.fireStationAndSquares = response.data;
+            }, function (error) {
+                // handle error
+            });
+    // }
 
     $scope.getFirefightersOfStation = function (numberStation) {
         $http.get(contextPath + '/getFirefighters/' + numberStation)
