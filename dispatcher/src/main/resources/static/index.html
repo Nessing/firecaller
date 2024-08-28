@@ -41,7 +41,14 @@
                     <tr ng-repeat="square in stationAndSquare.squares">
                         <td>{{square.team.name}}</td>
                         <td>{{square.car.name}}</td>
-                        <td>{{square.team.status.title}}</td>
+                        <td>
+                            <span class="status-of-team"
+                                  ng-class="{'status-of-team_calm': square.team.status.name == 'calm',
+                                  'status-of-team_on-the-way': square.team.status.name == 'on_the_way',
+                                  'status-of-team_on-the-destination': square.team.status.name == 'on_the_destination'}">
+                                {{square.team.status.title}}
+                            </span>
+                        </td>
                         <td>{{square.location}}</td>
                     </tr>
                     </tbody>
