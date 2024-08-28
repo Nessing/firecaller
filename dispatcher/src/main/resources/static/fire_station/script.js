@@ -50,6 +50,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
             $scope.allStatus = response.data;
         });
 
+    $scope.updateStatus = function (stat, square) {
+        let statusOfTeam = {
+            fireStationId: square.fireStation.id,
+            teamId: square.team.id,
+            statusId: stat.id
+        }
+        console.log(statusOfTeam);
+        $http.post(contextPath + '/updateStatus', statusOfTeam)
+            .then(function (response) {
+
+            });
+    };
+
     $http.get(contextPath + '/getAllPositions')
         .then(function (response) {
             $scope.positions = Object.fromEntries(response.data.map(team =>[team.id, team.name]));

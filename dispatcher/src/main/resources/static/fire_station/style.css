@@ -283,6 +283,7 @@
     background: linear-gradient(to bottom, #cc0000, #cc3300, #333333);
     color: #fff;
     border-color: #ff6666; /* цвет рамки при выборе */
+    pointer-events: none;
 }
 .radio-button_label {
 

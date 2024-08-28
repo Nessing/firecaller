@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.repositories.*;
 import ru.nessing.dispatcher.entities.*;
+import ru.nessing.dispatcher.utils.FindStatusOfTeam;
 import ru.nessing.dispatcher.utils.FireStationInfo;
 import ru.nessing.dispatcher.utils.Square;
 
@@ -16,17 +17,20 @@ public class DispatcherService {
     private final FireStationRepository fireStationRepository;
     private final CarsRepository carsRepository;
     private final TeamRepository teamRepository;
+    private final TeamOfFireStationRepository teamOfFireStationRepository;
 
     @Autowired
     public DispatcherService(PersonRepository personRepository,
                              FireStationRepository fireStationRepository,
                              CarsRepository carsRepository,
-                             TeamRepository teamRepository)
+                             TeamRepository teamRepository,
+                             TeamOfFireStationRepository teamOfFireStationRepository)
     {
         this.personRepository = personRepository;
         this.fireStationRepository = fireStationRepository;
         this.carsRepository = carsRepository;
         this.teamRepository = teamRepository;
+        this.teamOfFireStationRepository = teamOfFireStationRepository;
     }
 
     public List<FireStationInfo> getFireStationsAndSquares() {
@@ -49,18 +53,6 @@ public class DispatcherService {
                 fireStationInfos.add(new FireStationInfo(station, squares));
             }
         );
-
-//       for (FireStation station : fireStations) {
-//           cars.stream()
-//                   .filter(car -> car.getFireStation().equals(station) && car.getTeam() != null)
-//                   .forEach(car -> {
-//                       Square square = new Square();
-//                       square.setFireStation(station);
-//                       square.setCar(car);
-//                       square.setTeam(car.getTeam());
-//                       squares.add(square);
-//                   });
-//       }
         return fireStationInfos;
     }
 
@@ -69,6 +61,7 @@ public class DispatcherService {
         FireStation fireStation = fireStationRepository.findFireStationById(stationId);
         List<Firefighter> firefighters = personRepository.findFirefightersByFireStation_IdOrderByTeam(stationId);
         List<Car> cars = carsRepository.findCarsByFireStation_IdOrderByTeam(stationId);
+        List<TeamOfFireStation> teams = teamOfFireStationRepository.findAll();
 
         for (Car car : cars) {
             if (car.getTeam() != null) {
@@ -76,6 +69,8 @@ public class DispatcherService {
                 square.setFireStation(fireStation);
                 square.setCar(car);
                 square.setTeam(car.getTeam());
+                Status status = FindStatusOfTeam.findStatus(teams, stationId, square.getTeam().getId());
+                square.setStatus(status);
                 for (Firefighter firefighter : firefighters) {
                     if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
                         square.getFirefighters().add(firefighter);

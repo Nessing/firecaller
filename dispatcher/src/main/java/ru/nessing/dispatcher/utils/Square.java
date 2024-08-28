@@ -1,10 +1,7 @@
 package ru.nessing.dispatcher.utils;
 
 import lombok.*;
-import ru.nessing.dispatcher.entities.Car;
-import ru.nessing.dispatcher.entities.FireStation;
-import ru.nessing.dispatcher.entities.Firefighter;
-import ru.nessing.dispatcher.entities.Team;
+import ru.nessing.dispatcher.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 public class Square implements Comparable<Square> {
 
     private Team team;
+    private Status status;
     private FireStation fireStation;
     private Car car;
     private List<Firefighter> firefighters = new ArrayList<>();

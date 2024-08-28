@@ -21,10 +21,6 @@ public class Team implements Comparable<Team> {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
-    private Status status;
-
     @Override
     public int compareTo(Team otherTeam) {
         return this.name.compareTo(otherTeam.name);

@@ -1,8 +1,8 @@
 package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.nessing.dispatcher.entities.DTOs.StatusDto;
 import ru.nessing.dispatcher.entities.Status;
 import ru.nessing.dispatcher.services.StatusService;
 
@@ -21,5 +21,10 @@ public class StatusController {
     @GetMapping("/getAllStatus")
     public List<Status> getAllStatus() {
         return statusService.getAllStatus();
+    }
+
+    @PostMapping("/updateStatus")
+    public void updateStatus(@RequestBody StatusDto statusDto) {
+        statusService.updateStatus(statusDto);
     }
 }

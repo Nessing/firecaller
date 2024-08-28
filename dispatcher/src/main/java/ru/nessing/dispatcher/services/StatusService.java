@@ -2,6 +2,7 @@ package ru.nessing.dispatcher.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.nessing.dispatcher.entities.DTOs.StatusDto;
 import ru.nessing.dispatcher.entities.Status;
 import ru.nessing.dispatcher.repositories.StatusRepository;
 
@@ -18,5 +19,9 @@ public class StatusService {
 
     public List<Status> getAllStatus() {
         return statusRepository.findAll();
+    }
+
+    public void updateStatus(StatusDto statusDto) {
+
     }
 }

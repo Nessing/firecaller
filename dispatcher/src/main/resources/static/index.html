@@ -19,7 +19,7 @@
 
         <h1 class="m-2">Список пожарных частей</h1>
 
-        <div class="div-table_background" ng-repeat="stationAndSquare in fireStationAndSquares">
+        <div class="div-table_background" ng-repeat="stationAndSquare in getAllTeamOfFireStation">
             <div>
                 <a class="btn btn-danger div_table_left-button" ng-href="/fire_station/fire_station.html?id={{stationAndSquare.fireStation.id}}"></a>
             </div>
@@ -43,10 +43,10 @@
                         <td>{{square.car.name}}</td>
                         <td>
                             <span class="status-of-team"
-                                  ng-class="{'status-of-team_calm': square.team.status.name == 'calm',
-                                  'status-of-team_on-the-way': square.team.status.name == 'on_the_way',
-                                  'status-of-team_on-the-destination': square.team.status.name == 'on_the_destination'}">
-                                {{square.team.status.title}}
+                                  ng-class="{'status-of-team_calm': square.status.name == 'calm',
+                                  'status-of-team_on-the-way': square.status.name == 'on_the_way',
+                                  'status-of-team_on-the-destination': square.status.name == 'on_the_destination'}">
+                                {{square.status.title}}
                             </span>
                         </td>
                         <td>{{square.location}}</td>

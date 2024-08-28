@@ -3,7 +3,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     var socket = new WebSocket('ws://localhost:8080/my-websocket-endpoint');
 
-    $scope.fireStationAndSquares = [];
+    $scope.getAllTeamOfFireStation = [];
 
     socket.onopen = function() {
         console.log('WebSocket connection opened');
@@ -26,9 +26,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     };
 
     // $scope.getSquares = function () {
-        $http.get(contextPath + '/getFireStationsAndSquares')
+        $http.get(contextPath + '/getAllTeamOfFireStation')
             .then(function (response) {
-                $scope.fireStationAndSquares = response.data;
+                $scope.getAllTeamOfFireStation = response.data;
             }, function (error) {
                 // handle error
             });

@@ -4,6 +4,7 @@ package ru.nessing.dispatcher.services_tests;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.nessing.dispatcher.entities.Team;
 import ru.nessing.dispatcher.utils.FireStationInfo;
 import ru.nessing.dispatcher.services.DispatcherService;
 
@@ -20,6 +21,12 @@ public class DispatcherServiceTest {
     public void testGetSquares() {
         List<FireStationInfo> fireStationInfos = dispatcherService.getFireStationsAndSquares();
         System.out.println(fireStationInfos);
+    }
+
+    @Test
+    public void testGetTeams() {
+        List<Team> teams = dispatcherService.getTeams();
+        teams.forEach(System.out::println);
     }
 
 }
