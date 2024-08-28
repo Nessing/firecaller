@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-08-26 18:25:07
+-- Started on 2024-08-28 22:59:35
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -56,7 +56,7 @@ CREATE SEQUENCE public.cars_fire_station_id_seq
 ALTER SEQUENCE public.cars_fire_station_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4862 (class 0 OID 0)
+-- TOC entry 4884 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: cars_fire_station_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -80,7 +80,7 @@ CREATE SEQUENCE public.cars_id_seq
 ALTER SEQUENCE public.cars_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4863 (class 0 OID 0)
+-- TOC entry 4885 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: cars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -120,7 +120,7 @@ CREATE SEQUENCE public.fire_stations_id_seq
 ALTER SEQUENCE public.fire_stations_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4864 (class 0 OID 0)
+-- TOC entry 4886 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: fire_stations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -164,7 +164,7 @@ CREATE SEQUENCE public.firefighters_fire_station_id_seq
 ALTER SEQUENCE public.firefighters_fire_station_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4865 (class 0 OID 0)
+-- TOC entry 4887 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: firefighters_fire_station_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -188,7 +188,7 @@ CREATE SEQUENCE public.firefighters_id_seq
 ALTER SEQUENCE public.firefighters_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4866 (class 0 OID 0)
+-- TOC entry 4888 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: firefighters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -212,7 +212,7 @@ CREATE SEQUENCE public.firefighters_position_id_seq
 ALTER SEQUENCE public.firefighters_position_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4867 (class 0 OID 0)
+-- TOC entry 4889 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: firefighters_position_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -236,7 +236,7 @@ CREATE SEQUENCE public.firefighters_rank_id_seq
 ALTER SEQUENCE public.firefighters_rank_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4868 (class 0 OID 0)
+-- TOC entry 4890 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: firefighters_rank_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -260,7 +260,7 @@ CREATE SEQUENCE public.firefighters_team_id_seq
 ALTER SEQUENCE public.firefighters_team_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4869 (class 0 OID 0)
+-- TOC entry 4891 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: firefighters_team_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -297,7 +297,7 @@ CREATE SEQUENCE public.positions_id_seq
 ALTER SEQUENCE public.positions_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4870 (class 0 OID 0)
+-- TOC entry 4892 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -334,7 +334,7 @@ CREATE SEQUENCE public.ranks_id_seq
 ALTER SEQUENCE public.ranks_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4871 (class 0 OID 0)
+-- TOC entry 4893 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: ranks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -363,8 +363,7 @@ ALTER TABLE public.status OWNER TO postgres;
 
 CREATE TABLE public.teams (
     id bigint NOT NULL,
-    name character varying(50) NOT NULL,
-    status_id bigint NOT NULL
+    name character varying(50) NOT NULL
 );
 
 
@@ -386,7 +385,7 @@ CREATE SEQUENCE public.teams_id_seq
 ALTER SEQUENCE public.teams_id_seq OWNER TO adminfire;
 
 --
--- TOC entry 4873 (class 0 OID 0)
+-- TOC entry 4895 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: adminfire
 --
@@ -395,7 +394,118 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 
 --
--- TOC entry 4668 (class 2604 OID 25473)
+-- TOC entry 237 (class 1259 OID 25550)
+-- Name: teams_of_fire_stations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.teams_of_fire_stations (
+    id bigint NOT NULL,
+    fire_station_id bigint NOT NULL,
+    team_id bigint NOT NULL,
+    status_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.teams_of_fire_stations OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 25547)
+-- Name: teams_of_fire_stations_fire_station_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teams_of_fire_stations_fire_station_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.teams_of_fire_stations_fire_station_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4897 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: teams_of_fire_stations_fire_station_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teams_of_fire_stations_fire_station_id_seq OWNED BY public.teams_of_fire_stations.fire_station_id;
+
+
+--
+-- TOC entry 233 (class 1259 OID 25546)
+-- Name: teams_of_fire_stations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teams_of_fire_stations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.teams_of_fire_stations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4898 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: teams_of_fire_stations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teams_of_fire_stations_id_seq OWNED BY public.teams_of_fire_stations.id;
+
+
+--
+-- TOC entry 236 (class 1259 OID 25549)
+-- Name: teams_of_fire_stations_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teams_of_fire_stations_status_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.teams_of_fire_stations_status_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4899 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: teams_of_fire_stations_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teams_of_fire_stations_status_id_seq OWNED BY public.teams_of_fire_stations.status_id;
+
+
+--
+-- TOC entry 235 (class 1259 OID 25548)
+-- Name: teams_of_fire_stations_team_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teams_of_fire_stations_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.teams_of_fire_stations_team_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4900 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: teams_of_fire_stations_team_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teams_of_fire_stations_team_id_seq OWNED BY public.teams_of_fire_stations.team_id;
+
+
+--
+-- TOC entry 4676 (class 2604 OID 25473)
 -- Name: cars id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -403,7 +513,7 @@ ALTER TABLE ONLY public.cars ALTER COLUMN id SET DEFAULT nextval('public.cars_id
 
 
 --
--- TOC entry 4669 (class 2604 OID 25474)
+-- TOC entry 4677 (class 2604 OID 25474)
 -- Name: cars fire_station_id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -411,7 +521,7 @@ ALTER TABLE ONLY public.cars ALTER COLUMN fire_station_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4670 (class 2604 OID 25475)
+-- TOC entry 4678 (class 2604 OID 25475)
 -- Name: fire_stations id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -419,7 +529,7 @@ ALTER TABLE ONLY public.fire_stations ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 4671 (class 2604 OID 25476)
+-- TOC entry 4679 (class 2604 OID 25476)
 -- Name: firefighters id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -427,7 +537,7 @@ ALTER TABLE ONLY public.firefighters ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4672 (class 2604 OID 25477)
+-- TOC entry 4680 (class 2604 OID 25477)
 -- Name: firefighters position_id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -435,7 +545,7 @@ ALTER TABLE ONLY public.firefighters ALTER COLUMN position_id SET DEFAULT nextva
 
 
 --
--- TOC entry 4673 (class 2604 OID 25478)
+-- TOC entry 4681 (class 2604 OID 25478)
 -- Name: firefighters fire_station_id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -443,7 +553,7 @@ ALTER TABLE ONLY public.firefighters ALTER COLUMN fire_station_id SET DEFAULT ne
 
 
 --
--- TOC entry 4674 (class 2604 OID 25479)
+-- TOC entry 4682 (class 2604 OID 25479)
 -- Name: firefighters team_id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -451,7 +561,7 @@ ALTER TABLE ONLY public.firefighters ALTER COLUMN team_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4675 (class 2604 OID 25480)
+-- TOC entry 4683 (class 2604 OID 25480)
 -- Name: firefighters rank_id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -459,7 +569,7 @@ ALTER TABLE ONLY public.firefighters ALTER COLUMN rank_id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 4676 (class 2604 OID 25481)
+-- TOC entry 4684 (class 2604 OID 25481)
 -- Name: positions id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -467,7 +577,7 @@ ALTER TABLE ONLY public.positions ALTER COLUMN id SET DEFAULT nextval('public.po
 
 
 --
--- TOC entry 4677 (class 2604 OID 25482)
+-- TOC entry 4685 (class 2604 OID 25482)
 -- Name: ranks id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -475,7 +585,7 @@ ALTER TABLE ONLY public.ranks ALTER COLUMN id SET DEFAULT nextval('public.ranks_
 
 
 --
--- TOC entry 4678 (class 2604 OID 25483)
+-- TOC entry 4686 (class 2604 OID 25483)
 -- Name: teams id; Type: DEFAULT; Schema: public; Owner: adminfire
 --
 
@@ -483,7 +593,39 @@ ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_
 
 
 --
--- TOC entry 4839 (class 0 OID 25440)
+-- TOC entry 4687 (class 2604 OID 25553)
+-- Name: teams_of_fire_stations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations ALTER COLUMN id SET DEFAULT nextval('public.teams_of_fire_stations_id_seq'::regclass);
+
+
+--
+-- TOC entry 4688 (class 2604 OID 25554)
+-- Name: teams_of_fire_stations fire_station_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations ALTER COLUMN fire_station_id SET DEFAULT nextval('public.teams_of_fire_stations_fire_station_id_seq'::regclass);
+
+
+--
+-- TOC entry 4689 (class 2604 OID 25555)
+-- Name: teams_of_fire_stations team_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations ALTER COLUMN team_id SET DEFAULT nextval('public.teams_of_fire_stations_team_id_seq'::regclass);
+
+
+--
+-- TOC entry 4690 (class 2604 OID 25556)
+-- Name: teams_of_fire_stations status_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations ALTER COLUMN status_id SET DEFAULT nextval('public.teams_of_fire_stations_status_id_seq'::regclass);
+
+
+--
+-- TOC entry 4856 (class 0 OID 25440)
 -- Dependencies: 215
 -- Data for Name: cars; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
@@ -495,7 +637,7 @@ INSERT INTO public.cars VALUES (9, 'АЛ-30', 'М162РН060', 1, 3);
 
 
 --
--- TOC entry 4842 (class 0 OID 25445)
+-- TOC entry 4859 (class 0 OID 25445)
 -- Dependencies: 218
 -- Data for Name: fire_stations; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
@@ -508,7 +650,7 @@ INSERT INTO public.fire_stations VALUES (5, 31, 'Отдельный пост 3 �
 
 
 --
--- TOC entry 4844 (class 0 OID 25451)
+-- TOC entry 4861 (class 0 OID 25451)
 -- Dependencies: 220
 -- Data for Name: firefighters; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
@@ -524,7 +666,7 @@ INSERT INTO public.firefighters VALUES (21, 'Валентин', 'Сергеев�
 
 
 --
--- TOC entry 4850 (class 0 OID 25461)
+-- TOC entry 4867 (class 0 OID 25461)
 -- Dependencies: 226
 -- Data for Name: positions; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
@@ -535,7 +677,7 @@ INSERT INTO public.positions VALUES (14, 'Начальник караула');
 
 
 --
--- TOC entry 4852 (class 0 OID 25465)
+-- TOC entry 4869 (class 0 OID 25465)
 -- Dependencies: 228
 -- Data for Name: ranks; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
@@ -545,7 +687,7 @@ INSERT INTO public.ranks VALUES (4, 'Мл. Сержант');
 
 
 --
--- TOC entry 4856 (class 0 OID 25511)
+-- TOC entry 4873 (class 0 OID 25511)
 -- Dependencies: 232
 -- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -556,18 +698,30 @@ INSERT INTO public.status VALUES (3, 'on_the_destination', 'на месте вы
 
 
 --
--- TOC entry 4854 (class 0 OID 25469)
+-- TOC entry 4871 (class 0 OID 25469)
 -- Dependencies: 230
 -- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: adminfire
 --
 
-INSERT INTO public.teams VALUES (3, '3 ход', 1);
-INSERT INTO public.teams VALUES (2, '2 ход', 2);
-INSERT INTO public.teams VALUES (1, '1 ход', 3);
+INSERT INTO public.teams VALUES (3, '3 ход');
+INSERT INTO public.teams VALUES (2, '2 ход');
+INSERT INTO public.teams VALUES (1, '1 ход');
 
 
 --
--- TOC entry 4874 (class 0 OID 0)
+-- TOC entry 4878 (class 0 OID 25550)
+-- Dependencies: 237
+-- Data for Name: teams_of_fire_stations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.teams_of_fire_stations VALUES (1, 1, 1, 3);
+INSERT INTO public.teams_of_fire_stations VALUES (2, 1, 2, 2);
+INSERT INTO public.teams_of_fire_stations VALUES (3, 1, 3, 1);
+INSERT INTO public.teams_of_fire_stations VALUES (4, 3, 1, 2);
+
+
+--
+-- TOC entry 4901 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: cars_fire_station_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -576,7 +730,7 @@ SELECT pg_catalog.setval('public.cars_fire_station_id_seq', 1, false);
 
 
 --
--- TOC entry 4875 (class 0 OID 0)
+-- TOC entry 4902 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: cars_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -585,7 +739,7 @@ SELECT pg_catalog.setval('public.cars_id_seq', 9, true);
 
 
 --
--- TOC entry 4876 (class 0 OID 0)
+-- TOC entry 4903 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: fire_stations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -594,7 +748,7 @@ SELECT pg_catalog.setval('public.fire_stations_id_seq', 6, true);
 
 
 --
--- TOC entry 4877 (class 0 OID 0)
+-- TOC entry 4904 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: firefighters_fire_station_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -603,7 +757,7 @@ SELECT pg_catalog.setval('public.firefighters_fire_station_id_seq', 1, true);
 
 
 --
--- TOC entry 4878 (class 0 OID 0)
+-- TOC entry 4905 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: firefighters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -612,7 +766,7 @@ SELECT pg_catalog.setval('public.firefighters_id_seq', 22, true);
 
 
 --
--- TOC entry 4879 (class 0 OID 0)
+-- TOC entry 4906 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: firefighters_position_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -621,7 +775,7 @@ SELECT pg_catalog.setval('public.firefighters_position_id_seq', 1, true);
 
 
 --
--- TOC entry 4880 (class 0 OID 0)
+-- TOC entry 4907 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: firefighters_rank_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -630,7 +784,7 @@ SELECT pg_catalog.setval('public.firefighters_rank_id_seq', 7, true);
 
 
 --
--- TOC entry 4881 (class 0 OID 0)
+-- TOC entry 4908 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: firefighters_team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -639,7 +793,7 @@ SELECT pg_catalog.setval('public.firefighters_team_id_seq', 6, true);
 
 
 --
--- TOC entry 4882 (class 0 OID 0)
+-- TOC entry 4909 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: positions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -648,7 +802,7 @@ SELECT pg_catalog.setval('public.positions_id_seq', 14, true);
 
 
 --
--- TOC entry 4883 (class 0 OID 0)
+-- TOC entry 4910 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: ranks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -657,7 +811,7 @@ SELECT pg_catalog.setval('public.ranks_id_seq', 4, true);
 
 
 --
--- TOC entry 4884 (class 0 OID 0)
+-- TOC entry 4911 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: teams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminfire
 --
@@ -666,7 +820,43 @@ SELECT pg_catalog.setval('public.teams_id_seq', 3, true);
 
 
 --
--- TOC entry 4680 (class 2606 OID 25485)
+-- TOC entry 4912 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: teams_of_fire_stations_fire_station_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.teams_of_fire_stations_fire_station_id_seq', 1, false);
+
+
+--
+-- TOC entry 4913 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: teams_of_fire_stations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.teams_of_fire_stations_id_seq', 1, false);
+
+
+--
+-- TOC entry 4914 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: teams_of_fire_stations_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.teams_of_fire_stations_status_id_seq', 1, false);
+
+
+--
+-- TOC entry 4915 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: teams_of_fire_stations_team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.teams_of_fire_stations_team_id_seq', 1, false);
+
+
+--
+-- TOC entry 4692 (class 2606 OID 25485)
 -- Name: cars cars_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -675,7 +865,7 @@ ALTER TABLE ONLY public.cars
 
 
 --
--- TOC entry 4682 (class 2606 OID 25487)
+-- TOC entry 4694 (class 2606 OID 25487)
 -- Name: fire_stations fire_stations_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -684,7 +874,7 @@ ALTER TABLE ONLY public.fire_stations
 
 
 --
--- TOC entry 4684 (class 2606 OID 25489)
+-- TOC entry 4696 (class 2606 OID 25489)
 -- Name: firefighters firefighters_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -693,7 +883,7 @@ ALTER TABLE ONLY public.firefighters
 
 
 --
--- TOC entry 4686 (class 2606 OID 25491)
+-- TOC entry 4698 (class 2606 OID 25491)
 -- Name: positions positions_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -702,7 +892,7 @@ ALTER TABLE ONLY public.positions
 
 
 --
--- TOC entry 4688 (class 2606 OID 25493)
+-- TOC entry 4700 (class 2606 OID 25493)
 -- Name: ranks ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -711,7 +901,7 @@ ALTER TABLE ONLY public.ranks
 
 
 --
--- TOC entry 4692 (class 2606 OID 25515)
+-- TOC entry 4704 (class 2606 OID 25515)
 -- Name: status status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -720,7 +910,16 @@ ALTER TABLE ONLY public.status
 
 
 --
--- TOC entry 4690 (class 2606 OID 25495)
+-- TOC entry 4706 (class 2606 OID 25558)
+-- Name: teams_of_fire_stations teams_of_fire_stations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations
+    ADD CONSTRAINT teams_of_fire_stations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4702 (class 2606 OID 25495)
 -- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -729,7 +928,7 @@ ALTER TABLE ONLY public.teams
 
 
 --
--- TOC entry 4693 (class 2606 OID 25496)
+-- TOC entry 4707 (class 2606 OID 25496)
 -- Name: cars cars_fire_station_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -738,7 +937,7 @@ ALTER TABLE ONLY public.cars
 
 
 --
--- TOC entry 4694 (class 2606 OID 25501)
+-- TOC entry 4708 (class 2606 OID 25501)
 -- Name: cars cars_team_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -747,7 +946,7 @@ ALTER TABLE ONLY public.cars
 
 
 --
--- TOC entry 4695 (class 2606 OID 25506)
+-- TOC entry 4709 (class 2606 OID 25506)
 -- Name: firefighters firefighters_rank_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: adminfire
 --
 
@@ -756,7 +955,34 @@ ALTER TABLE ONLY public.firefighters
 
 
 --
--- TOC entry 4872 (class 0 OID 0)
+-- TOC entry 4710 (class 2606 OID 25559)
+-- Name: teams_of_fire_stations teams_of_fire_stations_fire_station_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations
+    ADD CONSTRAINT teams_of_fire_stations_fire_station_id_fkey FOREIGN KEY (fire_station_id) REFERENCES public.fire_stations(id);
+
+
+--
+-- TOC entry 4711 (class 2606 OID 25569)
+-- Name: teams_of_fire_stations teams_of_fire_stations_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations
+    ADD CONSTRAINT teams_of_fire_stations_status_id_fkey FOREIGN KEY (status_id) REFERENCES public.status(id);
+
+
+--
+-- TOC entry 4712 (class 2606 OID 25564)
+-- Name: teams_of_fire_stations teams_of_fire_stations_team_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams_of_fire_stations
+    ADD CONSTRAINT teams_of_fire_stations_team_id_fkey FOREIGN KEY (team_id) REFERENCES public.teams(id);
+
+
+--
+-- TOC entry 4894 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: TABLE status; Type: ACL; Schema: public; Owner: postgres
 --
@@ -764,7 +990,16 @@ ALTER TABLE ONLY public.firefighters
 GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.status TO adminfire;
 
 
--- Completed on 2024-08-26 18:25:08
+--
+-- TOC entry 4896 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: TABLE teams_of_fire_stations; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.teams_of_fire_stations TO adminfire;
+
+
+-- Completed on 2024-08-28 22:59:35
 
 --
 -- PostgreSQL database dump complete
