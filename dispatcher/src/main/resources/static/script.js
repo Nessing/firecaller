@@ -11,6 +11,11 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     socket.onmessage = function(event) {
+        if (event.data === "updateStatus") {
+            console.log("upd");
+            $scope.getAllTeams();
+            // $scope.getFirefighters();
+        }
         console.log('Received message: ' + event.data);
     }
 
@@ -25,14 +30,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
     };
 
-    // $scope.getSquares = function () {
+    $scope.getAllTeams = function () {
         $http.get(contextPath + '/getAllTeamOfFireStation')
             .then(function (response) {
                 $scope.getAllTeamOfFireStation = response.data;
             }, function (error) {
                 // handle error
             });
-    // }
+    }
 
     $scope.getFirefightersOfStation = function (numberStation) {
         $http.get(contextPath + '/getFirefighters/' + numberStation)
@@ -56,4 +61,5 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.fillTable();
+    $scope.getAllTeams();
 });

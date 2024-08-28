@@ -15,7 +15,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(myWebSocketHandler(), "/my-websocket-endpoint").setAllowedOrigins("localhost:8080");
-        registry.addHandler(fireStationWebSocket(), "/fire-station").setAllowedOrigins("localhost:8080");
+        registry.addHandler(fireStationWebSocket(), "/fire-station", "/my-websocket-endpoint").setAllowedOrigins("localhost:8080");
     }
 
     @Bean

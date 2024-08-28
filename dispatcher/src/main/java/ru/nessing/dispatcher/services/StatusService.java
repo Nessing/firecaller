@@ -4,17 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.entities.DTOs.StatusDto;
 import ru.nessing.dispatcher.entities.Status;
+import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.repositories.StatusRepository;
+import ru.nessing.dispatcher.repositories.TeamOfFireStationRepository;
 
 import java.util.List;
 
 @Service
 public class StatusService {
     private final StatusRepository statusRepository;
+    private final TeamOfFireStationRepository teamOfFireStationRepository;
 
-    @Autowired
-    public StatusService(StatusRepository statusRepository) {
+    public StatusService(StatusRepository statusRepository,
+                         TeamOfFireStationRepository teamOfFireStationRepository) {
         this.statusRepository = statusRepository;
+        this.teamOfFireStationRepository = teamOfFireStationRepository;
     }
 
     public List<Status> getAllStatus() {
@@ -22,6 +26,11 @@ public class StatusService {
     }
 
     public void updateStatus(StatusDto statusDto) {
-
+        TeamOfFireStation team = teamOfFireStationRepository
+                .findTeamOfFireStationByFireStation_IdAndAndTeam_Id(statusDto.getFireStationId(), statusDto.getTeamId());
+        if (team != null) {
+            team.setStatus(statusDto.getStatus());
+            teamOfFireStationRepository.save(team);
+        }
     }
 }

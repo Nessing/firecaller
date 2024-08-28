@@ -36,5 +36,10 @@ public class FireStationWebSocket extends TextWebSocketHandler {
                 client.sendMessage(new TextMessage("updatePerson"));
             }
         }
+        if (payload.equals("updateStatus")) {
+            for (WebSocketSession client : sessions) {
+                client.sendMessage(new TextMessage("updateStatus"));
+            }
+        }
     }
 }

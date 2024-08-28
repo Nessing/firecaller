@@ -54,12 +54,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
         let statusOfTeam = {
             fireStationId: square.fireStation.id,
             teamId: square.team.id,
-            statusId: stat.id
+            status: stat
         }
         console.log(statusOfTeam);
         $http.post(contextPath + '/updateStatus', statusOfTeam)
             .then(function (response) {
-
+                socket.send("updateStatus");
             });
     };
 
