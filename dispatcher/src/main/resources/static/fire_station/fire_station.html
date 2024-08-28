@@ -17,11 +17,18 @@
 <body>
 <div class="container" ng-controller="indexController">
     <h1>{{name}}</h1>
-
     <h3>Караул</h3>
 
     <div ng-repeat="square in squares">
-        <h4>{{square.team.name}} - {{square.car.name}} - {{square.team.status.title}}</h4>
+        <div class="div_title-status-block">
+            <h4>{{square.team.name}} - {{square.car.name}} - {{square.team.status.title}}</h4>
+            <div class="div_radio-buttons">
+                <div class="div_radio-button-block" ng-repeat="status in allStatus">
+                    <input class="radio-button_input" type="radio" id="{{square.team.name + status.id}}" ng-attr-name="{{square.team.name}}" value="{{status.id}}" ng-checked="status.name == square.team.status.name">
+                    <label class="radio-button_label" for="{{square.team.name + status.id}}">{{status.title}}</label>
+                </div>
+            </div>
+        </div>
 
         <table class="table table-hover">
             <thead>

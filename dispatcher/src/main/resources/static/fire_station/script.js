@@ -24,6 +24,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     $scope.firefightersMap = new Map();
     $scope.squares = [];
     $scope.teams = new Map();
+    $scope.allStatus = [];
 
     var socket = new WebSocket('ws://localhost:8080/fire-station');
 
@@ -42,6 +43,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http,
     function sendMessage(message) {
         socket.send(message);
     }
+
+    $http.get(contextPath + "/getAllStatus")
+        .then(function (response) {
+            console.log(response.data);
+            $scope.allStatus = response.data;
+        });
 
     $http.get(contextPath + '/getAllPositions')
         .then(function (response) {

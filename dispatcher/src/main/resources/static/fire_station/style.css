@@ -226,3 +226,63 @@
     border-radius: 10px;
     background-color: #99999961;
 }
+
+.div_title-status-block {
+    display: flex;
+    justify-content: space-between;
+}
+.div_radio-buttons {
+    display: flex;
+}
+.div_radio-button-block {
+    margin-left: 10px;
+}
+/* радио кнопка */
+.radio-button_input[type="radio"] {
+    display: none; /* скрываем стандартный input */
+}
+.radio-button_input[type="radio"] + .radio-button_label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #000;
+    /*background: linear-gradient(to bottom, #ff0000, #ff6600, #333333);*/
+    /*border: 1px solid #cc0000;*/
+    /*background: linear-gradient(to bottom, #cccccc, #999999);*/
+    /*border: 1px solid #999999;*/
+    /*background: linear-gradient(to bottom, #76b852, #8dc26f);*/
+    /*border: 1px solid #5d9436;*/
+    background: linear-gradient(to bottom, #23bf23, #94ff5a, #0c6b0c);
+    border: 1px solid #169716;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.radio-button_input:hover[type="radio"] + .radio-button_label {
+    background: linear-gradient(to bottom, #ff6600, #ff9900, #333333);
+    border-color: #af4500;
+    cursor: pointer;
+}
+.radio-button_input:active[type="radio"] + .radio-button_label {
+    /*background: linear-gradient(to bottom, #cc0000, #cc3300, #333333);*/
+    /*color: #fff;*/
+    /*border-color: #666666;*/
+}
+.radio-button_input:focus[type="radio"] + .radio-button_label {
+    outline: none;
+}
+.radio-button_input:disabled[type="radio"] + .radio-button_label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.radio-button_input[type="radio"]:checked + .radio-button_label {
+    background: linear-gradient(to bottom, #cc0000, #cc3300, #333333);
+    color: #fff;
+    border-color: #ff6666; /* цвет рамки при выборе */
+}
+.radio-button_label {
+
+}
