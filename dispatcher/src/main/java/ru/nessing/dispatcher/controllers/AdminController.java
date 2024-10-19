@@ -3,6 +3,7 @@ package ru.nessing.dispatcher.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nessing.dispatcher.entities.user.User;
 import ru.nessing.dispatcher.services.AdminService;
@@ -18,11 +19,8 @@ public class AdminController {
 
     @PostMapping("/createUser")
     public String CreateUser(@RequestBody User user) {
+        System.out.println(user);
         adminService.createUser(user);
         return "user " + user.getUsername() + " is created";
-    }
-
-    public void getAllUsers() {
-
     }
 }

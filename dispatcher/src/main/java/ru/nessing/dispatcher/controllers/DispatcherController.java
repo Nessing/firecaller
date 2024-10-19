@@ -29,7 +29,7 @@ public class DispatcherController {
     }
 
     @GetMapping("/getTeams")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') && hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_USER')")
     public List<Team> getSquare() {
         return service.getTeams();
     }

@@ -1,28 +1,31 @@
 package ru.nessing.dispatcher.configurations;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.nessing.dispatcher.entities.user.User;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
     private String username;
     private String password;
-    private boolean enabled;
     private List<GrantedAuthority> authorities;
+    private User user;
 
-    public CustomUserDetails(String username, String password, boolean enabled, List<GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.authorities = authorities;
+    public CustomUserDetails(User user) {
+        this.user = user;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRoleName()));
     }
 
     @Override
@@ -52,6 +55,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }

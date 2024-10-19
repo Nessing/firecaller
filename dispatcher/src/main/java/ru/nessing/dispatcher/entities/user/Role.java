@@ -1,10 +1,10 @@
 package ru.nessing.dispatcher.entities.user;
 
 import jakarta.persistence.*;
-
-import java.util.Set;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "roles")
 public class Role {
     @Id
@@ -13,7 +13,4 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String roleName;
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users;
 }
