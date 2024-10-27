@@ -17,19 +17,19 @@ public class DispatcherController {
     private DispatcherService service;
 
     @GetMapping("/getFireStationsAndSquares")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+//    @PreAuthorize("hasAuthority('ROLE_USER')")
     public List<FireStationInfo> getFireStationsAndSquares() {
         return service.getFireStationsAndSquares();
     }
 
     @GetMapping("/getSquareOfStation/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Square> getSquareOfStation(@PathVariable Long id) {
         return service.getSquareOfStation(id);
     }
 
     @GetMapping("/getTeams")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_USER')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_USER')")
     public List<Team> getSquare() {
         return service.getTeams();
     }

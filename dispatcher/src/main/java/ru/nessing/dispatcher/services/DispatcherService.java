@@ -1,7 +1,10 @@
 package ru.nessing.dispatcher.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import ru.nessing.dispatcher.configurations.CustomUserDetails;
 import ru.nessing.dispatcher.repositories.*;
 import ru.nessing.dispatcher.entities.*;
 import ru.nessing.dispatcher.utils.FindStatusOfTeam;
@@ -18,6 +21,15 @@ public class DispatcherService {
     private final CarsRepository carsRepository;
     private final TeamRepository teamRepository;
     private final TeamOfFireStationRepository teamOfFireStationRepository;
+
+    public String getPermissionForAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof CustomUserDetails details) {
+            return details.getPermission().getName();
+        }
+        return null;
+    }
 
     @Autowired
     public DispatcherService(PersonRepository personRepository,
@@ -83,6 +95,7 @@ public class DispatcherService {
     }
 
     public List<Team> getTeams() {
+        getPermissionForAuthenticatedUser();
         return teamRepository.findAll();
     }
 }

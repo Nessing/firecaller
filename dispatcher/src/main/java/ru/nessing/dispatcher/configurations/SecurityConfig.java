@@ -1,5 +1,6 @@
 package ru.nessing.dispatcher.configurations;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,6 +23,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+
+    @Autowired
+    FireStationAuthManager fireStationAuthManager;
     @Bean
     public UserDetailsService userDetailsService() {
 //        UserDetails admin = User.builder().username("admin").password(encoder.encode("pass")).roles("ADMIN").build();
@@ -43,9 +47,13 @@ public class SecurityConfig {
 //        return http.build();
 
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser").permitAll()
-                        .requestMatchers("/**").authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser", "/static/**").permitAll()
+                                .requestMatchers("/fire_station/fire_station.html").access(new FireStationAuthManager())
+                                .requestMatchers("/fire_station/fire_station.html").hasAnyRole("ADMIN", "FIRESTATION")
+                                .anyRequest().authenticated()
+                        )
                         .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                        .exceptionHandling(ex -> ex.accessDeniedHandler(new CustomAccessDeniedHandler())) // исключение, если нет доступа
                         .build();
     }
 
