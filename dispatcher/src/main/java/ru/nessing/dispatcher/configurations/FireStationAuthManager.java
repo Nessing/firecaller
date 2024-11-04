@@ -5,13 +5,11 @@ import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 import ru.nessing.dispatcher.utils.PermissionUser;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,5 +53,4 @@ public class FireStationAuthManager implements AuthorizationManager<RequestAutho
         }
         return new AuthorizationDecision(false);
     }
-
 }

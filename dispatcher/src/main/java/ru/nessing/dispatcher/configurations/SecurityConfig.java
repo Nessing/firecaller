@@ -47,12 +47,13 @@ public class SecurityConfig {
 //        return http.build();
 
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser", "/static/**").permitAll()
-                                .requestMatchers("/fire_station/fire_station.html").access(new FireStationAuthManager())
-                                .requestMatchers("/fire_station/fire_station.html").hasAnyRole("ADMIN", "FIRESTATION")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser").permitAll()
+                                .requestMatchers("/fire_station/fire_station.html", "/static/**").access(new FireStationAuthManager())
+//                                .requestMatchers("/fire_station/fire_station.html").hasAnyRole("ADMIN", "FIRESTATION")
                                 .anyRequest().authenticated()
                         )
-                        .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                        .formLogin(form -> form.permitAll().successHandler(new CustomAuthSuccessHandler()))
+//                        .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                         .exceptionHandling(ex -> ex.accessDeniedHandler(new CustomAccessDeniedHandler())) // исключение, если нет доступа
                         .build();
     }
