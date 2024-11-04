@@ -16,6 +16,8 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         // после успешной авторизации перенаправляем пользователя на указанный URL
         if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_FIRESTATION"))) {
             redirectURL = "/fire_station/fire_station.html";
+        } else if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+            redirectURL = "/dispatcher/index.html";
         }
 
         response.sendRedirect(redirectURL);

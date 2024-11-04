@@ -1,0 +1,66 @@
+.fireStation_div {
+    display: flex;
+}
+
+.fireStation_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.fireStation_title {
+    display: flex;
+    justify-content: center;
+}
+
+.div-table_background {
+    background: #efefef;
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.fire-station-table thead > tr {
+    font-weight: 700;
+}
+
+.div_table_left-button {
+    height: 100%;
+    width: 45px;
+    margin: 0 4px 0 0;
+}
+
+.div-table_right {
+    width: 100%;
+}
+
+.fire-station-name {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to right, #ff6e7f, #bfe9ff);
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+}
+
+.div_bottom_btn {
+    display: flex;
+}
+
+.status-of-team {
+    padding: 3px 3px 4px 3px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.status-of-team_calm {
+    color: #0c6b0c;
+    border: 2px solid #0c6b0c;
+}
+.status-of-team_on-the-way {
+    color: #af4500;
+    border: 2px solid #af4500;
+}
+.status-of-team_on-the-destination {
+    color: #af0000;
+    border: 2px solid #af0000;
+}

@@ -48,7 +48,7 @@ public class SecurityConfig {
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser").permitAll()
-                                .requestMatchers("/fire_station/fire_station.html", "/static/**").access(new FireStationAuthManager())
+                                .requestMatchers("/fire_station/fire_station.html", "/**").access(new FireStationAuthManager())
 //                                .requestMatchers("/fire_station/fire_station.html").hasAnyRole("ADMIN", "FIRESTATION")
                                 .anyRequest().authenticated()
                         )

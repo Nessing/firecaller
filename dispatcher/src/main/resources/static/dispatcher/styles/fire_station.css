@@ -117,13 +117,13 @@
     margin: 0 0 0 auto;
 }
 .button-close:hover {
-    background-image: url(icons/close_white.svg);
+    background-image: url(../icons/close_white.svg);
     transition: 0.3s;
     background-color: #dc3545;
 }
 
 .button-delete {
-    background-image: url(icons/delete.svg);
+    background-image: url(../icons/delete.svg);
     background-size: 25px;
     background-repeat: no-repeat;
     background-position-y: 3px;
@@ -137,13 +137,13 @@
     margin: 0 0 0 auto;
 }
 .button-delete:hover {
-    background-image: url(icons/delete_white.svg);
+    background-image: url(../icons/delete_white.svg);
     transition: 0.3s;
     background-color: #5b595a;
 }
 
 .button-person_edit {
-    background-image: url(icons/person.svg);
+    background-image: url(../icons/person.svg);
     background-size: 35px;
     background-repeat: no-repeat;
     background-position-y: -4px;
@@ -157,13 +157,13 @@
     margin: 0 0 0 auto;
 }
 .button-person_edit:hover {
-    background-image: url(icons/person_white.svg);
+    background-image: url(../icons/person_white.svg);
     transition: 0.3s;
     background-color: #5b595a;
 }
 
 .button-edit {
-    background-image: url(icons/edit.svg);
+    background-image: url(../icons/edit.svg);
     background-size: 45px;
     background-repeat: no-repeat;
     background-position-y: -7px;
@@ -177,7 +177,7 @@
     margin: 0 0 0 auto;
 }
 .button-edit:hover {
-    background-image: url(icons/edit_white.svg);
+    background-image: url(../icons/edit_white.svg);
     transition: 0.3s;
     background-color: #5b595a;
 }
