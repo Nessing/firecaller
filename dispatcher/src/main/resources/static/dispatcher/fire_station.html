@@ -131,40 +131,21 @@
                 <td>Наименование</td>
                 <td>Номер</td>
                 <td>Отделение</td>
-                <td></td>
-                <td></td>
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="car in fireCars track by $index">
-                    <td ng-show="selectedCarIndex !== $index">
+                <tr ng-repeat="car in fireCars">
+                    <td>
                         <span>{{car.name}}</span>
-                    </td>
-                    <td ng-show="selectedCarIndex === $index">
-                        <input class="text-input" ng-model="car.name" value="{{car.name}}">
-                    </td>
-
-                    <td ng-show="selectedCarIndex !== $index">
-                        <span>{{car.numberCar}}</span>
-                    </td>
-                    <td ng-show="selectedCarIndex === $index">
-                        <input class="text-input" ng-model="car.numberCar" value="{{car.numberCar}}">
                     </td>
 
                     <td>
-                        <span ng-if="selectedCarIndex !== $index">{{ car.team.name }}</span>
-                        <select class="form-select" ng-if="selectedCarIndex === $index" ng-model="car.team" name="team" ng-options="key as value for (key, value) in teams"
-                                ng-init="car.team = getKeyByValue(teams, car.team.name)">
-                            <option value="">----</option>
-                        </select>
+                        <span>{{car.numberCar}}</span>
                     </td>
 
-                    <!--//*** Сохранение изменений. Если выбранный ход имеется, то менять местами **/-->
-
-                    <td><input ng-show="selectedCarIndex !== $index && !isEditSelectedCar" class="button-edit" type="submit" name="edit_car" value="" title="Редактировать машину" ng-click="editCar($index)"></td>
-                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-success" type="submit" name="ok_edit_car" value="Ок" title="Сохранить" ng-click="updateCar(car)"></td>
-                    <td><input ng-show="selectedCarIndex === $index && isEditSelectedCar" class="btn btn-danger" type="submit" name="cancel_edit_car" value="Отмена" title="Отмена" ng-click="cancelEditCar()"></td>
-                    <td><input class="button-delete" type="submit" name="delete_car" value="" title="Удалить машину" ng-click="openModalCarWindow(car)"></td>
+                    <td>
+                        <span>{{ car.team.name }}</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
