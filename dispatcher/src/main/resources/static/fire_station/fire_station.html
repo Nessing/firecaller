@@ -21,7 +21,7 @@
 
     <div ng-repeat="square in squares">
         <div class="div_title-status-block">
-            <h4>{{square.team.name}} - {{square.car.name}} - {{square.status.title}}</h4>
+            <h4>{{square.team.name}} - {{square.car.name}}</h4>
             <div class="div_radio-buttons">
                 <div class="div_radio-button-block" ng-repeat="status in allStatus">
                     <input class="radio-button_input" type="radio" id="{{square.team.name + status.id}}" ng-attr-name="{{square.team.name}}" value="{{status.id}}" ng-checked="status.name == square.status.name">

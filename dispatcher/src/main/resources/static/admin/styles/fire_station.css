@@ -227,26 +227,6 @@
     background-color: #99999961;
 }
 
-.status-of-team {
-    padding: 6px 3px 3px 3px;
-    border-radius: 6px;
-    font-weight: 500;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-.status-of-team_calm {
-    color: #0c6b0c;
-    border: 2px solid #0c6b0c;
-}
-.status-of-team_on-the-way {
-    color: #af4500;
-    border: 2px solid #af4500;
-}
-.status-of-team_on-the-destination {
-    color: #af0000;
-    border: 2px solid #af0000;
-}
-
 .div_title-status-block {
     display: flex;
     justify-content: space-between;
@@ -280,17 +260,18 @@
     text-decoration: none;
     text-transform: uppercase;
     transition: all 0.3s;
-    /*cursor: pointer;*/
+    cursor: pointer;
 }
-/*.radio-button_input:hover[type="radio"] + .radio-button_label {*/
-/*    background: linear-gradient(to bottom, #ff6600, #ff9900, #333333);*/
-/*    border-color: #af4500;*/
-/*}*/
-/*.radio-button_input:active[type="radio"] + .radio-button_label {*/
-/*    background: linear-gradient(to bottom, #cc0000, #cc3300, #333333);*/
-/*    color: #fff;*/
-/*    border-color: #666666;*/
-/*}*/
+.radio-button_input:hover[type="radio"] + .radio-button_label {
+    background: linear-gradient(to bottom, #ff6600, #ff9900, #333333);
+    border-color: #af4500;
+    cursor: pointer;
+}
+.radio-button_input:active[type="radio"] + .radio-button_label {
+    /*background: linear-gradient(to bottom, #cc0000, #cc3300, #333333);*/
+    /*color: #fff;*/
+    /*border-color: #666666;*/
+}
 .radio-button_input:focus[type="radio"] + .radio-button_label {
     outline: none;
 }

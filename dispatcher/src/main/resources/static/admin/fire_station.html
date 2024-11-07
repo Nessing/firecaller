@@ -21,13 +21,13 @@
 
     <div ng-repeat="square in squares">
         <div class="div_title-status-block">
-            <h4>{{square.team.name}} - {{square.car.name}}</h4>
-            <label class="status-of-team"
-                ng-class="{'status-of-team_calm': square.status.name == 'calm',
-                          'status-of-team_on-the-way': square.status.name == 'on_the_way',
-                          'status-of-team_on-the-destination': square.status.name == 'on_the_destination'}">
-                        {{square.status.title}}
-            </label>
+            <h4>{{square.team.name}} - {{square.car.name}} - {{square.status.title}}</h4>
+            <div class="div_radio-buttons">
+                <div class="div_radio-button-block" ng-repeat="status in allStatus">
+                    <input class="radio-button_input" type="radio" id="{{square.team.name + status.id}}" ng-attr-name="{{square.team.name}}" value="{{status.id}}" ng-checked="status.name == square.status.name">
+                    <label class="radio-button_label" ng-click="updateStatus(status, square)" for="{{square.team.name + status.id}}">{{status.title}}</label>
+                </div>
+            </div>
         </div>
 
         <table class="table table-hover">
@@ -81,40 +81,60 @@
                     <div class="modal_window-content-title-text-horizontal-space-between">
                         <div ng-show="!isEditSelectedPerson" class="modal_window-content-title-text-center">
                             <span class="modal_window-content-title-text">{{person.firstName}} {{person.midName}} {{person.lastName}}</span>
+                            <span ng-show="!isEditSelectedPerson" class="modal_window-content-title-text">
+                                <input class="button-edit" type="submit" name="edit_person" value="" title="Редактировать сотрудника" ng-click="editPerson()">
+                            </span>
+                            <span class="modal_window-content-title-text">
+                                <input class="button-delete" type="submit" name="delete_person" value="" title="Удалить сотрудника" ng-click="deletePerson(person)">
+                            </span>
                         </div>
                         <div ng-show="isEditSelectedPerson" class="modal_window-content-title-vertical-left">
                             <div class="modal_window-content-title-text-horizontal-space-between">
                                 <span class="modal_window-content-title-text">Имя: </span>
-                                <span class="modal_window-content-title-text">{{person.firstName}}</span>
+                                <input class="text-input" ng-model="person.firstName" value="{{person.firstName}}">
+                                <span class="modal_window-content-title-text">
+                                    <input class="button-delete" type="submit" name="delete_person" value="" title="Удалить сотрудника" ng-click="deletePerson(person)">
+                                </span>
                             </div>
                             <div class="modal_window-content-title-text-horizontal-space-between">
                                 <span class="modal_window-content-title-text">Отчество: </span>
-                                <span class="modal_window-content-title-text">{{person.midName}}</span>
+                                <input class="text-input" ng-model="person.midName" value="{{person.midName}}">
                             </div>
                             <div class="modal_window-content-title-text-horizontal-space-between">
                                 <span class="modal_window-content-title-text">Фамилия: </span>
-                                <span class="modal_window-content-title-text">{{person.lastName}}</span>
+                                <input class="text-input" ng-model="person.lastName" value="{{person.lastName}}">
                             </div>
                         </div>
                     </div>
                     <div class="modal_window-content-title-vertical-left">
                         <div class="modal_window-content-title-text-horizontal-space-between">
                             <span class="modal_window-content-title-text">Должность: </span>
-                            <span class="modal_window-content-title-text">{{person.position.name}}</span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.position.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.position" name="position" ng-options="key as value for (key, value) in positions"
+                                    ng-init="person.position = getKeyByValue(positions, person.position.name)">
+                            </select>
                         </div>
 
                         <div class="modal_window-content-title-text-horizontal-space-between">
                             <span class="modal_window-content-title-text">Звание: </span>
-                            <span class="modal_window-content-title-text">{{person.rank.name}}</span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.rank.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.rank" name="rank" ng-options="key as value for (key, value) in ranks"
+                                    ng-init="person.rank = getKeyByValue(ranks, person.rank.name)">
+                            </select>
                         </div>
 
                         <div class="modal_window-content-title-text-horizontal-space-between">
                             <span class="modal_window-content-title-text">Отделение: </span>
-                            <span class="modal_window-content-title-text">{{person.team.name}}</span>
+                            <span ng-if="!isEditSelectedPerson" class="modal_window-content-title-text">{{person.team.name}}</span>
+                            <select class="form-select" ng-if="isEditSelectedPerson" ng-model="person.team" name="team" ng-options="key as value for (key, value) in teams"
+                                    ng-init="person.team = getKeyByValue(teams, person.team.name)">
+                                <option value="">----</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal_window-buttons">
-                        <input class="btn btn-success modal_window-btn-ok" type="submit" value="Ok" ng-click="closeModalPersonWindow()">
+                        <input class="btn btn-success modal_window-btn-ok" type="submit" value="Ok" ng-click="updatePerson(person)">
+                        <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalPersonWindow()">
                     </div>
                 </div>
             </div>
