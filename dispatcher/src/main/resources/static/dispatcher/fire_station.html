@@ -150,36 +150,6 @@
             </tbody>
         </table>
     </div>
-
-<!-- Модальное окно для подтверждения удаления машины -->
-    <div class="modal_window" ng-show="isModalCarWindow">
-        <div class="modal_window-content">
-            <div class="modal_window-content-header">
-                <span class="modal_window-content-caption">Удаление</span>
-                <input class="button-close" type="submit" value="" placeholder="Закрыть" ng-click="closeModalCarWindow()">
-            </div>
-            <div class="modal_window-content-title">
-                <span class="modal_window-content-title-text">Удалить {{car.name + " № " + car.nameCar + " " + car.numberCar}}?</span>
-            </div>
-            <div class="modal_window-buttons">
-                <input class="btn btn-success modal_window-btn-ok" type="submit" value="Да" ng-click="deleteCar(car)">
-                <input class="btn btn-danger modal_window-btn-cancel" type="submit" value="Отмена" ng-click="closeModalCarWindow()">
-            </div>
-        </div>
-    </div>
-
-<!-- Оповещение   -->
-    <div class="notification" ng-show="showHiddenNotification" ng-class="{'notification-fade-in': isHiddenNotification, 'notification-fade-out': !isHiddenNotification}">
-        <div>
-            <span>Машина удалена!</span>
-        </div>
-    </div>
-
-    <form name="employeeForm">
-        <div class="buttons">
-            <a class="btn btn-outline-secondary m-2" ng-href="/dispatcher/index.html">Назад</a>
-        </div>
-    </form>
 </div>
 </body>
 </html>
