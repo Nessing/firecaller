@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class FireStationAuthManager implements AuthorizationManager<RequestAuthorizationContext> {
+public class CustomAuthManager implements AuthorizationManager<RequestAuthorizationContext> {
 
 
     @Override

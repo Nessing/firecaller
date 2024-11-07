@@ -8,14 +8,10 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -25,7 +21,7 @@ public class SecurityConfig {
 
 
     @Autowired
-    FireStationAuthManager fireStationAuthManager;
+    CustomAuthManager customAuthManager;
     @Bean
     public UserDetailsService userDetailsService() {
 //        UserDetails admin = User.builder().username("admin").password(encoder.encode("pass")).roles("ADMIN").build();
@@ -48,7 +44,7 @@ public class SecurityConfig {
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser").permitAll()
-                                .requestMatchers("/fire_station/fire_station.html", "/**").access(new FireStationAuthManager())
+                                .requestMatchers("/fire_station/fire_station.html", "/**").access(customAuthManager)
 //                                .requestMatchers("/fire_station/fire_station.html").hasAnyRole("ADMIN", "FIRESTATION")
                                 .anyRequest().authenticated()
                         )
