@@ -1,6 +1,7 @@
 package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.nessing.dispatcher.services.CarService;
 import ru.nessing.dispatcher.entities.Car;
@@ -17,6 +18,7 @@ public class CarController {
     }
 
     @GetMapping("/getCars/{fireStation}")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Car> getCars(@PathVariable Long fireStation) {
         return service.getCars(fireStation);
     }

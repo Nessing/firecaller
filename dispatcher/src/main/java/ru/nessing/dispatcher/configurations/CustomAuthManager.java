@@ -1,10 +1,14 @@
 package ru.nessing.dispatcher.configurations;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 import ru.nessing.dispatcher.utils.PermissionUser;
@@ -22,12 +26,10 @@ public class CustomAuthManager implements AuthorizationManager<RequestAuthorizat
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext context) {
         PermissionUser permission = new PermissionUser();
 
-        HttpServletRequest request = context.getRequest();
-
         // Применять проверку только к HTML-страницам
-        if (!request.getServletPath().endsWith(".html")) {
-            return new AuthorizationDecision(true); // Разрешить доступ к статическим ресурсам
-        }
+//        if (!request.getServletPath().endsWith(".html")) {
+//            return new AuthorizationDecision(true); // Разрешить доступ к статическим ресурсам
+//        }
 
         String requestUrl = context.getRequest().getQueryString();
         Collection<? extends GrantedAuthority> roles = authentication.get().getAuthorities();
