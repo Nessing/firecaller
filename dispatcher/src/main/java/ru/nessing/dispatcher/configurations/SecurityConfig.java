@@ -50,8 +50,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser", "/login").permitAll()
-                                .requestMatchers("/getCars/1").access(customAuthManager)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/createUser", "/auth/*").permitAll()
+                                .requestMatchers("/getCars").access(customAuthManager)
                                 .anyRequest().authenticated()
                         )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

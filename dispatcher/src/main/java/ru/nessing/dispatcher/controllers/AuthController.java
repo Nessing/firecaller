@@ -11,12 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.nessing.dispatcher.configurations.CustomUserDetails;
 import ru.nessing.dispatcher.utils.LoginRequest;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -38,8 +38,6 @@ public class AuthController {
             );
 
             // Установка аутентификации в контексте безопасности
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-
             SecurityContext context = SecurityContextHolder.getContext();
             context.setAuthentication(authentication);
 
@@ -47,15 +45,33 @@ public class AuthController {
             HttpSession session = request.getSession(true);
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
-            // Генерация JWT токена
-//            String jwt = tokenProvider.generateToken(authentication);
-
-            // Возврат токена в ответе
-//            return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
             return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             // В случае ошибки аутентификации возвращаем 401
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(null);
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("Logged out successfully");
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<?> check(HttpServletRequest request) {
+        SecurityContext context = SecurityContextHolder.getContext();
+
+        if (context.getAuthentication().getPrincipal() instanceof CustomUserDetails) {
+            return ResponseEntity.ok("User is authenticated");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
     }
 }

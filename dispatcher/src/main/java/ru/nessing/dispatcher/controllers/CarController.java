@@ -18,7 +18,6 @@ public class CarController {
     }
 
     @GetMapping("/getCars/{fireStation}")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Car> getCars(@PathVariable Long fireStation) {
         return service.getCars(fireStation);
     }
