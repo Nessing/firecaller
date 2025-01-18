@@ -1,6 +1,7 @@
 package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
@@ -19,6 +20,7 @@ public class TeamController {
     }
 
     @GetMapping("/getAllTeamOfFireStation")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<FireStationInfo> getAllTeamOfFireStation() {
         return teamService.getAllTeamOfFireStation();
     }

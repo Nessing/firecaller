@@ -1,12 +1,12 @@
 package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import ru.nessing.dispatcher.entities.user.User;
 import ru.nessing.dispatcher.services.AdminService;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
@@ -22,5 +22,11 @@ public class AdminController {
         System.out.println(user);
         adminService.createUser(user);
         return "user " + user.getUsername() + " is created";
+    }
+
+    @GetMapping("/getAllUsers")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public List<User> getAllUsers() {
+        return adminService.getAllUsers();
     }
 }

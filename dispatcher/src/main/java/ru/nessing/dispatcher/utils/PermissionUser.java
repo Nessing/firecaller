@@ -31,14 +31,16 @@ public class PermissionUser {
     }
 
     public String getNumberOfFireStation() {
-        String number = permission.split("_")[1];
-        StringBuilder builder = new StringBuilder();
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(permission);
-        while (matcher.find()) {
-            builder.append(matcher.group());
-        }
-        return number;
+        if (permission.contains("_")) {
+            String number = permission.split("_")[1];
+            StringBuilder builder = new StringBuilder();
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(permission);
+            while (matcher.find()) {
+                builder.append(matcher.group());
+            }
+            return number;
+        } return null;
     }
 
     public boolean isFireStation() {

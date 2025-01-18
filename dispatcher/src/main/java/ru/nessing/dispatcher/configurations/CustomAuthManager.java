@@ -38,18 +38,20 @@ public class CustomAuthManager implements AuthorizationManager<RequestAuthorizat
                 return new AuthorizationDecision(true);
             }
         }
-        if (permission.isFireStation() && requestUrl != null && !requestUrl.isEmpty()) {
+//        if (permission.isFireStation() && requestUrl != null && !requestUrl.isEmpty()) {
+        if (permission.isFireStation()) {
             for (GrantedAuthority role : roles) {
                 if (role.getAuthority().contains("ROLE_FIRESTATION")) {
-                    StringBuilder builder = new StringBuilder();
-                    Pattern pattern = Pattern.compile("\\d+");
-                    Matcher matcher = pattern.matcher(requestUrl);
-                    while (matcher.find()) {
-                        builder.append(matcher.group());
-                    }
-                    String numberStationUrl = builder.toString();
-//            response.sendRedirect(request.getContextPath() + "/fire_station/fire_station.html?id=" + permission.getNumberOfFireStation());
-                    return new AuthorizationDecision(permission.getNumberOfFireStation().equals(numberStationUrl));
+//                    StringBuilder builder = new StringBuilder();
+//                    Pattern pattern = Pattern.compile("\\d+");
+//                    Matcher matcher = pattern.matcher(requestUrl);
+//                    while (matcher.find()) {
+//                        builder.append(matcher.group());
+//                    }
+//                    String numberStationUrl = builder.toString();
+////            response.sendRedirect(request.getContextPath() + "/fire_station/fire_station.html?id=" + permission.getNumberOfFireStation());
+//                    return new AuthorizationDecision(permission.getNumberOfFireStation().equals(numberStationUrl));
+                    return new AuthorizationDecision(true);
                 }
             }
         }

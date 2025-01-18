@@ -1,8 +1,6 @@
 package ru.nessing.dispatcher.configurations;
 
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.entities.user.User;
 import ru.nessing.dispatcher.repositories.UserRepository;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Service

@@ -44,8 +44,11 @@ public class AuthController {
             // Явное сохранение контекста безопасности в сессии
             HttpSession session = request.getSession(true);
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
-
-            return ResponseEntity.ok(HttpStatus.ACCEPTED);
+            String roleName = null;
+            if (authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
+                roleName = userDetails.getRole().getRoleName();
+            }
+            return ResponseEntity.ok(roleName);
         } catch (Exception e) {
             // В случае ошибки аутентификации возвращаем 401
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
