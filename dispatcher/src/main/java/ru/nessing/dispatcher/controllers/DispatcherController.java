@@ -22,11 +22,11 @@ public class DispatcherController {
         return service.getFireStationsAndSquares();
     }
 
-    @GetMapping("/getSquareOfStation/{id}")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<Square> getSquareOfStation(@PathVariable Long id) {
-        return service.getSquareOfStation(id);
-    }
+//    @GetMapping("/getSquareOfStation/{id}")
+////    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    public List<Square> getSquareOfStation(@PathVariable Long id) {
+//        return service.getSquareOfStation(id);
+//    }
 
     @GetMapping("/getTeams")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_USER')")

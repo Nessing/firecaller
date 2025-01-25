@@ -11,5 +11,5 @@ import ru.nessing.dispatcher.entities.Status;
 public class StatusDto {
     private Long fireStationId;
     private Long teamId;
-    private Status status;
+    private Long statusId;
 }

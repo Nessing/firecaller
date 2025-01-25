@@ -24,7 +24,7 @@ public class StatusController {
     }
 
     @PostMapping("/updateStatus")
-    public void updateStatus(@RequestBody StatusDto statusDto) {
-        statusService.updateStatus(statusDto);
+    public boolean updateStatus(@RequestBody StatusDto statusDto) {
+        return statusService.updateStatus(statusDto);
     }
 }

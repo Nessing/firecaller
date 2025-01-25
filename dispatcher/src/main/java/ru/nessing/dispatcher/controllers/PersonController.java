@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.nessing.dispatcher.services.PersonService;
 import ru.nessing.dispatcher.entities.Firefighter;
+import ru.nessing.dispatcher.utils.PermissionUser;
 
 import java.util.List;
 
@@ -16,9 +17,18 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping("/getFirefighters/{fireStation}")
-    public List<Firefighter> getFirefightersOfStation(@PathVariable Long fireStation) {
-        return service.getFirefighters(fireStation);
+    @GetMapping("/getPersons/{fireStation}")
+    public List<Firefighter> getPersonsOfStation(@PathVariable Long fireStation) {
+        return service.getPersons(fireStation);
+    }
+
+    @GetMapping("/getPersons")
+    public List<Firefighter> getPersons() {
+        PermissionUser permission = new PermissionUser();
+        if (permission.getNumberOfFireStation() != null) {
+            return service.getPersons(Long.parseLong(permission.getNumberOfFireStation()));
+        }
+        return null;
     }
 
     @PostMapping("/addPerson")

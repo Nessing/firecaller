@@ -25,12 +25,19 @@ public class StatusService {
         return statusRepository.findAll();
     }
 
-    public void updateStatus(StatusDto statusDto) {
-        TeamOfFireStation team = teamOfFireStationRepository
-                .findTeamOfFireStationByFireStation_IdAndAndTeam_Id(statusDto.getFireStationId(), statusDto.getTeamId());
-        if (team != null) {
-            team.setStatus(statusDto.getStatus());
-            teamOfFireStationRepository.save(team);
+    public boolean updateStatus(StatusDto statusDto) {
+        if (statusDto.getTeamId() != null && statusDto.getFireStationId() != null && statusDto.getStatusId() != null) {
+            TeamOfFireStation team = teamOfFireStationRepository
+                    .findTeamOfFireStationByFireStation_IdAndAndTeam_Id(statusDto.getFireStationId(), statusDto.getTeamId());
+            if (team != null) {
+                Status status = statusRepository.findById(statusDto.getStatusId()).orElse(null);
+                if (status != null) {
+                    team.setStatus(status);
+                    teamOfFireStationRepository.save(team);
+                    return true;
+                }
+            } return false;
         }
+        return false;
     }
 }

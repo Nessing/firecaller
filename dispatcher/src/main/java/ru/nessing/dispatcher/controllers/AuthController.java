@@ -71,11 +71,18 @@ public class AuthController {
     public ResponseEntity<?> check(HttpServletRequest request) {
         SecurityContext context = SecurityContextHolder.getContext();
 
-        if (context.getAuthentication().getPrincipal() instanceof CustomUserDetails) {
-            return ResponseEntity.ok("User is authenticated");
+        String PermissionName = null;
+        if (context.getAuthentication().getPrincipal() instanceof CustomUserDetails userDetails) {
+            PermissionName = userDetails.getPermission().getName();
+            return ResponseEntity.ok(PermissionName);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
+//        if (context.getAuthentication().getPrincipal() instanceof CustomUserDetails) {
+//            return ResponseEntity.ok("User is authenticated");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+//        }
     }
 }
 

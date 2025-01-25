@@ -77,6 +77,6 @@ public class PersonServiceTest {
         List<Firefighter> firefighters = new ArrayList<>();
         firefighters.add(FIREFIGHTER);
         Mockito.when(personRepository.findFirefightersByFireStation_IdOrderByTeam(1L)).thenReturn(firefighters);
-        Assertions.assertEquals(personService.getFirefighters(1L).get(0), FIREFIGHTER);
+        Assertions.assertEquals(personService.getPersons(1L).get(0), FIREFIGHTER);
     }
 }

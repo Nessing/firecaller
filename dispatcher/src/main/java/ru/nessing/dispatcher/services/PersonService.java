@@ -21,7 +21,7 @@ public class PersonService {
         this.fireStationRepository = fireStationRepository;
     }
 
-    public List<Firefighter> getFirefighters(Long fireStation) {
+    public List<Firefighter> getPersons(Long fireStation) {
         return personRepository.findFirefightersByFireStation_IdOrderByTeam(fireStation);
     }
 
