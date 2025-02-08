@@ -1,11 +1,11 @@
-package ru.nessing.dispatcher.entities.DTOs;
+package ru.nessing.dispatcher.utils;
 
 import lombok.Data;
 import ru.nessing.dispatcher.entities.FireStation;
 import ru.nessing.dispatcher.entities.Position;
 
 @Data
-public class FirefighterDTO {
+public class FirefighterUtils {
     private String firstName;
     private String midName;
     private String lastName;

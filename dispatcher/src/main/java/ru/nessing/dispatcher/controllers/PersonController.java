@@ -2,6 +2,7 @@ package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.nessing.dispatcher.entities.DTOs.FirefighterDto;
 import ru.nessing.dispatcher.services.PersonService;
 import ru.nessing.dispatcher.entities.Firefighter;
 import ru.nessing.dispatcher.utils.PermissionUser;
@@ -42,7 +43,7 @@ public class PersonController {
     }
 
     @PostMapping("/updatePerson")
-    public Boolean updatePerson(@RequestBody Firefighter firefighter) {
+    public Boolean updatePerson(@RequestBody FirefighterDto firefighter) {
         return service.updatePerson(firefighter);
     }
 }

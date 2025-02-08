@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.nessing.dispatcher.entities.DTOs.FirefighterDTO;
+import ru.nessing.dispatcher.utils.FirefighterUtils;
 import ru.nessing.dispatcher.entities.FireStation;
 import ru.nessing.dispatcher.entities.Firefighter;
 import ru.nessing.dispatcher.entities.Position;
@@ -58,9 +58,9 @@ public class PersonServiceTest {
 
     @Test
     public void createShortNameOfPerson() {
-        FirefighterDTO firefighterDTO = new FirefighterDTO();
-        firefighterDTO.createShortName(FIRST_NAME, MID_NAME, SURNAME);
-        Assertions.assertEquals(firefighterDTO.getShortName(), SHORT_NAME);
+        FirefighterUtils firefighterUtils = new FirefighterUtils();
+        firefighterUtils.createShortName(FIRST_NAME, MID_NAME, SURNAME);
+        Assertions.assertEquals(firefighterUtils.getShortName(), SHORT_NAME);
     }
 
     @Test
