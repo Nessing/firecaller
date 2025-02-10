@@ -71,10 +71,14 @@ public class PersonService {
         } else {
             return false;
         }
-        Optional<Team> team = teamRepository.findById(firefighterDto.getTeamId());
+        if (firefighterDto.getTeamId() != null) {
+            Optional<Team> team = teamRepository.findById(firefighterDto.getTeamId());
+            firefighter.setTeam(team.get());
+        } else {
+            firefighter.setTeam(null);
+        }
         Optional<Position> position = positionRepository.findById(firefighterDto.getPositionId());
         Optional<Rank> rank = rankRepository.findById(firefighterDto.getRankId());
-        firefighter.setTeam(team.get());
         firefighter.setPosition(position.get());
         firefighter.setRank(rank.get());
         personRepository.save(firefighter);
