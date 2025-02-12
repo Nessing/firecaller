@@ -57,6 +57,8 @@ public class PersonService {
     }
 
     public Boolean updatePerson(FirefighterDto firefighterDto) {
+        if (firefighterDto == null || firefighterDto.getId() == null) return false;
+
         Firefighter firefighter = new Firefighter();
         FirefighterUtils firefighterUtils = new FirefighterUtils();
         firefighterUtils.createShortName(firefighterDto.getFirstName(), firefighterDto.getMidName(), firefighterDto.getLastName());
@@ -65,12 +67,8 @@ public class PersonService {
         firefighter.setFirstName(firefighterDto.getFirstName());
         firefighter.setMidName(firefighterDto.getMidName());
         firefighter.setLastName(firefighterDto.getLastName());
-        if (firefighterDto.getId() != null) {
-            FireStation fireStation = personRepository.findFirefighterById(firefighterDto.getId()).getFireStation();
-            firefighter.setFireStation(fireStation);
-        } else {
-            return false;
-        }
+        FireStation fireStation = personRepository.findFirefighterById(firefighterDto.getId()).getFireStation();
+        firefighter.setFireStation(fireStation);
         if (firefighterDto.getTeamId() != null) {
             Optional<Team> team = teamRepository.findById(firefighterDto.getTeamId());
             firefighter.setTeam(team.get());

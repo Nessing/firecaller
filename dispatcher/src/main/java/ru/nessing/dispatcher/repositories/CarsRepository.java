@@ -12,4 +12,5 @@ public interface CarsRepository extends JpaRepository<Car, Long> {
     Car findCarById(Long carId);
     Car findCarByNameAndAndNumberCar(String name, String numberCar);
     Car findCarByTeamNameAndAndFireStation_Id(String teamName, Long fireStationId);
+    Car findCarByTeamIdAndFireStation_Id(Long teamId, Long fireStationId);
 }

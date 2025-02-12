@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.nessing.dispatcher.entities.DTOs.CarDto;
 import ru.nessing.dispatcher.services.CarService;
 import ru.nessing.dispatcher.entities.Car;
 import ru.nessing.dispatcher.utils.PermissionUser;
@@ -35,8 +36,8 @@ public class CarController {
     }
 
     @PostMapping("/updateCar")
-    public Boolean updateCar(@RequestBody Car car) {
-        return service.updateCar(car);
+    public Boolean updateCar(@RequestBody CarDto carDto) {
+        return service.updateCar(carDto);
     }
 
     @PostMapping("/deleteCar")
