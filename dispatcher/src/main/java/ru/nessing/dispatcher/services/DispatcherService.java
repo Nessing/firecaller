@@ -70,27 +70,41 @@ public class DispatcherService {
 
     public List<Square> getSquareOfStation(Long stationId) {
         List<Square> squares = new ArrayList<>();
-        FireStation fireStation = fireStationRepository.findFireStationById(stationId);
-        List<Firefighter> firefighters = personRepository.findFirefightersByFireStation_IdOrderByTeam(stationId);
-        List<Car> cars = carsRepository.findCarsByFireStation_IdOrderByTeam(stationId);
-        List<TeamOfFireStation> teams = teamOfFireStationRepository.findAll();
+//        FireStation fireStation = fireStationRepository.findFireStationById(stationId);
+//        List<Firefighter> firefighters = personRepository.findFirefightersByFireStation_IdOrderByTeam(stationId);
+//        List<Car> cars = carsRepository.findCarsByFireStation_IdOrderByTeam(stationId);
+        List<TeamOfFireStation> teams = teamOfFireStationRepository.findByFireStation_Id(stationId);
+        Collections.sort(teams);
 
-        for (Car car : cars) {
-            if (car.getTeam() != null) {
-                Square square = new Square();
-                square.setFireStation(fireStation);
-                square.setCar(car);
-                square.setTeam(car.getTeam());
-                Status status = FindStatusOfTeam.findStatus(teams, stationId, square.getTeam().getId());
-                square.setStatus(status);
-                for (Firefighter firefighter : firefighters) {
-                    if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
-                        square.getFirefighters().add(firefighter);
-                    }
-                }
-                squares.add(square);
-            }
+        for (TeamOfFireStation team : teams) {
+            Long teamId = team.getTeam().getId();
+            Long fireStationId = team.getFireStation().getId();
+            Square square = new Square();
+            square.setFireStation(team.getFireStation());
+            square.setTeam(team.getTeam());
+            square.setStatus(team.getStatus());
+            square.setLocation(team.getLocation());
+            square.setFirefighters(personRepository.findFirefightersByTeamIdAndFireStationId(teamId, fireStationId));
+            square.setCar(carsRepository.findCarByTeamIdAndFireStation_Id(teamId, fireStationId));
+            squares.add(square);
         }
+
+//        for (Car car : cars) {
+//            if (car.getTeam() != null) {
+//                Square square = new Square();
+//                square.setFireStation(fireStation);
+//                square.setCar(car);
+//                square.setTeam(car.getTeam());
+//                Status status = FindStatusOfTeam.findStatus(teams, stationId, square.getTeam().getId());
+//                square.setStatus(status);
+//                for (Firefighter firefighter : firefighters) {
+//                    if (firefighter.getTeam() != null && firefighter.getTeam().equals(square.getTeam())) {
+//                        square.getFirefighters().add(firefighter);
+//                    }
+//                }
+//                squares.add(square);
+//            }
+//        }
         return squares;
     }
 

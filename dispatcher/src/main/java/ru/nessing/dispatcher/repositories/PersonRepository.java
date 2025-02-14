@@ -10,4 +10,5 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Firefighter, Long> {
     Firefighter findFirefighterById(Long id);
     List<Firefighter> findFirefightersByFireStation_IdOrderByTeam(Long id);
+    List<Firefighter> findFirefightersByTeamIdAndFireStationId(Long teamId, Long fireStationId);
 }
