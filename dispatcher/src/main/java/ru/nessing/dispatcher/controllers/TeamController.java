@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.services.DispatcherService;
@@ -45,5 +46,10 @@ public class TeamController {
             return dispatcherService.getSquareOfStation(Long.parseLong(permission.getNumberOfFireStation()));
         }
         return null;
+    }
+
+    @PostMapping("/updateLocation/{teamId}{stationId}{location}")
+    public TeamOfFireStation updateLocationTeam(@PathVariable Long stationId, @PathVariable Long teamId, @PathVariable String location) {
+        return dispatcherService.updateLocationTeam(stationId, teamId, location);
     }
 }

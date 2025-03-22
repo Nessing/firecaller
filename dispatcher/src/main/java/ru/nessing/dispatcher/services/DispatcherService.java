@@ -112,4 +112,11 @@ public class DispatcherService {
         getPermissionForAuthenticatedUser();
         return teamRepository.findAll();
     }
+
+    public TeamOfFireStation updateLocationTeam(Long stationId, Long teamId, String location) {
+        TeamOfFireStation team = teamOfFireStationRepository.findTeamOfFireStationByFireStation_IdAndAndTeam_Id(stationId, teamId);
+        team.setLocation(location);
+        teamOfFireStationRepository.save(team);
+        return team;
+    }
 }
