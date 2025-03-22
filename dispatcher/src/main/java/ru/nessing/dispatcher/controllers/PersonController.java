@@ -32,9 +32,9 @@ public class PersonController {
         return null;
     }
 
-    @PostMapping("/addPerson")
-    public Firefighter addFirefighter(@RequestBody Firefighter firefighter) {
-        return service.addFirefighter(firefighter);
+    @PostMapping("/createPerson")
+    public Firefighter createFirefighter(@RequestBody FirefighterDto firefighter) {
+        return service.createFirefighter(firefighter);
     }
 
     @PostMapping("/deletePerson")

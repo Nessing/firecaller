@@ -6,6 +6,7 @@ import ru.nessing.dispatcher.entities.*;
 import ru.nessing.dispatcher.entities.DTOs.FirefighterDto;
 import ru.nessing.dispatcher.repositories.*;
 import ru.nessing.dispatcher.utils.FirefighterUtils;
+import ru.nessing.dispatcher.utils.PermissionUser;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,19 +35,53 @@ public class PersonService {
         return personRepository.findFirefightersByFireStation_IdOrderByTeam(fireStation);
     }
 
-    public Firefighter addFirefighter(Firefighter firefighter) {
+    public Firefighter createFirefighter(FirefighterDto firefighterDto) {
+        if (!checkValid(firefighterDto)) return null;
+
+        firefighterDto.setId(null);
+        Firefighter firefighter = new Firefighter();
         FirefighterUtils firefighterUtils = new FirefighterUtils();
-        firefighterUtils.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
-        firefighter.setId(null);
+        firefighterUtils.createShortName(firefighterDto.getFirstName(), firefighterDto.getMidName(), firefighterDto.getLastName());
         firefighter.setShortName(firefighterUtils.getShortName());
-        if (firefighter.getPosition() != null && firefighter.getFireStation() != null) {
-            FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
-            firefighter.setFireStation(fireStation);
-            personRepository.save(firefighter);
-            return firefighter;
+        firefighter.setFirstName(firefighterDto.getFirstName());
+        firefighter.setMidName(firefighterDto.getMidName());
+        firefighter.setLastName(firefighterDto.getLastName());
+        firefighter.setFireStation(fireStationRepository.findFireStationById(firefighterDto.getFireStationId()));
+        if (firefighterDto.getTeamId() != null) {
+            Optional<Team> team = teamRepository.findById(firefighterDto.getTeamId());
+            firefighter.setTeam(team.get());
+        } else {
+            firefighter.setTeam(null);
         }
-        return null;
+        Optional<Position> position = positionRepository.findById(firefighterDto.getPositionId());
+        Optional<Rank> rank = rankRepository.findById(firefighterDto.getRankId());
+        firefighter.setPosition(position.get());
+        firefighter.setRank(rank.get());
+        personRepository.save(firefighter);
+        return firefighter;
     }
+
+    private boolean checkValid(FirefighterDto firefighterDto) {
+        if (firefighterDto.getFirstName() == null || firefighterDto.getLastName() == null
+                || firefighterDto.getPositionId() == null || firefighterDto.getRankId() == null) {
+            return false;
+        }
+        return true;
+    }
+
+//    public Firefighter createFirefighter(Firefighter firefighter) {
+//        FirefighterUtils firefighterUtils = new FirefighterUtils();
+//        firefighterUtils.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
+//        firefighter.setId(null);
+//        firefighter.setShortName(firefighterUtils.getShortName());
+//        if (firefighter.getPosition() != null && firefighter.getFireStation() != null) {
+//            FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
+//            firefighter.setFireStation(fireStation);
+//            personRepository.save(firefighter);
+//            return firefighter;
+//        }
+//        return null;
+//    }
 
     public Boolean deleteFirefighter(Long id) {
         if (id != null) {

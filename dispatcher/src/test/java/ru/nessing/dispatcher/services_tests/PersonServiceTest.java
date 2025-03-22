@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.nessing.dispatcher.entities.DTOs.FirefighterDto;
 import ru.nessing.dispatcher.utils.FirefighterUtils;
 import ru.nessing.dispatcher.entities.FireStation;
 import ru.nessing.dispatcher.entities.Firefighter;
@@ -47,6 +48,14 @@ public class PersonServiceTest {
             .position(POSITION)
             .build();
 
+    private final FirefighterDto FIREFIGHTER_DTO = FirefighterDto.builder()
+            .id(1L)
+            .firstName(FIRST_NAME)
+            .midName(MID_NAME)
+            .lastName(SURNAME)
+            .positionId(12L)
+            .build();
+
     @Mock
     private PersonRepository personRepository;
 
@@ -67,8 +76,8 @@ public class PersonServiceTest {
     public void addPerson() {
         Mockito.when(personRepository.save(FIREFIGHTER)).thenReturn(FIREFIGHTER);
         Mockito.when(fireStationRepository.findFireStationById(1L)).thenReturn(FIRE_STATION);
-        personService.addFirefighter(FIREFIGHTER);
-        Assertions.assertEquals(personService.addFirefighter(FIREFIGHTER), FIREFIGHTER);
+        personService.createFirefighter(FIREFIGHTER_DTO);
+        Assertions.assertEquals(personService.createFirefighter(FIREFIGHTER_DTO), FIREFIGHTER);
     }
 
     @Test
