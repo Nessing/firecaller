@@ -69,20 +69,6 @@ public class PersonService {
         return true;
     }
 
-//    public Firefighter createFirefighter(Firefighter firefighter) {
-//        FirefighterUtils firefighterUtils = new FirefighterUtils();
-//        firefighterUtils.createShortName(firefighter.getFirstName(), firefighter.getMidName(), firefighter.getLastName());
-//        firefighter.setId(null);
-//        firefighter.setShortName(firefighterUtils.getShortName());
-//        if (firefighter.getPosition() != null && firefighter.getFireStation() != null) {
-//            FireStation fireStation = fireStationRepository.findFireStationById(firefighter.getFireStation().getId());
-//            firefighter.setFireStation(fireStation);
-//            personRepository.save(firefighter);
-//            return firefighter;
-//        }
-//        return null;
-//    }
-
     public Boolean deleteFirefighter(Long id) {
         if (id != null) {
             personRepository.deleteById(id);

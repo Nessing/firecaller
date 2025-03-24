@@ -8,6 +8,7 @@ import ru.nessing.dispatcher.entities.Firefighter;
 import ru.nessing.dispatcher.utils.PermissionUser;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PersonController {
@@ -38,8 +39,9 @@ public class PersonController {
     }
 
     @PostMapping("/deletePerson")
-    public Boolean deleteFirefighter(@RequestBody Long id) {
-        return service.deleteFirefighter(id);
+    public Boolean deleteFirefighter(@RequestBody Map<String, Long> request) {
+        Long personId = request.get("personId");
+        return service.deleteFirefighter(personId);
     }
 
     @PostMapping("/updatePerson")
