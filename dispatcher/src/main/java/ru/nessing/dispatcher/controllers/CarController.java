@@ -11,6 +11,7 @@ import ru.nessing.dispatcher.entities.Car;
 import ru.nessing.dispatcher.utils.PermissionUser;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CarController {
@@ -41,11 +42,12 @@ public class CarController {
     }
 
     @PostMapping("/deleteCar")
-    public void deleteCar(@RequestBody Car car) {
-        service.deleteCar(car);
+    public void deleteCar(@RequestBody Map<String, Long> request) {
+        Long carId = request.get("carId");
+        service.deleteCar(carId);
     }
     @PostMapping("/createCar")
-    public Boolean createCar(@RequestBody Car car) {
+    public Boolean createCar(@RequestBody CarDto car) {
         return service.createCar(car);
     }
 }

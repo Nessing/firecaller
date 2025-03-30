@@ -49,7 +49,7 @@ public class PersonService {
         firefighter.setFireStation(fireStationRepository.findFireStationById(firefighterDto.getFireStationId()));
         if (firefighterDto.getTeamId() != null) {
             Optional<Team> team = teamRepository.findById(firefighterDto.getTeamId());
-            firefighter.setTeam(team.get());
+            team.ifPresent(firefighter::setTeam);
         } else {
             firefighter.setTeam(null);
         }
