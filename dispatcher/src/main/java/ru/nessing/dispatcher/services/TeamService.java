@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.entities.Car;
 import ru.nessing.dispatcher.entities.FireStation;
-import ru.nessing.dispatcher.entities.Status;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.repositories.CarsRepository;
 import ru.nessing.dispatcher.repositories.FireStationRepository;
 import ru.nessing.dispatcher.repositories.TeamOfFireStationRepository;
-import ru.nessing.dispatcher.utils.FindStatusOfTeam;
+import ru.nessing.dispatcher.utils.TeamInfo;
 import ru.nessing.dispatcher.utils.FireStationInfo;
 import ru.nessing.dispatcher.utils.Square;
 
@@ -48,8 +47,9 @@ public class TeamService {
                                 square.setFireStation(station);
                                 square.setCar(car);
                                 square.setTeam(car.getTeam());
-                                Status status = FindStatusOfTeam.findStatus(teams, station.getId(), square.getTeam().getId());
-                                square.setStatus(status);
+                                TeamInfo teamInfo = new TeamInfo(teams, station.getId(), square.getTeam().getId());
+                                square.setStatus(teamInfo.getStatus());
+                                square.setLocation(teamInfo.getLocation());
                                 squares.add(square);
                             });
                     Collections.sort(squares);

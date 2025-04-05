@@ -2,10 +2,7 @@ package ru.nessing.dispatcher.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.services.DispatcherService;
 import ru.nessing.dispatcher.services.TeamService;
@@ -14,6 +11,7 @@ import ru.nessing.dispatcher.utils.PermissionUser;
 import ru.nessing.dispatcher.utils.Square;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TeamController {
@@ -48,8 +46,13 @@ public class TeamController {
         return null;
     }
 
-    @PostMapping("/updateLocation/{teamId}{stationId}{location}")
-    public TeamOfFireStation updateLocationTeam(@PathVariable Long stationId, @PathVariable Long teamId, @PathVariable String location) {
-        return dispatcherService.updateLocationTeam(stationId, teamId, location);
+    @PostMapping("/updateLocation")
+//    @PostMapping("/updateLocation/{teamId}{stationId}{location}")
+//    public TeamOfFireStation updateLocationTeam(@PathVariable Long stationId, @PathVariable Long teamId, @PathVariable String location) {
+    public TeamOfFireStation updateLocationTeam(@RequestBody Map<String, String> request) {
+        Long fireStationId = Long.valueOf(request.get("fireStationId"));
+        Long teamId = Long.valueOf(request.get("teamId"));
+        String location = String.valueOf(request.get("location"));
+        return dispatcherService.updateLocationTeam(fireStationId, teamId, location);
     }
 }

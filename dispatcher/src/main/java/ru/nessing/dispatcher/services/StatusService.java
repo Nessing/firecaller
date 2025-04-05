@@ -7,6 +7,7 @@ import ru.nessing.dispatcher.entities.Status;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.repositories.StatusRepository;
 import ru.nessing.dispatcher.repositories.TeamOfFireStationRepository;
+import ru.nessing.dispatcher.webSockets.WebSocketNotificationService;
 
 import java.util.List;
 
@@ -14,11 +15,14 @@ import java.util.List;
 public class StatusService {
     private final StatusRepository statusRepository;
     private final TeamOfFireStationRepository teamOfFireStationRepository;
+    private final WebSocketNotificationService webSocketNotificationService;
 
     public StatusService(StatusRepository statusRepository,
-                         TeamOfFireStationRepository teamOfFireStationRepository) {
+                         TeamOfFireStationRepository teamOfFireStationRepository,
+                         WebSocketNotificationService webSocketNotificationService) {
         this.statusRepository = statusRepository;
         this.teamOfFireStationRepository = teamOfFireStationRepository;
+        this.webSocketNotificationService = webSocketNotificationService;
     }
 
     public List<Status> getAllStatus() {
@@ -34,6 +38,8 @@ public class StatusService {
                 if (status != null) {
                     team.setStatus(status);
                     teamOfFireStationRepository.save(team);
+                    webSocketNotificationService.notifyClients("updateStatus");
+                    System.out.println("[LOG] updateStatus");
                     return true;
                 }
             } return false;

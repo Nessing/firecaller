@@ -8,7 +8,7 @@ import ru.nessing.dispatcher.entities.Status;
 import ru.nessing.dispatcher.entities.TeamOfFireStation;
 import ru.nessing.dispatcher.repositories.TeamOfFireStationRepository;
 import ru.nessing.dispatcher.services.TeamService;
-import ru.nessing.dispatcher.utils.FindStatusOfTeam;
+import ru.nessing.dispatcher.utils.TeamInfo;
 import ru.nessing.dispatcher.utils.FireStationInfo;
 
 import java.util.List;
@@ -39,13 +39,13 @@ public class TeamServiceTest {
         List<TeamOfFireStation> teams = teamOfFireStationRepository.findAll();
         teams.forEach(System.out::println);
         System.out.println("====");
-        Status status = FindStatusOfTeam.findStatus(teams, 1L, 2L);
-        System.out.println(status);
+        TeamInfo teamInfo = new TeamInfo(teams, 1L, 2L);
+        System.out.println(teamInfo.getStatus());
         Status statusCheck = Status.builder()
                 .id(2L)
                 .name("on_the_way")
                 .title("в пути")
                 .build();
-        Assertions.assertEquals(status, statusCheck);
+        Assertions.assertEquals(teamInfo.getStatus(), statusCheck);
     }
 }

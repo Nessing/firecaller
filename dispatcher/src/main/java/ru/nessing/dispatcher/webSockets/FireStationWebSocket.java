@@ -1,21 +1,26 @@
 package ru.nessing.dispatcher.webSockets;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+@Component
 public class FireStationWebSocket extends TextWebSocketHandler {
-    private final Set<WebSocketSession> sessions = new HashSet<>();
+    private final CopyOnWriteArrayList<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.add(session);
         for (WebSocketSession client : sessions) {
-            client.sendMessage(new TextMessage("Сейчас в сети: " + sessions.size() + " клиентов"));
+            if (session.isOpen()) {
+                System.out.println("New connection established: " + session.getId());
+                client.sendMessage(new TextMessage("Сейчас в сети: " + sessions.size() + " клиентов"));
+            }
         }
     }
 
@@ -23,22 +28,17 @@ public class FireStationWebSocket extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
         for (WebSocketSession client : sessions) {
-            client.sendMessage(new TextMessage("Сейчас в сети: " + sessions.size() + " клиентов"));
+            if (session.isOpen()) {
+                client.sendMessage(new TextMessage("Сейчас в сети: " + sessions.size() + " клиентов"));
+            }
         }
     }
 
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // Обработка входящего сообщения от клиента
-        String payload = message.getPayload();
-        if (payload.equals("updatePerson")) {
-            for (WebSocketSession client : sessions) {
-                client.sendMessage(new TextMessage("updatePerson"));
-            }
-        }
-        if (payload.equals("updateStatus")) {
-            for (WebSocketSession client : sessions) {
-                client.sendMessage(new TextMessage("updateStatus"));
+    // Метод для отправки сообщений всем клиентам
+    public void broadcastMessage(String message) throws IOException {
+        for (WebSocketSession session : sessions) {
+            if (session.isOpen()) {
+                session.sendMessage(new TextMessage(message));
             }
         }
     }

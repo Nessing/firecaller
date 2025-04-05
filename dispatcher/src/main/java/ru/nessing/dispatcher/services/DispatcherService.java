@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import ru.nessing.dispatcher.configurations.CustomUserDetails;
 import ru.nessing.dispatcher.repositories.*;
 import ru.nessing.dispatcher.entities.*;
-import ru.nessing.dispatcher.utils.FindStatusOfTeam;
 import ru.nessing.dispatcher.utils.FireStationInfo;
 import ru.nessing.dispatcher.utils.Square;
+import ru.nessing.dispatcher.webSockets.WebSocketNotificationService;
 
 import java.util.*;
 
@@ -21,6 +21,7 @@ public class DispatcherService {
     private final CarsRepository carsRepository;
     private final TeamRepository teamRepository;
     private final TeamOfFireStationRepository teamOfFireStationRepository;
+    private final WebSocketNotificationService webSocketNotificationService;
 
     public String getPermissionForAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,13 +37,15 @@ public class DispatcherService {
                              FireStationRepository fireStationRepository,
                              CarsRepository carsRepository,
                              TeamRepository teamRepository,
-                             TeamOfFireStationRepository teamOfFireStationRepository)
+                             TeamOfFireStationRepository teamOfFireStationRepository,
+                             WebSocketNotificationService webSocketNotificationService)
     {
         this.personRepository = personRepository;
         this.fireStationRepository = fireStationRepository;
         this.carsRepository = carsRepository;
         this.teamRepository = teamRepository;
         this.teamOfFireStationRepository = teamOfFireStationRepository;
+        this.webSocketNotificationService = webSocketNotificationService;
     }
 
     public List<FireStationInfo> getFireStationsAndSquares() {
@@ -117,6 +120,7 @@ public class DispatcherService {
         TeamOfFireStation team = teamOfFireStationRepository.findTeamOfFireStationByFireStation_IdAndAndTeam_Id(stationId, teamId);
         team.setLocation(location);
         teamOfFireStationRepository.save(team);
+        webSocketNotificationService.notifyClients("updateLocationTeam");
         return team;
     }
 }
